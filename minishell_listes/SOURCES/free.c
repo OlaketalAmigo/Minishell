@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 15:06:49 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/08/13 16:25:33 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/09/10 14:04:50 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	ft_free(char **tab)
 	}
 	free(tab);
 }
+
 
 void	ft_lstdelone(t_list *lst, void (*del)(void *))
 {
@@ -43,4 +44,5 @@ void	ft_lstclear(t_list **lst, void (*del)(void *))
 		ft_lstdelone(*lst, del);
 		*lst = i;
 	}
+	*lst = NULL;
 }

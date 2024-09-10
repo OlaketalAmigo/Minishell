@@ -6,13 +6,18 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:52:11 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/08/14 14:39:11 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/09/10 14:00:14 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 volatile int	g_sig_receiver = 0;
+
+void	del(void *content)
+{
+	free(content);
+}
 
 int	main(void)
 {
@@ -35,6 +40,7 @@ int	main(void)
 				printf("parsing = %s\n", parsing->content[0]);
 			ft_exec(parsing);
 			ft_free(data.arg);
+			ft_lstclear(&parsing, *del);
 			continue ;
 		}
 		if (g_sig_receiver == 0)
