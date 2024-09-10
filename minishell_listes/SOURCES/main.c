@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:52:11 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/10 14:00:14 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/09/10 14:40:49 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,10 @@ int	main(void)
 		if (data.line)
 		{
 			add_history(data.line);
-			ft_parser(&data, parsing);
-			if (parsing && parsing->content)
-				printf("parsing = %s\n", parsing->content[0]);
+			parsing = ft_parser(&data, parsing);
 			ft_exec(parsing);
 			ft_free(data.arg);
-			ft_lstclear(&parsing, *del);
+			free_nodes(&parsing);
 			continue ;
 		}
 		if (g_sig_receiver == 0)

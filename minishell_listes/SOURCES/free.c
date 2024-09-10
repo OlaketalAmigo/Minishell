@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 15:06:49 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/10 14:04:50 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/09/10 14:38:16 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	ft_free(char **tab)
 	int	i;
 
 	i = 0;
+	if (!tab)
+		return ;
 	while (tab[i])
 	{
 		free(tab[i]);
@@ -45,4 +47,24 @@ void	ft_lstclear(t_list **lst, void (*del)(void *))
 		*lst = i;
 	}
 	*lst = NULL;
+}
+
+void	free_nodes(t_list **stack)
+{
+	int	i = 0;
+	t_list	*temp;
+	t_list	*current;
+
+	if (!stack)
+		return ;
+	current = *stack;
+	while (current)
+	{
+		printf("i = %d\n", i);
+		temp = current->next_content;
+		free(current);
+		current = temp;
+		i++;
+	}
+	*stack = NULL;
 }
