@@ -3,14 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   parser_trim.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 11:19:16 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/08/13 12:01:06 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/09/10 17:26:34 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	ft_full_space(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] && (str[i] == ' ' || str[i] == '\t' || str[i] == '\n'))
+		i++;
+	if (str[i])
+		return (0);
+	return (1);
+}
 
 int	ft_check(char const c, char const *set)
 {
@@ -57,6 +69,12 @@ char	*ft_strtrim(char const *s1, char *set)
 	if (!s1 || !set)
 		return (NULL);
 	i = 0;
+	if (ft_full_space((char *)s1) == 1)
+	{
+		string = malloc(1);
+		string[0] = '\0';
+		return (string);
+	}
 	length = ft_strlen(s1);
 	debut = ft_start(s1, set);
 	fin = ft_end(s1, set, length);

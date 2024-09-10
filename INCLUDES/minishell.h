@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/10 14:15:39 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/09/10 17:29:24 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct data
 	int		nb_arg;
 	char	**tmp_arg;
 	char	*line;
+	char	**tab;
 }	t_struct;
 
 typedef struct list
@@ -66,7 +67,7 @@ t_list	*ft_parser(t_struct *data, t_list *parsing);
 
 t_list	*ft_error_parsing(void);
 int		ft_nb_arg(t_struct *data);
-void	ft_add_node(t_list **tab, char **arg);
+t_list	*ft_add_node(t_list **tab, char **arg);
 
 // PARSER SPLIT //
 
@@ -82,6 +83,7 @@ int		ft_check(char const c, char const *set);
 int		ft_start(char const *s1, char const *set);
 int		ft_end(char const *s1, char const *set, int length);
 char	*ft_strtrim(char const *s1, char *set);
+int		ft_full_space(char *str);
 
 // PARSER LST //
 

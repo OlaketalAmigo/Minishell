@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 15:06:49 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/10 14:38:16 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/09/10 15:35:55 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ void	ft_lstclear(t_list **lst, void (*del)(void *))
 
 void	free_nodes(t_list **stack)
 {
-	int	i = 0;
 	t_list	*temp;
 	t_list	*current;
 
@@ -60,11 +59,9 @@ void	free_nodes(t_list **stack)
 	current = *stack;
 	while (current)
 	{
-		printf("i = %d\n", i);
 		temp = current->next_content;
 		free(current);
 		current = temp;
-		i++;
 	}
 	*stack = NULL;
 }
