@@ -3,30 +3,46 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:52:11 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/08/06 11:55:26 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/09/10 14:40:49 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+volatile int	g_sig_receiver = 0;
+
+void	del(void *content)
+{
+	free(content);
+}
+
 int	main(void)
 {
-	char	*a;
-	
-	a = NULL;
-	while(1)
+	t_struct	data;
+	t_list		*parsing;
+
+	parsing = NULL;
+	ft_init_signals();
+	while (1)
 	{
-		a = readline("minishell->");
-		if (a)
+		g_sig_receiver = 0;
+		data.line = readline("MiniHell->");
+		if (g_sig_receiver == 1)
+			continue ;
+		if (data.line)
 		{
-			printf("a = %s\n", a);
-			free(a);
-			continue;
+			add_history(data.line);
+			parsing = ft_parser(&data, parsing);
+			ft_exec(parsing);
+			ft_free(data.arg);
+			free_nodes(&parsing);
+			continue ;
 		}
-		break;
+		if (g_sig_receiver == 0)
+			break ;
 	}
 	return (0);
 }
