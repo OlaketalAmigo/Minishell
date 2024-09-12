@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:59:25 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/12 15:53:41 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/09/12 16:22:03 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,15 @@ void	ft_printf_parsing(t_struct *data)
 	}
 }
 
-void	ft_parser(t_struct *data)
+int	ft_parser(t_struct *data)
 {
 	int	i;
 
 	if (ft_parser_check(data) == -1)
+	{
 		ft_error_parsing();
+		return (-1);
+	}
 	data->tmp_arg = ft_split(data->line, '|');
 	if (!data->tmp_arg)
 		i = 0 ; // A CHANGER
@@ -53,5 +56,6 @@ void	ft_parser(t_struct *data)
 		free(data->tmp_arg);
 		data->arg[i] = NULL;
 	}
-	ft_printf_parsing(data);
+	ft_printf_parsing(data); // CA DEGAGE
+	return (1);
 }

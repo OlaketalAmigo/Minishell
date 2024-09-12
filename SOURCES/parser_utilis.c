@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utilis.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 15:43:00 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/12 15:58:41 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/09/12 16:22:51 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_error_parsing(void)
 {
 	printf("Erreur d'entree\n");
-	exit(EXIT_FAILURE);
+	return ;
 }
 
 int	ft_nb_arg(t_struct *data)

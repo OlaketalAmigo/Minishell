@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:52:11 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/12 16:16:08 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/09/12 16:21:37 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ int	main(int argv, char **argc, char **env)
 		if (data.line && data.line[0] != '\0')
 		{
 			add_history(data.line);
-			ft_parser(&data);
+			if (ft_parser(&data) < 0)
+				continue ;
 			ft_exec(&data);
 			//ft_free(data.tab);
 			ft_free(data.arg);
