@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 15:01:37 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/12 15:08:08 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/09/12 16:10:34 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	*ft_strdup(char *s)
 	return (str);
 }
 
-char	**ft_true_path(t_struct *data, t_list *parsing)
+char	**ft_true_path(t_struct *data, char **arg)
 {
 	char	**tab;
 	int		i;
@@ -68,7 +68,7 @@ char	**ft_true_path(t_struct *data, t_list *parsing)
 	tab = NULL;
 	while (data->path[i])
 	{
-		data->path[i] = ft_strjoin(data->path[i], parsing->content[0]);
+		data->path[i] = ft_strjoin(data->path[i], arg[0]);
 		if (access(data->path[i], X_OK) == 0)
 		{
 			printf("path = %s\n", data->path[i]);
@@ -80,31 +80,31 @@ char	**ft_true_path(t_struct *data, t_list *parsing)
 	return (tab);
 }
 
-int	ft_hard_path(t_list *parsing)
+int	ft_hard_path(char **arg)
 {
-	if (access(parsing->content[0], X_OK) == 0)
+	if (access(arg[0], X_OK) == 0)
 		return (1);
 	return (0);
 }
 
-void	ft_exec(t_list *parsing, t_struct *data)
+void	ft_exec(t_struct *data)
 {
 	char	**true_path;
 	pid_t	pid;
 
 	data->path = ft_split(getenv("PATH"), ':');
-	if (!ft_hard_path(parsing))
-		true_path = ft_true_path(data, parsing);
+	if (!ft_hard_path(data->arg))
+		true_path = ft_true_path(data, data->arg);
 	else
-		true_path = ft_split(parsing->content[0], ' ');
+		true_path = ft_split(data->arg[0], ' ');
 	pid = fork();
 	if (pid == 0)
 	{
-		if (parsing && parsing->content)
+		if (data->arg && true_path)
 		{
 			if (execve(true_path[0], true_path, data->env) == -1)
 			{
-				printf("Command %s not found\n", parsing->content[0]);
+				printf("Command %s not found\n", data->arg[0]);
 				ft_free(true_path);
 				return ;
 			}

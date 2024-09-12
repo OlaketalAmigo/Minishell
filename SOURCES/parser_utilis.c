@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utilis.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 15:43:00 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/12 15:47:57 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/09/12 15:58:41 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_error_parsing(void)
 int	ft_nb_arg(t_struct *data)
 {
 	int	i;
-	
+
 	i = 0;
 	while (data->tmp_arg[i])
 		i++;

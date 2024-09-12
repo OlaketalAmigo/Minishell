@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:52:11 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/12 15:48:34 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/09/12 15:59:13 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ int	main(int argv, char **argc, char **env)
 		{
 			add_history(data.line);
 			ft_parser(&data);
-			//ft_exec(parsing, &data);
+			ft_exec(&data);
 			//ft_free(data.tab);
 			ft_free(data.arg);
-			//ft_free(data.path);
+			ft_free(data.path);
 			continue ;
 		}
 		if (g_sig_receiver == 0)
