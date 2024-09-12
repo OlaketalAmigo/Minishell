@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:52:11 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/12 15:59:13 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/09/12 16:16:08 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ int	main(int argv, char **argc, char **env)
 		}
 		if (g_sig_receiver == 0)
 		{
+			if (data.line && data.line[0] == '\0')
+				continue ;
 			printf("exit\n");
 			break ;
 		}
