@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utilis.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/13 16:08:18 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/10 16:21:48 by gprunet          ###   ########.fr       */
+/*   Created: 2024/09/12 15:43:00 by tfauve-p          #+#    #+#             */
+/*   Updated: 2024/09/12 15:47:57 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_list	*ft_error_parsing(void)
+void	ft_error_parsing(void)
 {
 	printf("Erreur d'entree\n");
 	exit(EXIT_FAILURE);
@@ -21,18 +21,9 @@ t_list	*ft_error_parsing(void)
 int	ft_nb_arg(t_struct *data)
 {
 	int	i;
-
+	
 	i = 0;
 	while (data->tmp_arg[i])
 		i++;
 	return (i);
-}
-
-t_list	*ft_add_node(t_list **tab, char **arg)
-{
-	t_list	*new;
-
-	new = ft_lstnew(arg);
-	ft_lstadd_back(tab, new);
-	return (new);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/12 15:08:49 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/09/12 15:48:53 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,12 @@ typedef struct list
 
 // PARSER //
 
-t_list	*ft_error_parsing(void);
-t_list	*ft_parser(t_struct *data, t_list *parsing);
+void	ft_parser(t_struct *data);
 
 // PARSER UTILIS //
 
-t_list	*ft_error_parsing(void);
+void	ft_error_parsing(void);
 int		ft_nb_arg(t_struct *data);
-t_list	*ft_add_node(t_list **tab, char **arg);
 
 // PARSER SPLIT //
 
@@ -89,12 +87,6 @@ int		ft_start(char const *s1, char const *set);
 int		ft_end(char const *s1, char const *set, int length);
 char	*ft_strtrim(char const *s1, char *set);
 int		ft_full_space(char *str);
-
-// PARSER LST //
-
-t_list	*ft_lstlast(t_list *lst);
-void	ft_lstadd_back(t_list **lst, t_list *new);
-t_list	*ft_lstnew(char **content);
 
 // PARSE CHECKER //
 
@@ -117,9 +109,5 @@ void	ft_exec(t_list *parsing, t_struct *data);
 // FREE //
 
 void	ft_free(char **tab);
-void	ft_lstdelone(t_list *lst, void (*del)(void *));
-void	ft_lstclear(t_list **lst, void (*del)(void *));
-void	ft_free_lst(t_list *lst);
-void	free_nodes(t_list **stack);
 
 #endif

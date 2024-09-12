@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+         #
+#    By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/24 14:38:38 by tfauve-p          #+#    #+#              #
-#    Updated: 2024/09/10 14:33:22 by gprunet          ###   ########.fr        #
+#    Updated: 2024/09/12 15:45:25 by tfauve-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,6 @@ SOURCES = \
 	$(SOURCES_DIR)parser_checker.c \
 	$(SOURCES_DIR)parser_split.c \
 	$(SOURCES_DIR)parser_trim.c \
-	$(SOURCES_DIR)parser_lst.c \
 	$(SOURCES_DIR)parser_utilis.c \
 	$(SOURCES_DIR)parser.c \
 	$(SOURCES_DIR)signals.c \

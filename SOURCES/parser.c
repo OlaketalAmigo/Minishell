@@ -3,30 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:59:25 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/10 16:21:41 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/09/12 15:53:41 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_list	*ft_final_parsing(t_struct *data, t_list *parsing)
+void	ft_printf_parsing(t_struct *data)
 {
-	int		i;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (data->arg[i])
 	{
-		data->tab = ft_split(data->arg[i], 32);
-		parsing = ft_add_node(&parsing, data->tab);
+		j = 0;
+		while (data->arg[i][j])
+		{
+			printf("%c", data->arg[i][j]);
+			j++;
+		}
 		i++;
+		printf("\n");
 	}
-	return (parsing);
 }
 
-t_list	*ft_parser(t_struct *data, t_list *parsing)
+void	ft_parser(t_struct *data)
 {
 	int	i;
 
@@ -48,6 +53,5 @@ t_list	*ft_parser(t_struct *data, t_list *parsing)
 		free(data->tmp_arg);
 		data->arg[i] = NULL;
 	}
-	parsing = ft_final_parsing(data, parsing);
-	return (parsing);
+	ft_printf_parsing(data);
 }
