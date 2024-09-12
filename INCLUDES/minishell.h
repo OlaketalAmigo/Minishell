@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/10 17:29:24 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/09/12 15:08:49 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@
 # include "sys/ioctl.h"
 # include "signal.h"
 # include "unistd.h"
+# include "fcntl.h"
+# include "sys/types.h"
+# include "sys/wait.h"
 
 // COLORS //
 
@@ -45,6 +48,8 @@ typedef struct data
 	char	**tmp_arg;
 	char	*line;
 	char	**tab;
+	char	**path;
+	char	**env;
 }	t_struct;
 
 typedef struct list
@@ -107,7 +112,7 @@ void	ft_handle_signals(void);
 
 // EXEC //
 
-void	ft_exec(t_list *parsing);
+void	ft_exec(t_list *parsing, t_struct *data);
 
 // FREE //
 
