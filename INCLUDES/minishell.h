@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/13 16:21:11 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/09/16 12:13:09 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int		ft_parser(t_struct *data);
 // PARSER UTILIS //
 
 void	ft_error_parsing(void);
-int		ft_nb_arg(t_struct *data);
+int		ft_nb_arg(char **tab);
 
 // PARSER SPLIT //
 
@@ -118,5 +118,11 @@ int		is_empty(char *arg);
 // FREE //
 
 void	ft_free(char **tab);
+
+// CLEAR TO FUNCTION	
+
+int		ft_isalnum(int c);
+char	*ft_replace(char *tab, int i);
+char	**ft_clear_to_function(char  **tab);
 
 #endif
