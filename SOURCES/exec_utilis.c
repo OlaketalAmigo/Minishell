@@ -6,11 +6,35 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 12:27:46 by gprunet           #+#    #+#             */
-/*   Updated: 2024/09/13 14:34:55 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/09/16 13:09:21 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	is_flag(char *arg)
+{
+	if (arg)
+	{
+		if (arg[0] == '-' && arg[1] != '\0' && arg[1] != ' ')
+			return (1);
+	}
+	return (0);
+}
+
+int	is_empty(char *arg)
+{
+	int	i;
+
+	i = 0;
+	if (!arg)
+		return (1);
+	while (arg[i] == ' ')
+		i++;
+	if (arg[i] && arg[i] != ' ')
+		return (0);
+	return (1);
+}
 
 char	*ft_strjoin(char *s1, char *s2)
 {

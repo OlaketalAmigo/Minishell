@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/16 12:13:09 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/09/16 13:13:16 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,15 @@ char	*ft_strjoin(char *s1, char *s2);
 char	*ft_strdup(char *s);
 int		ft_strchr(char *s, char c);
 int		is_empty(char *arg);
+int		is_flag(char *arg);
+
+//EXEC UTILIS2 //
+
+void	ft_free_child(char **args, t_struct *data);
+void	free_flags(char **flags);
+void	ft_fill_new_args(char **new_args, char ***flags, char ***cmds);
+char	**check_access(char *tmp, int s);
+int		ft_hard_path(char **arg);
 
 // FREE //
 

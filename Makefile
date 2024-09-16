@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+         #
+#    By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/24 14:38:38 by tfauve-p          #+#    #+#              #
-#    Updated: 2024/09/16 12:12:27 by tfauve-p         ###   ########.fr        #
+#    Updated: 2024/09/16 13:11:50 by gprunet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SOURCES = \
 	$(SOURCES_DIR)signals.c \
 	$(SOURCES_DIR)exec.c \
 	$(SOURCES_DIR)exec_utilis.c \
+	$(SOURCES_DIR)exec_utilis2.c \
 	$(SOURCES_DIR)free.c \
 	$(SOURCES_DIR)clear_to_function.c
 
