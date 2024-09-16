@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/12 16:21:02 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/09/13 16:21:11 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ typedef struct data
 	char	*line;
 	char	**tab;
 	char	**path;
+	char	**flags;
+	char	**cmds;
 	char	**env;
 }	t_struct;
 
@@ -65,7 +67,7 @@ typedef struct list
 
 // PARSER //
 
-int	ft_parser(t_struct *data);
+int		ft_parser(t_struct *data);
 
 // PARSER UTILIS //
 
@@ -105,6 +107,13 @@ void	ft_handle_signals(void);
 // EXEC //
 
 void	ft_exec(t_struct *data);
+
+// EXEC UTILIS //
+
+char	*ft_strjoin(char *s1, char *s2);
+char	*ft_strdup(char *s);
+int		ft_strchr(char *s, char c);
+int		is_empty(char *arg);
 
 // FREE //
 
