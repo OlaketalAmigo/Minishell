@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/16 13:13:16 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/09/18 12:38:57 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,10 @@ typedef struct list
 
 # define SIG_INT = 1
 # define SIG_QUIT = 2
+
+// MAIN //
+
+void	ft_main(int g_sig_receiver, t_struct *data);
 
 // PARSER //
 
@@ -126,12 +130,14 @@ int		ft_hard_path(char **arg);
 
 // FREE //
 
+void	ft_free_all(t_struct *data);
 void	ft_free(char **tab);
 
 // CLEAR TO FUNCTION	
 
 int		ft_isalnum(int c);
 char	*ft_replace(char *tab, int i);
-char	**ft_clear_to_function(char  **tab);
+char	**ft_clear(char **tab, int i, int dquote, int quote);
+char	**ft_clear_to_function(char **tab);
 
 #endif

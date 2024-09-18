@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 12:36:26 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/16 12:16:31 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/09/18 12:36:16 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,41 +49,43 @@ char	*ft_replace(char *tab, int i)
 	return (str);
 }
 
-char	**ft_clear_to_function(char  **tab)
+char	**ft_clear(char **tab, int i, int dquote, int quote)
 {
-	int	i;
 	int	j;
-	int	(dquote) = 1;
-	int	(quote) = 1;
 
-	i = 0;
-	while (tab[i])
+	while (tab[++i])
 	{
-		j = 0;
-		while (tab[i][j])
+		j = -1;
+		while (tab[i][++j])
 		{
-			printf("character actuel : %c, dq = %d, q = %d\n", tab[i][j], dquote, quote);
 			if (tab[i][j] == 34 && quote > 0)
 			{
-				printf("degage\n");
 				tab[i] = ft_replace(tab[i], j);
-				j = j - 1;
 				dquote = -dquote;
 				continue ;
 			}
-			if (tab[i][j] == 39 && dquote > 0)
+			else if (tab[i][j] == 39 && dquote > 0)
 			{
-				printf("degage\n");
 				tab[i] = ft_replace(tab[i], j);
-				j = j - 1;
 				quote = -quote;
 				continue ;
 			}
-			if (tab[i][j] == '\0') // PROBLEME '""' Retour sur condition
+			if (tab[i][j] == '\0')
 				break ;
-			j++;
 		}
-		i++;
 	}
+	return (tab);
+}
+
+char	**ft_clear_to_function(char **tab)
+{
+	int	i;
+	int	dquote;
+	int	quote;
+
+	i = -1;
+	dquote = 1;
+	quote = 1;
+	tab = ft_clear(tab, i, dquote, quote);
 	return (tab);
 }

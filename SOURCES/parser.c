@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:59:25 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/16 12:15:35 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/09/18 12:41:11 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	ft_parser(t_struct *data)
 	}
 	data->tmp_arg = ft_split(data->line, '|');
 	if (!data->tmp_arg)
-		i = 0 ; // A CHANGER
+		return (-1);
 	i = 0;
 	data->arg = malloc ((ft_nb_arg(data->tmp_arg) + 1) * 8);
 	if (data->arg)
@@ -56,8 +56,6 @@ int	ft_parser(t_struct *data)
 		free(data->tmp_arg);
 		data->arg[i] = NULL;
 	}
-	//ft_printf_parsing(data);
 	ft_clear_to_function(data->arg);
-	ft_printf_parsing(data); // CA DEGAGE
 	return (1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_trim.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 11:19:16 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/10 17:26:34 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/09/18 12:30:32 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ft_full_space(char *str)
 	int	i;
 
 	i = 0;
-	while (str[i] && (str[i] == ' ' || str[i] == '\t' || str[i] == '\n'))
+	while (str[i] && (str[i] == 32 || str[i] == 9 || str[i] == 10))
 		i++;
 	if (str[i])
 		return (0);
@@ -69,12 +69,6 @@ char	*ft_strtrim(char const *s1, char *set)
 	if (!s1 || !set)
 		return (NULL);
 	i = 0;
-	if (ft_full_space((char *)s1) == 1)
-	{
-		string = malloc(1);
-		string[0] = '\0';
-		return (string);
-	}
 	length = ft_strlen(s1);
 	debut = ft_start(s1, set);
 	fin = ft_end(s1, set, length);

@@ -6,11 +6,11 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:27:45 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/16 12:16:52 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/09/18 12:18:20 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_count_char(char	*input)
+int	ft_count_char(char *input)
 {
 	int	i;
 	int	count;
