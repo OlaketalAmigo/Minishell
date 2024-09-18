@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/18 13:42:45 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/09/18 14:39:49 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	ft_main(int g_sig_receiver, t_struct *data);
 
 // PARSER //
 
+void	ft_printf_parsing(char **tab);
 int		ft_parser(t_struct *data);
 
 // PARSER UTILIS //

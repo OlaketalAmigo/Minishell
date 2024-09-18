@@ -6,24 +6,24 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:59:25 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/18 13:33:57 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/09/18 14:26:13 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_printf_parsing(t_struct *data)
+void	ft_printf_parsing(char **tab)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	while (data->arg[i])
+	while (tab[i])
 	{
 		j = 0;
-		while (data->arg[i][j])
+		while (tab[i][j])
 		{
-			printf("%c", data->arg[i][j]);
+			printf("%c", tab[i][j]);
 			j++;
 		}
 		i++;
