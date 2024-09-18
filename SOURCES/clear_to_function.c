@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 12:36:26 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/18 12:36:16 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/09/18 13:50:27 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,16 +62,16 @@ char	**ft_clear(char **tab, int i, int dquote, int quote)
 			{
 				tab[i] = ft_replace(tab[i], j);
 				dquote = -dquote;
+				j = j - 1;
 				continue ;
 			}
 			else if (tab[i][j] == 39 && dquote > 0)
 			{
 				tab[i] = ft_replace(tab[i], j);
 				quote = -quote;
+				j = j - 1;
 				continue ;
 			}
-			if (tab[i][j] == '\0')
-				break ;
 		}
 	}
 	return (tab);

@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/18 12:38:57 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/09/18 13:42:45 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,10 @@ void	free_flags(char **flags);
 void	ft_fill_new_args(char **new_args, char ***flags, char ***cmds);
 char	**check_access(char *tmp, int s);
 int		ft_hard_path(char **arg);
+
+// EXEC SPLIT CLEARED //
+
+char	**ft_split_cleared(char *s, char c);
 
 // FREE //
 

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+         #
+#    By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/24 14:38:38 by tfauve-p          #+#    #+#              #
-#    Updated: 2024/09/16 13:11:50 by gprunet          ###   ########.fr        #
+#    Updated: 2024/09/18 13:43:18 by tfauve-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ SOURCES = \
 	$(SOURCES_DIR)exec_utilis.c \
 	$(SOURCES_DIR)exec_utilis2.c \
 	$(SOURCES_DIR)free.c \
+	$(SOURCES_DIR)exec_split_clear.c \
 	$(SOURCES_DIR)clear_to_function.c
 
 

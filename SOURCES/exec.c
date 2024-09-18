@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 15:01:37 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/16 13:10:47 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/09/18 13:41:57 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	split_args(char **arg, char ***flags, char ***cmds)
 	i = 0;
 	j = 0;
 	k = 0;
-	new_args = ft_split(arg[0], ' ');
+	new_args = ft_split_cleared(arg[0], ' ');
 	i = 0;
 	while (new_args[i])
 	{

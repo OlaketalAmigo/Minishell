@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:59:25 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/18 12:41:11 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/09/18 13:33:57 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,5 @@ int	ft_parser(t_struct *data)
 		free(data->tmp_arg);
 		data->arg[i] = NULL;
 	}
-	ft_clear_to_function(data->arg);
 	return (1);
 }
