@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:36:49 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/19 11:06:42 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/09/19 16:39:22 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,15 @@ int	ft_check_function(t_struct *data, char **args, char **true_path)
 		return (-1);
 	if (ft_strncmp(args[0], "echo", 4) == 0)
 		return (ft_echo(args));
-	else if (ft_strncmp(args[0], "export", 4) == 0)
+	else if (ft_strncmp(args[0], "export", 6) == 0)
 		return (-1);
-	else if (ft_strncmp(args[0], "unset", 4) == 0)
+	else if (ft_strncmp(args[0], "unset", 5) == 0)
 		return (-1);
-	else if (ft_strncmp(args[0], "pwd", 4) == 0)
-		return (-1);
-	else if (ft_strncmp(args[0], "cd", 4) == 0)
-		return (-1);
-	else if (ft_strncmp(args[0], "env", 4) == 0)
+	else if (ft_strncmp(args[0], "pwd", 3) == 0)
+		return (ft_pwd(args));
+	else if (ft_strncmp(args[0], "cd", 2) == 0)
+		return (ft_cd(args));
+	else if (ft_strncmp(args[0], "env", 3) == 0)
 		return (-1);
 	else if (ft_strncmp(args[0], "exit", 4) == 0)
 		return (-1);

@@ -6,13 +6,13 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:27:45 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/19 11:10:46 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/09/19 16:38:55 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_is_flag(char *s)
+int	ft_is_good_flag(char *s)
 {
 	int	i;
 
@@ -34,67 +34,87 @@ int	ft_is_flag(char *s)
 	return (1);
 }
 
-int	ft_count_flags(char **tab)
+int	ft_is_wrong_flag(char *s)
 {
 	int	i;
-	int	j;
 
-	i = 0;
-	j = 0;
-	while (tab[i])
+	if (!s)
+		return (-1);
+	i = 1;
+	if (s[0] == 45)
 	{
-		if (ft_is_flag(tab[i]) == 1)
-			j++;
-		i++;
+		while (s[i])
+		{
+			if (s[i] != 'n')
+				return (1);
+			else
+				i++;
+		}
 	}
-	return (j);
+	return (-1);
 }
 
-char	**ft_fill_flags(char **args, char **flags)
+int	ft_count_wrong_flags(char **tab)
 {
 	int	i;
 	int	j;
 
 	i = 1;
 	j = 0;
-	while (args[i])
+	while (tab[i])
 	{
-		if (ft_is_flag(args[i]) == 1)
+		if (ft_is_wrong_flag(tab[i]) == 1)
 		{
-			flags[j] = malloc(ft_strlen(args[i]) + 1);
-			if (!flags)
-				return (ft_free(flags), NULL);
-			flags[j] = args[i];
-			flags[ft_strlen(args[i])] = NULL;
+			printf("mauvais flag = %s\n", tab[i]);
 			j++;
 		}
 		i++;
 	}
-	flags[j] = NULL;
-	return (flags);
+	return (j);
+}
+
+int	ft_count_good_flags(char **tab)
+{
+	int	i;
+	int	j;
+
+	i = 1;
+	j = 0;
+	while (tab[i])
+	{
+		if (ft_is_good_flag(tab[i]) == 1)
+		{
+			printf("bon flag = %s\n", tab[i]);
+			j++;
+		}
+		i++;
+	}
+	return (j);
 }
 
 int	ft_echo(char **args)
 {
 	int		option;
 	int		i;
-	char	**flags;
 
-	printf("echo started\n");
 	option = 0;
-	i = ft_count_flags(args);
-	flags = malloc(8 * (i + 1));
-	if (!flags)
-		return (-1);
-	flags = ft_fill_flags(args, flags);
-	if (!flags)
-		return (-1);
-	while (args[++i])
-		printf("%s ", args[i]);
-	if (flags)
+	i = -1;
+	if (ft_count_good_flags(args) >= 1)
 		option = 1;
+	if (ft_count_wrong_flags(args) >= 1)
+		return (-1);
+	if (strncmp("echo\0", args[0], 4) == 0)
+		i++;
+	while (args[i])
+	{
+		if (strncmp("-", args[i], 1))
+			i++;
+		else
+			break ;
+	}
+	while (args[i])
+		printf("%s ", args[i++]);
 	if (option == 0)
 		printf("\n");
-	ft_free(flags);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/19 11:36:06 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/09/19 16:40:52 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,11 +129,12 @@ int		is_flag(char *arg);
 
 void	ft_free_child(char **args, t_struct *data);
 void	free_flags(char **flags);
-void	ft_fill_new_args(char **arg, char **new_args, char ***flags, char ***cmds);
+void	ft_fill_new_args(char **arg, char **new_args,
+			char ***flags, char ***cmds);
 char	**check_access(char *tmp, int s);
 int		ft_hard_path(char *arg);
 
-// EXEC UTILIS 3 //
+// EXEC UTILIS 3 //ma
 
 char	**ft_split_cleared(char *s, char c);
 int		ft_check_function(t_struct *data, char **args, char **true_path);
@@ -152,9 +153,18 @@ char	**ft_clear_to_function(char **tab);
 
 // ECHO //
 
-int		ft_is_flag(char *s);
-int		ft_count_flags(char **tab);
-char	**ft_fill_flags(char **args, char **flags);
+int		ft_is_good_flag(char *s);
+int		ft_is_wrong_flag(char *s);
+int		ft_count_good_flags(char **tab);
+int		ft_count_wrong_flags(char **tab);
 int		ft_echo(char **args);
+
+// PWD //
+
+int		ft_pwd(char **args);
+
+// CD //
+
+int		ft_cd(char	**args);
 
 #endif

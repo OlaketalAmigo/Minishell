@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 15:01:37 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/19 12:59:49 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/09/19 15:56:48 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ void	ft_pipe_exec(t_struct *data, char **args, char **true_path)
 			ft_free_child(args, data);
 			exit(EXIT_FAILURE);
 		}
-		if (execve(true_path[0], args, data->env) == -1)
+		if (ft_check_function(data, args, true_path) == -1)
 		{
 			printf("Command %s not found\n", data->cmds[0]);
 			ft_free_child(args, data);
@@ -148,8 +148,8 @@ void	ft_exec(t_struct *data)
 	data->in_fd = 0;
 	data->path = ft_split(getenv("PATH"), ':');
 	split_args(data->arg, &data->flags, &data->cmds);
-	while (data->cmds[cmd_count])
-		cmd_count++;
+	//while (data->cmds[cmd_count])
+	cmd_count = 1;
 	while (i < cmd_count)
 	{
 		if (i < cmd_count - 1)

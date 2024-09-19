@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:52:11 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/19 12:59:03 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/09/19 16:38:11 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	ft_main(int g_sig_receiver, t_struct *data)
 		data->line = readline("MiniHell->");
 		if (g_sig_receiver == 1)
 			continue ;
-		printf("line = %s\n", data->line);
 		if (data->line && data->line[0] != '\0')
 		{
 			add_history(data->line);

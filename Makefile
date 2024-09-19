@@ -6,7 +6,7 @@
 #    By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/24 14:38:38 by tfauve-p          #+#    #+#              #
-#    Updated: 2024/09/19 11:08:04 by tfauve-p         ###   ########.fr        #
+#    Updated: 2024/09/19 14:47:42 by tfauve-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,8 @@ SOURCES = \
 	$(SOURCES_DIR)exec_utilis3.c \
 	$(SOURCES_DIR)free.c \
 	$(SOURCES_DIR)echo.c \
+	$(SOURCES_DIR)pwd.c \
+	$(SOURCES_DIR)cd.c \
 	$(SOURCES_DIR)clear_to_function.c
 
 
