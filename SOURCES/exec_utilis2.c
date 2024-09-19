@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 13:08:46 by gprunet           #+#    #+#             */
-/*   Updated: 2024/09/16 13:10:53 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/09/19 12:58:49 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,28 +37,32 @@ void	free_flags(char **flags)
 	free(flags);
 }
 
-void	ft_fill_new_args(char **new_args, char ***flags, char ***cmds)
+void	ft_fill_new_args(char **arg, char **new, char ***flags, char ***cmds)
 {
 	int	i;
 	int	j;
 	int	k;
+	int	args;
 
-	i = 0;
 	j = 0;
 	k = 0;
-	while (new_args[i])
+	args = 0;
+	while (arg[args])
 	{
-		if (is_flag(new_args[i]))
+		i = 0;
+		new = ft_split_cleared(arg[args], ' ');
+		while (new[i])
 		{
-			(*flags)[j] = new_args[i];
-			j++;
+			if (ft_strchr(new[i], '|') == 1)
+				break ;
+			if (is_flag(new[i]))
+				(*flags)[j++] = ft_strdup(new[i]);
+			else if (is_empty(new[i]) == 0)
+				(*cmds)[k++] = ft_strdup(new[i]);
+			i++;
 		}
-		else if (is_empty(new_args[i]) == 0)
-		{
-			(*cmds)[k] = new_args[i];
-			k++;
-		}
-		i++;
+		args++;
+		ft_free(new);
 	}
 }
 
@@ -87,9 +91,9 @@ char	**check_access(char *tmp, int s)
 	return (NULL);
 }
 
-int	ft_hard_path(char **arg)
+int	ft_hard_path(char *arg)
 {
-	if (access(arg[0], X_OK) == 0)
+	if (access(arg, X_OK) == 0)
 		return (1);
 	return (0);
 }

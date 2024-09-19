@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/19 11:07:39 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/09/19 11:36:06 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,19 @@ typedef struct data
 	char	*line;
 	char	**tab;
 	char	**path;
+	int		pipefd[2];
+	int		in_fd;
+	int		out_fd;
 	char	**flags;
 	char	**cmds;
 	char	**env;
+	pid_t	pid;
 }	t_struct;
 
-typedef struct list
+typedef struct s_cmd
 {
-	char		**content;
-	struct list	*next_content;
+	char	*cmd;
+	char	**args;
 }	t_list;
 
 // SIGNALS //
@@ -125,14 +129,14 @@ int		is_flag(char *arg);
 
 void	ft_free_child(char **args, t_struct *data);
 void	free_flags(char **flags);
-void	ft_fill_new_args(char **new_args, char ***flags, char ***cmds);
+void	ft_fill_new_args(char **arg, char **new_args, char ***flags, char ***cmds);
 char	**check_access(char *tmp, int s);
-int		ft_hard_path(char **arg);
+int		ft_hard_path(char *arg);
 
 // EXEC UTILIS 3 //
 
 char	**ft_split_cleared(char *s, char c);
-int	ft_check_function(t_struct *data, char **args, char **true_path);
+int		ft_check_function(t_struct *data, char **args, char **true_path);
 
 // FREE //
 

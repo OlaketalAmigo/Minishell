@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:52:11 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/18 12:40:38 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/09/19 12:59:03 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,7 @@ void	ft_main(int g_sig_receiver, t_struct *data)
 int	main(void)
 {
 	t_struct	data;
-	t_list		*parsing;
 
-	parsing = NULL;
 	data.env = environ;
 	ft_init_signals();
 	ft_main(g_sig_receiver, &data);
