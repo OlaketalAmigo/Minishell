@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/18 14:39:49 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/09/19 11:07:39 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ int		ft_strchr(char *s, char c);
 int		is_empty(char *arg);
 int		is_flag(char *arg);
 
-//EXEC UTILIS2 //
+//EXEC UTILIS 2 //
 
 void	ft_free_child(char **args, t_struct *data);
 void	free_flags(char **flags);
@@ -129,9 +129,10 @@ void	ft_fill_new_args(char **new_args, char ***flags, char ***cmds);
 char	**check_access(char *tmp, int s);
 int		ft_hard_path(char **arg);
 
-// EXEC SPLIT CLEARED //
+// EXEC UTILIS 3 //
 
 char	**ft_split_cleared(char *s, char c);
+int	ft_check_function(t_struct *data, char **args, char **true_path);
 
 // FREE //
 
@@ -144,5 +145,12 @@ int		ft_isalnum(int c);
 char	*ft_replace(char *tab, int i);
 char	**ft_clear(char **tab, int i, int dquote, int quote);
 char	**ft_clear_to_function(char **tab);
+
+// ECHO //
+
+int		ft_is_flag(char *s);
+int		ft_count_flags(char **tab);
+char	**ft_fill_flags(char **args, char **flags);
+int		ft_echo(char **args);
 
 #endif

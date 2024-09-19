@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:27:45 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/19 10:41:54 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/09/19 11:10:46 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ char	**ft_fill_flags(char **args, char **flags)
 			if (!flags)
 				return (ft_free(flags), NULL);
 			flags[j] = args[i];
-			flags[ft_strlen(args[i])] = '\0';
+			flags[ft_strlen(args[i])] = NULL;
 			j++;
 		}
 		i++;
@@ -80,6 +80,8 @@ int	ft_echo(char **args)
 	int		i;
 	char	**flags;
 
+	printf("echo started\n");
+	option = 0;
 	i = ft_count_flags(args);
 	flags = malloc(8 * (i + 1));
 	if (!flags)
