@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:36:49 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/19 16:39:22 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/09/19 16:44:06 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	ft_check_function(t_struct *data, char **args, char **true_path)
 	else if (ft_strncmp(args[0], "env", 3) == 0)
 		return (-1);
 	else if (ft_strncmp(args[0], "exit", 4) == 0)
-		return (-1);
+		return (ft_exit());
 	else
 		return (execve(true_path[0], args, data->env));
 }

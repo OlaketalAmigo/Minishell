@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/19 16:40:52 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/09/19 16:47:32 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,5 +166,9 @@ int		ft_pwd(char **args);
 // CD //
 
 int		ft_cd(char	**args);
+
+// EXIT //
+
+int		ft_exit(void);
 
 #endif
