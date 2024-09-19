@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 15:01:37 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/18 14:43:53 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/09/19 11:01:23 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void	ft_pipe_exec(t_struct *data, char **args, char **true_path, pid_t pid)
 	{
 		if (args && true_path)
 		{
-			if (execve(true_path[0], args, data->env) == -1)
+			if (ft_check_function(data, args, true_path) == -1)
 			{
 				printf("Command %s not found\n", data->cmds[0]);
 				ft_free_child(args, data);
