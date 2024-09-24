@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/24 16:39:27 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/09/24 16:44:26 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ void	ft_exec(t_struct *data);
 char	**ft_true_path(t_struct *data, char *cmd);
 int		split_args(char **arg, t_args **new_args, t_struct *data);
 
-// EXEC UTILIS //
+// FT EXEC UTILIS //
 
 void	ft_check_i(int i, int cmd_count, t_struct *data);
 void	ft_2nd_exec(t_struct *data, char **args, char **true_path);
