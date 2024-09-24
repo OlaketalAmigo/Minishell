@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_split.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 15:28:07 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/08/13 12:29:23 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/09/22 14:27:53 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ int	ft_strlen(char const *s)
 	int	i;
 
 	i = 0;
+	if (!s)
+		return (0);
 	while (s[i])
 		i++;
 	return (i);

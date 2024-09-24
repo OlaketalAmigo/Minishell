@@ -3,10 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+         #
+#    By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/24 14:38:38 by tfauve-p          #+#    #+#              #
+<<<<<<< HEAD
 #    Updated: 2024/09/19 16:47:11 by tfauve-p         ###   ########.fr        #
+=======
+#    Updated: 2024/09/24 16:07:09 by gprunet          ###   ########.fr        #
+>>>>>>> 15b081d (norme Exec)
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +29,7 @@ SOURCES = \
 	$(SOURCES_DIR)parser.c \
 	$(SOURCES_DIR)signals.c \
 	$(SOURCES_DIR)exec.c \
+	$(SOURCES_DIR)ft_exec_utilis.c \
 	$(SOURCES_DIR)exec_utilis.c \
 	$(SOURCES_DIR)exec_utilis2.c \
 	$(SOURCES_DIR)exec_utilis3.c \
@@ -33,6 +38,7 @@ SOURCES = \
 	$(SOURCES_DIR)pwd.c \
 	$(SOURCES_DIR)cd.c \
 	$(SOURCES_DIR)exit.c \
+	$(SOURCES_DIR)split_args_utilis.c \
 	$(SOURCES_DIR)clear_to_function.c
 
 

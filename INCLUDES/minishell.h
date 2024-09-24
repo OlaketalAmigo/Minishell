@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/19 16:47:32 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/09/24 16:39:27 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,6 @@ typedef struct data
 	int		pipefd[2];
 	int		in_fd;
 	int		out_fd;
-	char	**flags;
-	char	**cmds;
 	char	**env;
 	pid_t	pid;
 }	t_struct;
@@ -62,7 +60,7 @@ typedef struct s_cmd
 {
 	char	*cmd;
 	char	**args;
-}	t_list;
+}	t_args;
 
 // SIGNALS //
 
@@ -116,6 +114,15 @@ void	ft_handle_signals(void);
 // EXEC //
 
 void	ft_exec(t_struct *data);
+char	**ft_true_path(t_struct *data, char *cmd);
+int		split_args(char **arg, t_args **new_args, t_struct *data);
+
+// EXEC UTILIS //
+
+void	ft_check_i(int i, int cmd_count, t_struct *data);
+void	ft_2nd_exec(t_struct *data, char **args, char **true_path);
+char	**ft_assign_path(t_struct *data, char *cmd);
+void	ft_exec_init(t_struct *data, t_args **arg, int *cmd_count);
 
 // EXEC UTILIS //
 
@@ -127,10 +134,8 @@ int		is_flag(char *arg);
 
 //EXEC UTILIS 2 //
 
-void	ft_free_child(char **args, t_struct *data);
-void	free_flags(char **flags);
-void	ft_fill_new_args(char **arg, char **new_args,
-			char ***flags, char ***cmds);
+void	ft_free_child(char **args, t_struct *data, t_args *arg);
+void	ft_fill_new_args(char **arg, t_args *full_arg);
 char	**check_access(char *tmp, int s);
 int		ft_hard_path(char *arg);
 
@@ -139,8 +144,15 @@ int		ft_hard_path(char *arg);
 char	**ft_split_cleared(char *s, char c);
 int		ft_check_function(t_struct *data, char **args, char **true_path);
 
+// SPLIT ARGS UTILIS //
+
+int		c_args(char **temp, t_struct *data);
+int		count_commands(char **arg, t_struct *data);
+t_args	ft_assign_args(t_args *new_args, char **temp, t_struct *data);
+
 // FREE //
 
+void	ft_free_struct(t_args **arg, int cmd_count);
 void	ft_free_all(t_struct *data);
 void	ft_free(char **tab);
 
