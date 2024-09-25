@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+         #
+#    By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/24 14:38:38 by tfauve-p          #+#    #+#              #
-#    Updated: 2024/09/24 16:44:08 by gprunet          ###   ########.fr        #
+#    Updated: 2024/09/25 11:18:56 by hehe             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,13 +31,8 @@ SOURCES = \
 	$(SOURCES_DIR)exec_utilis3.c \
 	$(SOURCES_DIR)free.c \
 	$(SOURCES_DIR)echo.c \
-<<<<<<< HEAD
 	$(SOURCES_DIR)pwd.c \
 	$(SOURCES_DIR)cd.c \
-=======
-	$(SOURCES_DIR)cd.c \
-	$(SOURCES_DIR)pwd.c \
->>>>>>> c6fd276 (norme Exec)
 	$(SOURCES_DIR)exit.c \
 	$(SOURCES_DIR)split_args_utilis.c \
 	$(SOURCES_DIR)clear_to_function.c
