@@ -6,7 +6,7 @@
 /*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:36:49 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/26 12:22:21 by hehe             ###   ########.fr       */
+/*   Updated: 2024/09/26 12:56:48 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,18 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	return (0);
 }
 
-int	ft_check_function(t_struct *data, char **args, char **true_path)
+int	ft_execve(char **path, char **args, t_struct *data, t_args *arg)
+{
+	if (!path || !path[0])
+	{
+		printf("Command %s not found\n", arg->cmd);
+		ft_free_child(args, data, arg);
+		exit(EXIT_FAILURE);
+	}
+	return (execve(path[0], args, data->env));
+}
+
+int	ft_check_function(t_struct *data, char **args, char **path, t_args *arg)
 {
 	if (!args)
 		return (-1);
@@ -60,7 +71,7 @@ int	ft_check_function(t_struct *data, char **args, char **true_path)
 	else if (ft_strncmp(args[0], "exit", 4) == 0)
 		return (ft_exit());
 	else
-		return (execve(true_path[0], args, data->env));
+		return (ft_execve(path, args, data, arg));
 }
 
 char	**ft_true_path(t_struct *data, char *cmd)

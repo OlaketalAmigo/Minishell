@@ -6,7 +6,7 @@
 /*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 15:01:37 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/26 12:21:45 by hehe             ###   ########.fr       */
+/*   Updated: 2024/09/26 13:06:56 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,13 +71,7 @@ void	ft_pipe_exec(t_struct *data, char **args, char **path, t_args *arg)
 			dup2(data->out_fd, 1);
 			close(data->out_fd);
 		}
-		if (!path || !path[0])
-		{
-			printf("Command %s not found\n", arg->cmd);
-			ft_free_child(args, data, arg);
-			exit(EXIT_FAILURE);
-		}
-		if (ft_check_function(data, args, path) == -1)
+		if (ft_check_function(data, args, path, arg) == -1)
 		{
 			perror("execve");
 			ft_free_child(args, data, arg);

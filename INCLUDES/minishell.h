@@ -6,7 +6,7 @@
 /*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/26 12:25:41 by hehe             ###   ########.fr       */
+/*   Updated: 2024/09/26 12:57:10 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ int		ft_hard_path(char *arg);
 // EXEC UTILIS 3 //ma
 
 char	**ft_split_cleared(char *s, char c);
-int		ft_check_function(t_struct *data, char **args, char **true_path);
+int		ft_check_function(t_struct *data, char **args, char **path, t_args *arg);
 char	**ft_true_path(t_struct *data, char *cmd);
 
 // SPLIT ARGS UTILIS //
