@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:36:49 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/26 11:09:39 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/09/26 16:06:13 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ char	**ft_split_cleared(char *s, char c)
 	return (word_list);
 }
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+int	ft_strncmp(char *s1, char *s2, int n)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
 	while (i < n)
@@ -36,28 +36,30 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 		if (s1[i] == s2[i] && s1[i] && s2[i])
 			i++;
 		else
+		{
 			return (-1);
+		}
 	}
-	return (0);
+	return (1);
 }
 
 int	ft_check_function(t_struct *data, char **args, char **true_path)
 {
 	if (!args)
 		return (-1);
-	if (ft_strncmp(args[0], "echo", 4) == 0)
+	if (ft_strncmp(args[0], "echo", 4) == 1)
 		return (ft_echo(args));
-	else if (ft_strncmp(args[0], "export", 6) == 0)
+	else if (ft_strncmp(args[0], "export", 6) == 1)
 		return (ft_export(data, args));
-	else if (ft_strncmp(args[0], "unset", 5) == 0)
+	else if (ft_strncmp(args[0], "unset", 5) == 1)
 		return (-1);
-	else if (ft_strncmp(args[0], "pwd", 3) == 0)
+	else if (ft_strncmp(args[0], "pwd", 3) == 1)
 		return (ft_pwd(args));
-	else if (ft_strncmp(args[0], "cd", 2) == 0)
+	else if (ft_strncmp(args[0], "cd", 2) == 1)
 		return (ft_cd(args));
-	else if (ft_strncmp(args[0], "env", 3) == 0)
+	else if (ft_strncmp(args[0], "env", 3) == 1)
 		return (-1);
-	else if (ft_strncmp(args[0], "exit", 4) == 0)
+	else if (ft_strncmp(args[0], "exit", 4) == 1)
 		return (ft_exit());
 	else
 		return (execve(true_path[0], args, data->env));

@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 13:09:20 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/18 12:31:14 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/09/26 16:02:12 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,23 @@ int	ft_parser_check_quotes(t_struct *data)
 	return (1);
 }
 
+int	ft_is_pipe_next(char *line, int i)
+{
+	int	j;
+
+	j = 0;
+	while (line[i])
+	{
+		if (line[i] == 32)
+			i++;
+		else if (line[i] == 124)
+			return (1);
+		else
+			return (-1);
+	}
+	return (-1);
+}
+
 int	ft_parser_check_pipe_and(t_struct *data)
 {
 	int	i;
@@ -59,8 +76,8 @@ int	ft_parser_check_pipe_and(t_struct *data)
 			dquote = -dquote;
 		if (data->line[i] == 38 && quote == 1 && dquote == 1)
 			return (-1);
-		if (data->line[i] == 124 && data->line[i + 1] == 124
-			&& quote == 1 && dquote == 1)
+		if (data->line[i] == 124 && quote == 1 && dquote == 1
+			&& ft_is_pipe_next(data->line, i) == 1)
 			return (-1);
 		i++;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:27:45 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/24 16:43:19 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/09/26 15:02:14 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,16 +98,14 @@ int	ft_echo(char **args)
 	int		i;
 
 	option = 0;
-	i = -1;
+	i = 1;
 	if (ft_count_good_flags(args) >= 1)
 		option = 1;
 	if (ft_count_wrong_flags(args) >= 1)
 		return (-1);
-	if (strncmp("echo\0", args[0], 4) == 0)
-		i++;
 	while (args[i])
 	{
-		if (strncmp("-", args[i], 1))
+		if (ft_strncmp("-", args[i], 1) == 1)
 			i++;
 		else
 			break ;

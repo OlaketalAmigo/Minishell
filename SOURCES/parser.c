@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:59:25 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/18 14:26:13 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/09/26 16:04:32 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,13 @@ void	ft_printf_parsing(char **tab)
 	}
 }
 
-int	ft_parser(t_struct *data)
+void	ft_set_up_struct(t_struct *data)
 {
 	int	i;
 
-	if (ft_parser_check(data) == -1)
-	{
-		ft_error_parsing();
-		return (-1);
-	}
 	data->tmp_arg = ft_split(data->line, '|');
 	if (!data->tmp_arg)
-		return (-1);
+		return ;
 	i = 0;
 	data->arg = malloc ((ft_nb_arg(data->tmp_arg) + 1) * 8);
 	if (data->arg)
@@ -55,6 +50,22 @@ int	ft_parser(t_struct *data)
 		}
 		free(data->tmp_arg);
 		data->arg[i] = NULL;
+	}
+}
+
+int	ft_parser(t_struct *data)
+{
+	if (ft_parser_check(data) == -1)
+	{
+		ft_error_parsing();
+		return (-1);
+	}
+	ft_set_up_struct(data);
+	if (ft_nb_arg(data->arg) == 2)
+	{
+		ft_free(data->arg);
+		printf("Erreur d'entree\n");
+		return (-1);
 	}
 	return (1);
 }
