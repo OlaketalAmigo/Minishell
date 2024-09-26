@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utilis3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:36:49 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/26 11:09:39 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/09/26 12:22:21 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,27 @@ int	ft_check_function(t_struct *data, char **args, char **true_path)
 		return (ft_exit());
 	else
 		return (execve(true_path[0], args, data->env));
+}
+
+char	**ft_true_path(t_struct *data, char *cmd)
+{
+	char	**tab;
+	char	*tmp;
+	int		i;
+
+	i = 0;
+	tab = NULL;
+	while (data->path[i] || cmd)
+	{
+		tmp = ft_strjoin(data->path[i], cmd);
+		if (ft_strchr(tmp, ' ') == 1)
+			tab = check_access(tmp, 1);
+		else if (access(tmp, X_OK) == 0)
+			tab = check_access(tmp, 0);
+		free(tmp);
+		if (tab)
+			break ;
+		i++;
+	}
+	return (tab);
 }

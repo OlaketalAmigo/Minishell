@@ -3,37 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 15:01:37 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/26 11:10:11 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/09/26 12:21:45 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-char	**ft_true_path(t_struct *data, char *cmd)
-{
-	char	**tab;
-	char	*tmp;
-	int		i;
-
-	i = 0;
-	tab = NULL;
-	while (data->path[i] || cmd)
-	{
-		tmp = ft_strjoin(data->path[i], cmd);
-		if (ft_strchr(tmp, ' ') == 1)
-			tab = check_access(tmp, 1);
-		else if (access(tmp, X_OK) == 0)
-			tab = check_access(tmp, 0);
-		free(tmp);
-		if (tab)
-			break ;
-		i++;
-	}
-	return (tab);
-}
 
 int	split_args(char **arg, t_args **new_args, t_struct *data)
 {
@@ -109,10 +86,25 @@ void	ft_pipe_exec(t_struct *data, char **args, char **path, t_args *arg)
 	}
 }
 
+void	ft_algo_exec(t_struct *data, t_args *arg, int i, int cmd_count)
+{
+	char	**args;
+	char	**true_path;
+
+	if (!arg[i].cmd)
+		return ;
+	ft_check_i(i, cmd_count, data);
+	true_path = ft_assign_path(data, arg[i].cmd);
+	args = ft_fill_args(arg[i].cmd, arg[i].args);
+	data->pid = fork();
+	ft_pipe_exec(data, args, true_path, &arg[i]);
+	if (i < cmd_count - 1)
+		close(data->pipefd[1]);
+	ft_2nd_exec(data, args, true_path);
+}
+
 void	ft_exec(t_struct *data)
 {
-	char	**true_path;
-	char	**args;
 	int		cmd_count;
 	int		i;
 	t_args	*arg;
@@ -120,7 +112,6 @@ void	ft_exec(t_struct *data)
 	i = 0;
 	cmd_count = 0;
 	arg = NULL;
-	args = NULL;
 	ft_exec_init(data, &arg, &cmd_count);
 	while (i < cmd_count)
 	{
@@ -129,17 +120,8 @@ void	ft_exec(t_struct *data)
 			i++;
 			continue ;
 		}
-		ft_check_i(i, cmd_count, data);
-		true_path = ft_assign_path(data, arg[i].cmd);
-		args = ft_fill_args(arg[i].cmd, arg[i].args);
-		data->pid = fork();
-		ft_pipe_exec(data, args, true_path, &arg[i]);
-		if (i < cmd_count - 1)
-			close(data->pipefd[1]);
-		ft_2nd_exec(data, args, true_path);
+		ft_algo_exec(data, arg, i, cmd_count);
 		i++;
 	}
-	if (cmd_count == 0)
-		printf("Command %s not found\n", data->arg[0]);
-	ft_free_struct(&arg, cmd_count);
+	ft_exec_cleanup(data, arg, cmd_count);
 }

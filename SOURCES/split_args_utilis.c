@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_args_utilis.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:33:51 by gprunet           #+#    #+#             */
-/*   Updated: 2024/09/24 16:20:39 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/09/26 12:24:06 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	c_args(char **temp, t_struct *data)
 	count = 0;
 	while (temp[i])
 	{
-		if (is_empty(temp[i]) == 0 && ft_strchr(temp[i], '|') == 0)
+		if (ft_strchr(temp[i], '|') == 0)
 		{
 			if (!ft_check_path(data, temp[i]))
 				count++;
@@ -68,9 +68,9 @@ int	count_commands(char **arg, t_struct *data)
 	count = 0;
 	while (arg[i])
 	{
-		if (is_empty(arg[i]) == 0 && ft_strchr(arg[i], '|') == 0)
+		if (is_empty(arg[i]) == 0)
 		{
-			if (ft_check_path(data, arg[i]))
+			if (ft_check_path(data, arg[i]) || ft_strchr(arg[i], '|') == 1)
 				count++;
 		}
 		i++;
@@ -120,6 +120,6 @@ t_args	ft_assign_args(t_args *new_args, char **temp, t_struct *data)
 		i++;
 	}
 	if ((*new_args).args)
-			(*new_args).args[j] = NULL;
+		(*new_args).args[j] = NULL;
 	return (*new_args);
 }

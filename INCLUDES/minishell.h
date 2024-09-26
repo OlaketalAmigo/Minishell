@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/26 11:11:12 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/09/26 12:25:41 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,6 @@ void	ft_handle_signals(void);
 // EXEC //
 
 void	ft_exec(t_struct *data);
-char	**ft_true_path(t_struct *data, char *cmd);
 int		split_args(char **arg, t_args **new_args, t_struct *data);
 
 // FT EXEC UTILIS //
@@ -143,6 +142,7 @@ int		ft_hard_path(char *arg);
 
 char	**ft_split_cleared(char *s, char c);
 int		ft_check_function(t_struct *data, char **args, char **true_path);
+char	**ft_true_path(t_struct *data, char *cmd);
 
 // SPLIT ARGS UTILIS //
 
@@ -155,6 +155,7 @@ t_args	ft_assign_args(t_args *new_args, char **temp, t_struct *data);
 void	ft_free_struct(t_args **arg, int cmd_count);
 void	ft_free_all(t_struct *data);
 void	ft_free(char **tab);
+void	ft_exec_cleanup(t_struct *data, t_args *arg, int cmd_count);
 
 // CLEAR TO FUNCTION	
 
