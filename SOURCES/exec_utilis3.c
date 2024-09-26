@@ -6,7 +6,7 @@
 /*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:36:49 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/26 12:56:48 by hehe             ###   ########.fr       */
+/*   Updated: 2024/09/26 16:50:30 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,14 @@ int	ft_execve(char **path, char **args, t_struct *data, t_args *arg)
 	return (execve(path[0], args, data->env));
 }
 
-int	ft_check_function(t_struct *data, char **args, char **path, t_args *arg)
+int	ft_check_function(t_struct *d, char **args, char **path, t_args *arg)
 {
 	if (!args)
 		return (-1);
 	if (ft_strncmp(args[0], "echo", 4) == 0)
 		return (ft_echo(args));
 	else if (ft_strncmp(args[0], "export", 6) == 0)
-		return (ft_export(data, args));
+		return (ft_export(d, args));
 	else if (ft_strncmp(args[0], "unset", 5) == 0)
 		return (-1);
 	else if (ft_strncmp(args[0], "pwd", 3) == 0)
@@ -71,7 +71,7 @@ int	ft_check_function(t_struct *data, char **args, char **path, t_args *arg)
 	else if (ft_strncmp(args[0], "exit", 4) == 0)
 		return (ft_exit());
 	else
-		return (ft_execve(path, args, data, arg));
+		return (ft_execve(path, args, d, arg));
 }
 
 char	**ft_true_path(t_struct *data, char *cmd)
