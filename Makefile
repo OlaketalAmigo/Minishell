@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+         #
+#    By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/24 14:38:38 by tfauve-p          #+#    #+#              #
-#    Updated: 2024/09/25 11:18:56 by hehe             ###   ########.fr        #
+#    Updated: 2024/09/26 11:11:05 by tfauve-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SOURCES = \
 	$(SOURCES_DIR)cd.c \
 	$(SOURCES_DIR)exit.c \
 	$(SOURCES_DIR)split_args_utilis.c \
+	$(SOURCES_DIR)export.c \
 	$(SOURCES_DIR)clear_to_function.c
 
 

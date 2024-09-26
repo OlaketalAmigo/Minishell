@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/24 16:44:26 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/09/26 11:11:12 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,5 +182,10 @@ int		ft_cd(char	**args);
 // EXIT //
 
 int		ft_exit(void);
+
+// EXPORT //
+
+char	**ft_replace_tab(char **tab, char **new_tab, char *new);
+int		ft_export(t_struct *data, char **args);
 
 #endif

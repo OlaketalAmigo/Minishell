@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 16:46:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/19 16:48:13 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/09/24 11:03:15 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,6 @@
 int	ft_exit(void)
 {
 	//faut free un tas de choses avant ?
+	//exit(EXIT_SUCCESS);
 	return (1);
 }

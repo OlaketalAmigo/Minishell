@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utilis3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:36:49 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/24 16:43:08 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/09/26 11:09:39 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	ft_check_function(t_struct *data, char **args, char **true_path)
 	if (ft_strncmp(args[0], "echo", 4) == 0)
 		return (ft_echo(args));
 	else if (ft_strncmp(args[0], "export", 6) == 0)
-		return (-1);
+		return (ft_export(data, args));
 	else if (ft_strncmp(args[0], "unset", 5) == 0)
 		return (-1);
 	else if (ft_strncmp(args[0], "pwd", 3) == 0)
