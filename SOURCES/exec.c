@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 15:01:37 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/27 12:10:13 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/09/27 12:45:31 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,6 @@ int	split_args(char **arg, t_args **new_args, t_struct *data)
 	while (arg[i])
 	{
 		temp = ft_split_cleared(arg[i], ' ');
-		int	j = 0;
-		while (temp[j])
-		{
-			printf("temp[%d] = %s\n", j, temp[j]);
-			j++;
-		}
 		(*new_args)[i].args = malloc(sizeof(char *) * (c_args(temp, data) + 1));
 		if (!(*new_args)[i].args)
 			return (0);
@@ -101,14 +95,24 @@ void	ft_algo_exec(t_struct *data, t_args *arg, int i, int cmd_count)
 	char	**args;
 	char	**true_path;
 
+
+	args = NULL;
+	true_path = NULL;
 	if (!arg[i].cmd)
 		return ;
 	printf("debut ft_algo_exec\n");
 	ft_check_i(i, cmd_count, data);
-	true_path = ft_assign_path(data, arg[i].cmd);
+	printf("%d\n", ft_check_builtins(arg[i].cmd));
 	args = ft_fill_args(arg[i].cmd, arg[i].args);
-	data->pid = fork();
-	ft_pipe_exec(data, args, true_path, &arg[i]);
+	if (ft_check_builtins(arg[i].cmd) && cmd_count == 1)
+		ft_check_function(data, args, true_path, &arg[i]);
+	else
+	{
+		printf("debut assign path\n");
+		true_path = ft_assign_path(data, arg[i].cmd);
+		data->pid = fork();
+		ft_pipe_exec(data, args, true_path, &arg[i]);
+	}
 	if (i < cmd_count - 1)
 		close(data->pipefd[1]);
 	ft_2nd_exec(data, args, true_path);
@@ -124,6 +128,8 @@ void	ft_exec(t_struct *data)
 	cmd_count = 0;
 	arg = NULL;
 	ft_exec_init(data, &arg, &cmd_count);
+	printf("cmd_count = %d\n", cmd_count);
+	printf("%s\n", arg[0].cmd);
 	while (i < cmd_count)
 	{
 		if (!arg[i].cmd)
