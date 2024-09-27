@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:27:45 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/27 11:57:40 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/09/27 13:06:18 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,12 @@ int	ft_echo(char **args)
 	int		option;
 	int		i;
 
+	int	j = 0;
+	while (args[j])
+	{
+		printf("args[%d] = %s\n", j, args[j]);
+		j++;
+	}
 	printf("debut echo\n");
 	option = 0;
 	i = 1;
@@ -112,7 +118,7 @@ int	ft_echo(char **args)
 			break ;
 	}
 	while (args[i])
-		printf("echo = %s ", args[i++]);
+		printf("%s ", args[i++]);
 	if (option == 0)
 		printf("\n");
 	return (0);

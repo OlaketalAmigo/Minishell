@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/27 11:29:49 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/09/27 13:26:43 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,11 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		c_args(char **temp, t_struct *data);
 int		count_commands(char **arg, t_struct *data);
 t_args	ft_assign_args(t_args *new_args, char **temp, t_struct *data);
+
+// ASSIGN ARGS UTILIS //
+
+int		check_built(char *temp, t_args *new_args, int *i);
+int		check_string(char *temp, int *i);
 
 // FREE //
 

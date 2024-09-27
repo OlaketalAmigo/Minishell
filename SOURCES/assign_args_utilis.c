@@ -1,42 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   assign_args_utilis.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/19 13:47:15 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/27 13:14:29 by gprunet          ###   ########.fr       */
+/*   Created: 2024/09/27 13:25:18 by gprunet           #+#    #+#             */
+/*   Updated: 2024/09/27 13:25:49 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_pwd(char **args)
+int	check_built(char *temp, t_args *new_args, int *i)
 {
-	int		i;
-	char	*cwd;
+	if (ft_check_builtins(temp) == 1 && (*new_args).cmd == NULL)
+	{
+		(*new_args).cmd = ft_strdup(temp);
+		*i = *i + 1;
+		return (1);
+	}
+	return (0);
+}
 
-	i = ft_nb_arg(args);
-	cwd = NULL;
-	if (i == 1)
+int	check_string(char *temp, int *i)
+{
+	if (ft_strchr(temp, '|') == 1 || is_empty(temp) == 1)
 	{
-		cwd = getcwd(cwd, 100);
-		printf("%s\n", cwd);
-		free(cwd);
+		*i = *i + 1;
+		return (1);
 	}
-	else if (i != 1)
-	{
-		if (args[1][0] == 45)
-		{
-			printf("bad option: %s\n", args[1]);
-			return (-1);
-		}
-		else
-		{
-			printf("too many arguments\n");
-			return (-1);
-		}
-	}
-	return (1);
+	return (0);
 }

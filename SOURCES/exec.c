@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 15:01:37 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/27 12:45:31 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/09/27 13:17:20 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,25 +61,15 @@ void	ft_pipe_exec(t_struct *data, char **args, char **path, t_args *arg)
 {
 	if (data->pid == 0)
 	{
-		printf("debut pipe exec\n");
 		if (data->in_fd != 0)
 		{
-			printf("fermeture in_fd\n");
 			dup2(data->in_fd, 0);
 			close(data->in_fd);
 		}
 		if (data->out_fd != 1)
 		{
-			printf("fermeture out_fd\n");
-			printf("debut dup2\n");
-			if (dup2(data->out_fd, 1) == -1)
-			{
-				perror("dup2 failed for out_fd");
-				exit(EXIT_FAILURE);
-			}
-			printf("fin dup2\n");
+			dup2(data->out_fd, 1);
 			close(data->out_fd);
-			printf("fin de la fermeture\n");
 		}
 		if (ft_check_function(data, args, path, arg) == -1)
 		{
@@ -95,20 +85,16 @@ void	ft_algo_exec(t_struct *data, t_args *arg, int i, int cmd_count)
 	char	**args;
 	char	**true_path;
 
-
 	args = NULL;
 	true_path = NULL;
 	if (!arg[i].cmd)
 		return ;
-	printf("debut ft_algo_exec\n");
 	ft_check_i(i, cmd_count, data);
-	printf("%d\n", ft_check_builtins(arg[i].cmd));
 	args = ft_fill_args(arg[i].cmd, arg[i].args);
 	if (ft_check_builtins(arg[i].cmd) && cmd_count == 1)
 		ft_check_function(data, args, true_path, &arg[i]);
 	else
 	{
-		printf("debut assign path\n");
 		true_path = ft_assign_path(data, arg[i].cmd);
 		data->pid = fork();
 		ft_pipe_exec(data, args, true_path, &arg[i]);
@@ -129,7 +115,6 @@ void	ft_exec(t_struct *data)
 	arg = NULL;
 	ft_exec_init(data, &arg, &cmd_count);
 	printf("cmd_count = %d\n", cmd_count);
-	printf("%s\n", arg[0].cmd);
 	while (i < cmd_count)
 	{
 		if (!arg[i].cmd)

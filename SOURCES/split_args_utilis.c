@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:33:51 by gprunet           #+#    #+#             */
-/*   Updated: 2024/09/27 12:36:42 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/09/27 13:25:34 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,19 +106,13 @@ t_args	ft_assign_args(t_args *new_args, char **temp, t_struct *data)
 	j = 0;
 	while (temp[i])
 	{
-		if (ft_check_builtins(temp[i]) == 1)
-		{
-			(*new_args).cmd = ft_strdup(temp[i]);
-			break ;
-		}
+		if (check_built(temp[i], new_args, &i) == 1)
+			continue ;
 		if (ft_check_cmd(new_args, i, NULL) == 1)
 			break ;
-		if (ft_strchr(temp[i], '|') == 1 || is_empty(temp[i]) == 1)
-		{
-			i++;
+		if (check_string(temp[i], &i) == 1)
 			continue ;
-		}
-		if (ft_check_path(data, temp[i]))
+		if (ft_check_path(data, temp[i]) && (*new_args).cmd == NULL)
 			(*new_args).cmd = ft_strdup(temp[i]);
 		else if ((*new_args).cmd)
 			(*new_args).args[j++] = ft_strdup(temp[i]);
