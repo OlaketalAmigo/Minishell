@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:27:45 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/24 16:43:19 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/09/27 11:57:40 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,23 +97,22 @@ int	ft_echo(char **args)
 	int		option;
 	int		i;
 
+	printf("debut echo\n");
 	option = 0;
-	i = -1;
+	i = 1;
 	if (ft_count_good_flags(args) >= 1)
 		option = 1;
 	if (ft_count_wrong_flags(args) >= 1)
 		return (-1);
-	if (strncmp("echo\0", args[0], 4) == 0)
-		i++;
 	while (args[i])
 	{
-		if (strncmp("-", args[i], 1))
+		if (ft_strncmp("-", args[i], 1) == 1)
 			i++;
 		else
 			break ;
 	}
 	while (args[i])
-		printf("%s ", args[i++]);
+		printf("echo = %s ", args[i++]);
 	if (option == 0)
 		printf("\n");
 	return (0);

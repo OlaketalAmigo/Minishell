@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_args_utilis.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:33:51 by gprunet           #+#    #+#             */
-/*   Updated: 2024/09/26 16:52:25 by hehe             ###   ########.fr       */
+/*   Updated: 2024/09/27 11:29:20 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,25 +57,6 @@ int	c_args(char **temp, t_struct *data)
 		i++;
 	}
 	return (count);
-}
-
-int	ft_check_builtins(char *arg)
-{
-	if (ft_strncmp(arg, "echo", 4) == 0)
-		return (1);
-	if (ft_strncmp(arg, "cd", 2) == 0)
-		return (1);
-	if (ft_strncmp(arg, "pwd", 3) == 0)
-		return (1);
-	if (ft_strncmp(arg, "export", 6) == 0)
-		return (1);
-	if (ft_strncmp(arg, "unset", 5) == 0)
-		return (1);
-	if (ft_strncmp(arg, "env", 3) == 0)
-		return (1);
-	if (ft_strncmp(arg, "exit", 4) == 0)
-		return (1);
-	return (0);
 }
 
 int	count_commands(char **arg, t_struct *data)

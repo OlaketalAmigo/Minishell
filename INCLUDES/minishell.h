@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/26 16:50:04 by hehe             ###   ########.fr       */
+/*   Updated: 2024/09/27 11:29:49 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,7 @@ void	ft_free_child(char **args, t_struct *data, t_args *arg);
 void	ft_fill_new_args(char **arg, t_args *full_arg);
 char	**check_access(char *tmp, int s);
 int		ft_hard_path(char *arg);
+int		ft_check_builtins(char *arg);
 
 // EXEC UTILIS 3 //ma
 

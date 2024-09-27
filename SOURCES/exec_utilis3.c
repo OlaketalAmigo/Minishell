@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utilis3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:36:49 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/26 16:50:30 by hehe             ###   ########.fr       */
+/*   Updated: 2024/09/27 12:04:14 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int	ft_check_function(t_struct *d, char **args, char **path, t_args *arg)
 {
 	if (!args)
 		return (-1);
+	printf("debut check function\n");
 	if (ft_strncmp(args[0], "echo", 4) == 0)
 		return (ft_echo(args));
 	else if (ft_strncmp(args[0], "export", 6) == 0)
