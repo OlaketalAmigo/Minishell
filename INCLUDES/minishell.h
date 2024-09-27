@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/26 11:50:34 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/09/27 16:13:56 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,10 @@ int		ft_skip_until(char *a, char b, int i);
 int		ft_parser_check_quotes(t_struct *data);
 int		ft_parser_check(t_struct *data);
 
+// SET UP ENV //
+
+int	ft_set_up_env(t_struct *data);
+
 // SIGNALS //
 
 void	ft_init_signals(void);
@@ -178,7 +182,8 @@ int		ft_pwd(char **args);
 
 // CD //
 
-int		ft_cd(char	**args);
+char	*ft_get_home(t_struct *data);
+int		ft_cd(t_struct *data, char	**args);
 
 // EXIT //
 
