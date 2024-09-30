@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 15:01:37 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/27 14:09:31 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/09/30 16:42:19 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,12 @@ void	ft_pipe_exec(t_struct *data, char **args, char **path, t_args *arg)
 		}
 		if (data->out_fd != 1)
 		{
+			printf("dup de la commande %s\n", arg->cmd);
 			dup2(data->out_fd, 1);
+			printf("Fermeture du pipe\n");
 			close(data->out_fd);
 		}
+		printf("Execution de la commande %s\n", arg->cmd);
 		if (ft_check_function(data, args, path, arg) == -1)
 		{
 			printf("Command %s not found\n", arg->cmd);

@@ -3,14 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   split_args_utilis.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:33:51 by gprunet           #+#    #+#             */
-/*   Updated: 2024/09/27 13:25:34 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/09/30 16:06:49 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	ft_tablen(char **tab)
+{
+	int	i;
+
+	i = 0;
+	while (tab[i])
+		i++;
+	return (i);
+}
 
 int	ft_check_path(t_struct *data, char *arg)
 {
@@ -59,16 +69,41 @@ int	c_args(char **temp, t_struct *data)
 	return (count);
 }
 
+int	ft_check_hard_path(t_struct *data, char *arg)
+{
+	char	**tab;
+	int		i;
+
+	i = 0;
+	tab = ft_split(arg, '/');
+	while (tab[i])
+	{
+		if (ft_check_path(data, tab[i]) && !tab[i + 1])
+		{
+			ft_free(tab);
+			return (1);
+		}
+		i++;
+	}
+	ft_free(tab);
+	return (0);
+}
+
 int	count_commands(char **arg, t_struct *data)
 {
-	int	i;
-	int	count;
+	int		i;
+	int		count;
 
 	i = 0;
 	count = 0;
 	while (arg[i])
 	{
-		if (is_empty(arg[i]) == 0)
+		if (ft_strchr(arg[i], '/') == 1)
+		{
+			if (ft_check_hard_path(data, arg[i]))
+				count++;
+		}
+		else if (is_empty(arg[i]) == 0)
 		{
 			if (ft_check_builtins(arg[i]) == 1 || ft_strchr(arg[i], '|') == 1)
 				count++;
@@ -97,6 +132,31 @@ int	ft_check_cmd(t_args *new_args, int i, char *str)
 	return (0);
 }
 
+int	verif_command(t_struct *data, char **cmd, t_args *new_args)
+{
+	char	**tab;
+
+	tab = NULL;
+	if (new_args->cmd != NULL)
+		return (0);
+	if (ft_strchr(*cmd, '/') == 1)
+	{
+		if (ft_check_hard_path(data, *cmd))
+		{
+			tab = ft_split(*cmd, '/');
+			free(*cmd);
+			*cmd = ft_strdup(tab[ft_tablen(tab) - 1]);
+			ft_free(tab);
+			return (1);
+		}
+	}
+	if (ft_check_builtins(*cmd) == 1 || ft_strchr(*cmd, '|') == 1)
+		return (1);
+	else if (ft_check_path(data, *cmd))
+		return (1);
+	return (0);
+}
+
 t_args	ft_assign_args(t_args *new_args, char **temp, t_struct *data)
 {
 	int	i;
@@ -112,7 +172,7 @@ t_args	ft_assign_args(t_args *new_args, char **temp, t_struct *data)
 			break ;
 		if (check_string(temp[i], &i) == 1)
 			continue ;
-		if (ft_check_path(data, temp[i]) && (*new_args).cmd == NULL)
+		if (verif_command(data, &temp[i], new_args) == 1)
 			(*new_args).cmd = ft_strdup(temp[i]);
 		else if ((*new_args).cmd)
 			(*new_args).args[j++] = ft_strdup(temp[i]);
