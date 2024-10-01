@@ -6,7 +6,7 @@
 /*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 15:01:37 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/30 16:42:19 by hehe             ###   ########.fr       */
+/*   Updated: 2024/10/01 23:03:52 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,16 @@ int	split_args(char **arg, t_args **new_args, t_struct *data)
 		if (!(*new_args)[i].args)
 			return (0);
 		(*new_args)[i].cmd = NULL;
+		(*new_args)[i].input = NULL;
+		(*new_args)[i].output = NULL;
+		(*new_args)[i].append = 0;
 		ft_assign_args(&(*new_args)[i], temp, data);
 		ft_free(temp);
+		printf("cmd = %s\n", (*new_args)[i].cmd);
+		printf("args = %s\n", (*new_args)[i].args[0]);
+		printf("input = %s\n", (*new_args)[i].input);
+		printf("output = %s\n", (*new_args)[i].output);
+		printf("append = %d\n", (*new_args)[i].append);
 		i++;
 	}
 	return (count_commands(arg, data));
@@ -57,10 +65,42 @@ char	**ft_fill_args(char *cmds, char **args)
 	return (new_args);
 }
 
+void	handle_redirection(t_args *arg)
+{
+	int		fd;
+
+	if (arg->input)
+	{
+		fd = open(arg->input, O_RDONLY);
+		if (fd < 0)
+		{
+			printf("File %s not found\n", arg->input);
+			exit(EXIT_FAILURE);
+		}
+		dup2(fd, 0);
+		close(fd);
+	}
+	if (arg->output)
+	{
+		if (arg->append)
+			fd = open(arg->output, O_WRONLY | O_CREAT | O_APPEND, 0644);
+		else
+			fd = open(arg->output, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		if (fd < 0)
+		{
+			printf("File %s not found\n", arg->output);
+			exit(EXIT_FAILURE);
+		}
+		dup2(fd, 1);
+		close(fd);
+	}
+}
+
 void	ft_pipe_exec(t_struct *data, char **args, char **path, t_args *arg)
 {
 	if (data->pid == 0)
 	{
+		handle_redirection(arg);
 		if (data->in_fd != 0)
 		{
 			dup2(data->in_fd, 0);
@@ -68,12 +108,9 @@ void	ft_pipe_exec(t_struct *data, char **args, char **path, t_args *arg)
 		}
 		if (data->out_fd != 1)
 		{
-			printf("dup de la commande %s\n", arg->cmd);
 			dup2(data->out_fd, 1);
-			printf("Fermeture du pipe\n");
 			close(data->out_fd);
 		}
-		printf("Execution de la commande %s\n", arg->cmd);
 		if (ft_check_function(data, args, path, arg) == -1)
 		{
 			printf("Command %s not found\n", arg->cmd);

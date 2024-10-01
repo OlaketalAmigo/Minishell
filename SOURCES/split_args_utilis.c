@@ -6,7 +6,7 @@
 /*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:33:51 by gprunet           #+#    #+#             */
-/*   Updated: 2024/09/30 16:06:49 by hehe             ###   ########.fr       */
+/*   Updated: 2024/10/01 23:04:40 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,31 @@ int	verif_command(t_struct *data, char **cmd, t_args *new_args)
 	return (0);
 }
 
+int	check_redirection(char **temp, t_args *new_args, int *i)
+{
+	if (ft_strncmp(temp[*i], "<", 1) == 0 && temp[*i + 2])
+	{
+		(*new_args).input = ft_strdup(temp[*i + 2]);
+		*i = *i + 3;
+		return (1);
+	}
+	if (ft_strncmp(temp[*i], ">", 1) == 0 && temp[*i + 2])
+	{
+		(*new_args).output = ft_strdup(temp[*i + 2]);
+		(*new_args).append = 0;
+		*i = *i + 3;
+		return (1);
+	}
+	if (ft_strncmp(temp[*i], ">>", 2) == 0 && temp[*i + 2])
+	{
+		(*new_args).output = ft_strdup(temp[*i + 2]);
+		(*new_args).append = 1;
+		*i = *i + 3;
+		return (1);
+	}
+	return (0);
+}
+
 t_args	ft_assign_args(t_args *new_args, char **temp, t_struct *data)
 {
 	int	i;
@@ -166,6 +191,9 @@ t_args	ft_assign_args(t_args *new_args, char **temp, t_struct *data)
 	j = 0;
 	while (temp[i])
 	{
+		printf("temp[%d] = %s\n", i, temp[i]);
+		if (check_redirection(temp, new_args, &i) == 1)
+			continue ;
 		if (check_built(temp[i], new_args, &i) == 1)
 			continue ;
 		if (ft_check_cmd(new_args, i, NULL) == 1)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 15:06:49 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/27 12:27:31 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/10/01 23:06:26 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,9 @@ void	ft_free_struct(t_args **arg, int cmd_count)
 	while (i < cmd_count)
 	{
 		if ((*arg)[i].cmd)
-		{
 			free((*arg)[i].cmd);
-			(*arg)[i].cmd = NULL;
-		}
+		free((*arg)[i].input);
+		free((*arg)[i].output);
 		ft_free_args(&(*arg)[i].args);
 		i++;
 	}
