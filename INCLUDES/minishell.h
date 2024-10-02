@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/01 17:51:38 by hehe             ###   ########.fr       */
+/*   Updated: 2024/10/02 16:06:49 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct data
 	int		in_fd;
 	int		out_fd;
 	char	**env;
+	int		launched_env;
 	pid_t	pid;
 }	t_struct;
 
@@ -107,6 +108,10 @@ int		ft_skip_until(char *a, char b, int i);
 int		ft_parser_check_quotes(t_struct *data);
 int		ft_parser_check(t_struct *data);
 
+// SET UP ENV //
+
+int		ft_set_up_env(t_struct *data);
+
 // SIGNALS //
 
 void	ft_init_signals(void);
@@ -136,7 +141,7 @@ int		is_flag(char *arg);
 
 //EXEC UTILIS 2 //
 
-void	ft_free_child(char **args, t_struct *data, t_args *arg);
+void	ft_free_child(char **args, t_struct *data, t_args *arg, char **path);
 void	ft_fill_new_args(char **arg, t_args *full_arg);
 char	**check_access(char *tmp, int s);
 int		ft_hard_path(char *arg);
@@ -147,7 +152,7 @@ int		ft_check_builtins(char *arg);
 char	**ft_split_cleared(char *s, char c);
 int		ft_check_function(t_struct *d, char **args, char **path, t_args *arg);
 char	**ft_true_path(t_struct *data, char *cmd);
-int		ft_strncmp(const char *s1, const char *s2, size_t n);
+int		ft_strncmp(char *s1, char *s2, int n);
 
 // SPLIT ARGS UTILIS //
 
@@ -180,23 +185,30 @@ int		ft_is_good_flag(char *s);
 int		ft_is_wrong_flag(char *s);
 int		ft_count_good_flags(char **tab);
 int		ft_count_wrong_flags(char **tab);
-int		ft_echo(char **args);
+int		ft_echo(char **args, int key);
 
 // PWD //
 
-int		ft_pwd(char **args);
+int		ft_pwd(char **args, int key);
 
 // CD //
 
-int		ft_cd(char	**args);
+char	*ft_remove_home(char *s1);
+char	*ft_get_home(t_struct *data);
+int		ft_cd_main(t_struct *data, char **args, int i, char *path);
+int		ft_cd(t_struct *data, char **args, int key);
+
+// ENV //
+
+int		ft_env(t_struct *data, int key);
 
 // EXIT //
 
-int		ft_exit(void);
+int		ft_exit(int key);
 
 // EXPORT //
 
 char	**ft_replace_tab(char **tab, char **new_tab, char *new);
-int		ft_export(t_struct *data, char **args);
+int		ft_export(t_struct *data, char **args, int key);
 
 #endif

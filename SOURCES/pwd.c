@@ -6,17 +6,18 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:47:15 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/27 13:14:29 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/10/02 16:04:25 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_pwd(char **args)
+int	ft_pwd(char **args, int key)
 {
 	int		i;
 	char	*cwd;
 
+	printf("started builtin pwd\n");
 	i = ft_nb_arg(args);
 	cwd = NULL;
 	if (i == 1)
@@ -29,14 +30,19 @@ int	ft_pwd(char **args)
 	{
 		if (args[1][0] == 45)
 		{
-			printf("bad option: %s\n", args[1]);
+			printf("pwd: bad option: %s\n", args[1]);
 			return (-1);
 		}
 		else
 		{
-			printf("too many arguments\n");
+			printf("pwd: too many arguments\n");
 			return (-1);
 		}
 	}
-	return (1);
+	if (key == 1)
+	{
+		// free all
+		exit(EXIT_SUCCESS);
+	}
+	return (0);
 }

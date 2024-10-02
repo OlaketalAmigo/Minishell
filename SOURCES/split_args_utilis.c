@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:33:51 by gprunet           #+#    #+#             */
-/*   Updated: 2024/10/02 12:27:23 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/10/02 16:01:45 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,8 +233,7 @@ int	separate_command2(char **temp, t_args *new_args, int *i)
 	int	k;
 
 	(*new_args).cmd = malloc(sizeof(char) * ft_strlen(temp[*i]) + 1);
-	(*new_args).input = malloc(sizeof(char) * ft_strlen(temp[*i]) + 1);
-	if (!(*new_args).cmd || !(*new_args).input)
+	if (!(*new_args).cmd)
 		return (0);
 	j = 0;
 	k = 0;
@@ -245,12 +244,18 @@ int	separate_command2(char **temp, t_args *new_args, int *i)
 	}
 	new_args->cmd[j] = '\0';
 	j++;
-	while (temp[*i][j + k])
+	if (!temp[*i][j])
+		(*new_args).input = ft_strdup(temp[*i + 2]);
+	else
 	{
-		(*new_args).input[k] = temp[*i][j + k];
-		k++;
+		(*new_args).input = malloc(sizeof(char) * ft_strlen(temp[*i]) + 1);
+		while (temp[*i][j + k])
+		{
+			(*new_args).input[k] = temp[*i][j + k];
+			k++;
+		}
+		(*new_args).input[k] = '\0';
 	}
-	(*new_args).input[k] = '\0';
 	*i = *i + 1;
 	return (1);
 }
@@ -261,7 +266,6 @@ int	separate_command(char **temp, t_args *new_args, int *i)
 	int	k;
 
 	(*new_args).cmd = malloc(sizeof(char) * ft_strlen(temp[*i]) + 1);
-	(*new_args).output = malloc(sizeof(char) * ft_strlen(temp[*i]) + 1);
 	if (!(*new_args).cmd || !(*new_args).output)
 		return (0);
 	j = 0;
@@ -272,12 +276,18 @@ int	separate_command(char **temp, t_args *new_args, int *i)
 		j++;
 	}
 	new_args->cmd[j] = '\0';
-	while (temp[*i][j + k])
+	j++;
+	if (!temp[*i][j])
+		(*new_args).output = malloc(sizeof(char) * ft_strlen(temp[*i]) + 1);
+	else
 	{
-		(*new_args).output[k] = temp[*i][j + k];
-		k++;
+		while (temp[*i][j + k])
+		{
+			(*new_args).output[k] = temp[*i][j + k];
+			k++;
+		}
+		(*new_args).output[k] = '\0';
 	}
-	(*new_args).output[k] = '\0';
 	if (check_append(temp[*i]) == 1)
 		(*new_args).append = 1;
 	*i = *i + 1;
@@ -319,7 +329,6 @@ t_args	ft_assign_args(t_args *new_args, char **temp, t_struct *data)
 	j = 0;
 	while (temp[i])
 	{
-		printf("temp[%d] = %s\n", i, temp[i]);
 		if (check_redirection(temp, new_args, &i) == 1)
 			continue ;
 		if (check_built(temp[i], new_args, &i) == 1)

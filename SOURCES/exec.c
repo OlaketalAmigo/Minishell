@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 15:01:37 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/02 12:23:17 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/10/02 15:54:14 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,6 @@ int	split_args(char **arg, t_args **new_args, t_struct *data)
 		(*new_args)[i].append = 0;
 		ft_assign_args(&(*new_args)[i], temp, data);
 		ft_free(temp);
-		printf("cmd = %s\n", (*new_args)[i].cmd);
-		printf("input = %s\n", (*new_args)[i].input);
-		printf("output = %s\n", (*new_args)[i].output);
 		i++;
 	}
 	return (count_commands(arg, data));
@@ -63,7 +60,7 @@ char	**ft_fill_args(char *cmds, char **args)
 	return (new_args);
 }
 
-void	handle_redirection(t_args *arg)
+void	handle_redirection(t_args *arg, t_struct *data, char **path, char **args)
 {
 	int		fd;
 
@@ -73,6 +70,7 @@ void	handle_redirection(t_args *arg)
 		if (fd < 0)
 		{
 			printf("File %s not found\n", arg->input);
+			ft_free_child(args, data, arg, path);
 			exit(EXIT_FAILURE);
 		}
 		dup2(fd, 0);
@@ -87,6 +85,7 @@ void	handle_redirection(t_args *arg)
 		if (fd < 0)
 		{
 			printf("File %s not found\n", arg->output);
+			ft_free_child(args, data, arg, path);
 			exit(EXIT_FAILURE);
 		}
 		dup2(fd, 1);
@@ -98,7 +97,7 @@ void	ft_pipe_exec(t_struct *data, char **args, char **path, t_args *arg)
 {
 	if (data->pid == 0)
 	{
-		handle_redirection(arg);
+		handle_redirection(arg, data, path, args);
 		if (data->in_fd != 0)
 		{
 			dup2(data->in_fd, 0);
@@ -112,7 +111,7 @@ void	ft_pipe_exec(t_struct *data, char **args, char **path, t_args *arg)
 		if (ft_check_function(data, args, path, arg) == -1)
 		{
 			printf("Command %s not found\n", arg->cmd);
-			ft_free_child(args, data, arg);
+			ft_free_child(args, data, arg, path);
 			exit(EXIT_FAILURE);
 		}
 	}
@@ -129,7 +128,7 @@ void	ft_algo_exec(t_struct *data, t_args *arg, int i, int cmd_count)
 		return ;
 	ft_check_i(i, cmd_count, data);
 	args = ft_fill_args(arg[i].cmd, arg[i].args);
-	if (ft_check_builtins(arg[i].cmd) && cmd_count == 1)
+	if (cmd_count == 1 && ft_check_builtins(arg[i].cmd) == 1)
 		ft_check_function(data, args, true_path, &arg[i]);
 	else
 	{

@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 13:08:46 by gprunet           #+#    #+#             */
-/*   Updated: 2024/10/02 11:04:59 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/10/02 15:54:02 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	ft_check_builtins(char *arg)
 {
+	if (ft_strncmp(arg, "<<", 2) == 0)
+		return (1);
 	if (ft_strncmp(arg, "echo", 4) == 0)
 		return (1);
 	if (ft_strncmp(arg, "cd", 2) == 0)
@@ -31,12 +33,15 @@ int	ft_check_builtins(char *arg)
 	return (0);
 }
 
-void	ft_free_child(char **args, t_struct *data, t_args *arg)
+void	ft_free_child(char **args, t_struct *data, t_args *arg, char **path)
 {
 	free(arg->cmd);
 	ft_free(arg->args);
+	free(arg->input);
+	free(arg->output);
 	free(arg);
 	ft_free(data->path);
+	ft_free(path);
 	ft_free(args);
 	ft_free(data->arg);
 }

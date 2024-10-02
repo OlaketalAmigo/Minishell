@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:27:45 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/27 14:21:18 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/10/02 16:02:49 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	ft_count_good_flags(char **tab)
 	return (j);
 }
 
-int	ft_echo(char **args)
+int	ft_echo(char **args, int key)
 {
 	int		option;
 	int		i;
@@ -100,6 +100,7 @@ int	ft_echo(char **args)
 	printf("debut echo\n");
 	option = 0;
 	i = 1;
+	printf("started builtin echo\n");
 	if (ft_count_good_flags(args) >= 1)
 		option = 1;
 	if (ft_count_wrong_flags(args) >= 1)
@@ -115,5 +116,10 @@ int	ft_echo(char **args)
 		printf("%s ", args[i++]);
 	if (option == 0)
 		printf("\n");
+	if (key == 1)
+	{
+		// FREE
+		exit(EXIT_SUCCESS);
+	}
 	return (0);
 }
