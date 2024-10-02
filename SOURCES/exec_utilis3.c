@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:36:49 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/02 15:20:16 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/02 15:57:09 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,19 +59,19 @@ int	ft_check_function_pipe(t_struct *d, char **args, char **path, t_args *arg)
 	if (!args)
 		return (-1);
 	if (ft_strncmp(args[0], "echo", 4) == 1)
-		return (ft_echo(args, 1));
+		return (ft_echo(d, arg, args, 1));
 	else if (ft_strncmp(args[0], "export", 6) == 1)
-		return (ft_export(d, args, 1));
+		return (ft_export(d, arg, args, 1));
 	else if (ft_strncmp(args[0], "unset", 5) == 1)
 		return (-1);
 	else if (ft_strncmp(args[0], "pwd", 3) == 1)
-		return (ft_pwd(args, 1));
+		return (ft_pwd(d, arg, args, 1));
 	else if (ft_strncmp(args[0], "cd", 2) == 1)
-		return (ft_cd(d, args, 1));
+		return (ft_cd(d, arg, args, 1));
 	else if (ft_strncmp(args[0], "env", 3) == 1)
 		return (-1);
 	else if (ft_strncmp(args[0], "exit", 4) == 1)
-		return (ft_exit(args, 1));
+		return (ft_exit(d, arg, args, 1));
 	else
 		return (ft_execve(path, args, d, arg));
 }
@@ -81,19 +81,19 @@ int	ft_check_function(t_struct *d, char **args, char **path, t_args *arg)
 	if (!args)
 		return (-1);
 	if (ft_strncmp(args[0], "echo", 4) == 1)
-		return (ft_echo(args, 0));
+		return (ft_echo(d, arg, args, 0));
 	else if (ft_strncmp(args[0], "export", 6) == 1)
-		return (ft_export(d, args, 0));
+		return (ft_export(d, arg, args, 0));
 	else if (ft_strncmp(args[0], "unset", 5) == 1)
 		return (-1);
 	else if (ft_strncmp(args[0], "pwd", 3) == 1)
-		return (ft_pwd(args, 0));
+		return (ft_pwd(d, arg, args, 0));
 	else if (ft_strncmp(args[0], "cd", 2) == 1)
-		return (ft_cd(d, args, 0));
+		return (ft_cd(d, arg, args, 0));
 	else if (ft_strncmp(args[0], "env", 3) == 1)
 		return (-1);
 	else if (ft_strncmp(args[0], "exit", 4) == 1)
-		return (ft_exit(args, 0));
+		return (ft_exit(d, arg, args, 0));
 	else
 	{
 		d->pid = fork();
