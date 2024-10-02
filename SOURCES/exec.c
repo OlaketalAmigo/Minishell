@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 15:01:37 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/02 15:42:53 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/02 16:09:32 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	split_args(char **arg, t_args **new_args, t_struct *data)
 	*new_args = malloc(sizeof(t_args) * (count_commands(arg, data) + 1));
 	if (!*new_args)
 		return (0);
-	printf("arg[0] = %s\n", arg[0]);
+	// printf("arg[0] = %s\n", arg[0]);
 	while (arg[i])
 	{
 		temp = ft_split_cleared(arg[i], ' ');
@@ -34,9 +34,9 @@ int	split_args(char **arg, t_args **new_args, t_struct *data)
 		(*new_args)[i].append = 0;
 		ft_assign_args(&(*new_args)[i], temp, data);
 		ft_free(temp);
-		printf("cmd = %s\n", (*new_args)[i].cmd);
-		printf("input = %s\n", (*new_args)[i].input);
-		printf("output = %s\n", (*new_args)[i].output);
+		// printf("cmd = %s\n", (*new_args)[i].cmd);
+		// printf("input = %s\n", (*new_args)[i].input);
+		// printf("output = %s\n", (*new_args)[i].output);
 		i++;
 	}
 	return (count_commands(arg, data));
@@ -156,7 +156,7 @@ void	ft_exec(t_struct *data)
 	cmd_count = 0;
 	arg = NULL;
 	ft_exec_init(data, &arg, &cmd_count);
-	printf("cmd_count = %d\n", cmd_count);
+	// printf("cmd_count = %d\n", cmd_count);
 	while (i < cmd_count)
 	{
 		if (!arg[i].cmd)

@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 13:09:20 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/02 15:37:09 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/02 16:03:45 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,12 @@ int	ft_is_pipe_next(char *line, int i)
 		i++;
 	if (line[i] && line[i] == 124)
 	{
-		printf("pipe suivi d'un autre pipe pour %s\n", line);
+		//printf("pipe suivi d'un autre pipe pour %s\n", line);
 		return (1);
 	}
 	else
 	{
-		printf("pas de double pipe pour %s\n", line);
+		//printf("pas de double pipe pour %s\n", line);
 		return (-1);
 	}
 }
@@ -87,12 +87,9 @@ int	ft_parser_check(t_struct *data)
 {
 	if (ft_parser_check_quotes(data) == -1)
 		return (free(data->line), -1);
-	printf("ICI\n");
 	if (ft_parser_check_pipe_and(data) == -1)
 		return (free(data->line), -1);
-	printf("ICI\n");
 	if (ft_full_space(data->line) == 1)
 		return (free(data->line), -1);
-	printf("ICI\n");
 	return (1);
 }
