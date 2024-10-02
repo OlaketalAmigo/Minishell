@@ -3,14 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utilis2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 13:08:46 by gprunet           #+#    #+#             */
-/*   Updated: 2024/09/23 17:16:03 by hehe             ###   ########.fr       */
+/*   Updated: 2024/10/02 11:04:59 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	ft_check_builtins(char *arg)
+{
+	if (ft_strncmp(arg, "echo", 4) == 0)
+		return (1);
+	if (ft_strncmp(arg, "cd", 2) == 0)
+		return (1);
+	if (ft_strncmp(arg, "pwd", 3) == 0)
+		return (1);
+	if (ft_strncmp(arg, "export", 6) == 0)
+		return (1);
+	if (ft_strncmp(arg, "unset", 5) == 0)
+		return (1);
+	if (ft_strncmp(arg, "env", 3) == 0)
+		return (1);
+	if (ft_strncmp(arg, "exit", 4) == 0)
+		return (1);
+	return (0);
+}
 
 void	ft_free_child(char **args, t_struct *data, t_args *arg)
 {

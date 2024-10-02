@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/02 12:04:50 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/02 13:46:13 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,9 @@ typedef struct s_cmd
 {
 	char	*cmd;
 	char	**args;
+	char	*input;
+	char	*output;
+	int		append;
 }	t_args;
 
 // SIGNALS //
@@ -119,7 +122,6 @@ void	ft_handle_signals(void);
 // EXEC //
 
 void	ft_exec(t_struct *data);
-char	**ft_true_path(t_struct *data, char *cmd);
 int		split_args(char **arg, t_args **new_args, t_struct *data);
 
 // FT EXEC UTILIS //
@@ -143,12 +145,14 @@ void	ft_free_child(char **args, t_struct *data, t_args *arg);
 void	ft_fill_new_args(char **arg, t_args *full_arg);
 char	**check_access(char *tmp, int s);
 int		ft_hard_path(char *arg);
+int		ft_check_builtins(char *arg);
 
 // EXEC UTILIS 3 //ma
 
 char	**ft_split_cleared(char *s, char c);
+int		ft_check_function(t_struct *d, char **args, char **path, t_args *arg);
+char	**ft_true_path(t_struct *data, char *cmd);
 int		ft_strncmp(char *s1, char *s2, int n);
-int		ft_check_function(t_struct *data, char **args, char **true_path);
 
 // SPLIT ARGS UTILIS //
 
@@ -156,11 +160,17 @@ int		c_args(char **temp, t_struct *data);
 int		count_commands(char **arg, t_struct *data);
 t_args	ft_assign_args(t_args *new_args, char **temp, t_struct *data);
 
+// ASSIGN ARGS UTILIS //
+
+int		check_built(char *temp, t_args *new_args, int *i);
+int		check_string(char *temp, int *i);
+
 // FREE //
 
 void	ft_free_struct(t_args **arg, int cmd_count);
 void	ft_free_all(t_struct *data);
 void	ft_free(char **tab);
+void	ft_exec_cleanup(t_struct *data, t_args *arg, int cmd_count);
 
 // CLEAR TO FUNCTION	
 

@@ -6,21 +6,17 @@
 /*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 15:06:49 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/25 11:19:32 by hehe             ###   ########.fr       */
+/*   Updated: 2024/10/01 23:06:26 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	cmd_count_check(t_args **arg, int cmd_count)
+void	ft_exec_cleanup(t_struct *data, t_args *arg, int cmd_count)
 {
-	if (cmd_count == 0 && *arg)
-	{
-		free(*arg);
-		*arg = NULL;
-		return (1);
-	}
-	return (0);
+	if (cmd_count == 0)
+		printf("Command %s not found\n", data->arg[0]);
+	ft_free_struct(&arg, cmd_count);
 }
 
 void	ft_free_args(char ***args)
@@ -42,15 +38,18 @@ void	ft_free_struct(t_args **arg, int cmd_count)
 	int	i;
 
 	i = 0;
-	if (cmd_count_check(arg, cmd_count) == 1)
+	if (cmd_count == 0 && *arg)
+	{
+		free(*arg);
+		*arg = NULL;
 		return ;
+	}
 	while (i < cmd_count)
 	{
 		if ((*arg)[i].cmd)
-		{
 			free((*arg)[i].cmd);
-			(*arg)[i].cmd = NULL;
-		}
+		free((*arg)[i].input);
+		free((*arg)[i].output);
 		ft_free_args(&(*arg)[i].args);
 		i++;
 	}

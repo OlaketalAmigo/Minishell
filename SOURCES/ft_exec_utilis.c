@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec_utilis.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 16:05:50 by gprunet           #+#    #+#             */
-/*   Updated: 2024/09/26 14:17:11 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/02 13:50:33 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,6 @@ void	ft_exec_init(t_struct *data, t_args **arg, int *cmd_count)
 	data->out_fd = 1;
 	data->pid = 0;
 	*cmd_count = split_args(data->arg, arg, data);
-	printf("cmd count = %d\n", *cmd_count);
-	if (*cmd_count > 1)
-		*cmd_count = *cmd_count + 1;
 }
 
 void	ft_check_i(int i, int cmd_count, t_struct *data)
