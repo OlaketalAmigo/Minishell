@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:36:49 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/27 16:14:17 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/02 12:01:46 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,19 +48,19 @@ int	ft_check_function(t_struct *data, char **args, char **true_path)
 	if (!args)
 		return (-1);
 	if (ft_strncmp(args[0], "echo", 4) == 1)
-		return (ft_echo(args));
+		return (ft_echo(args, 1));
 	else if (ft_strncmp(args[0], "export", 6) == 1)
-		return (ft_export(data, args));
+		return (ft_export(data, args, 1));
 	else if (ft_strncmp(args[0], "unset", 5) == 1)
 		return (-1);
 	else if (ft_strncmp(args[0], "pwd", 3) == 1)
-		return (ft_pwd(args));
+		return (ft_pwd(args, 1));
 	else if (ft_strncmp(args[0], "cd", 2) == 1)
-		return (ft_cd(data, args));
+		return (ft_cd(data, args, 1));
 	else if (ft_strncmp(args[0], "env", 3) == 1)
 		return (-1);
 	else if (ft_strncmp(args[0], "exit", 4) == 1)
-		return (ft_exit());
+		return (ft_exit(args, 1));
 	else
 		return (execve(true_path[0], args, data->env));
 }

@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:52:11 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/27 16:05:42 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/02 12:17:36 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,22 +47,21 @@ int	main(void)
 {
 	t_struct	data;
 	int		i;
-	int		j;
 	
 	i = -1;
-	j = -1;
+	data.launched_env = 0;
 	if (environ[0] == NULL)
 	{
 		ft_set_up_env(&data);
-		i = -2;
+		data.launched_env = 1;
 	}
 	else
 		data.env = environ;
-	while (data.env[++j])
-		printf("%s\n", data.env[j]);
+	while (data.env[++i])
+		printf("%s", data.env[i]);
 	ft_init_signals();
 	ft_main(g_sig_receiver, &data);
-	if (i == -2)
+	if (data.launched_env == 1)
 		ft_free(data.env);
 	return (0);
 }

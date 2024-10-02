@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 11:04:41 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/24 12:49:34 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/02 12:13:55 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,11 @@ char	**ft_replace_tab(char **tab, char **new_tab, char *new)
 	return (new_tab);
 }
 
-int	ft_export(t_struct *data, char **args)
+int	ft_export(t_struct *data, char **args, int key)
 {
 	char	**tab;
 
+	printf("started builtin export\n");
 	if (args[1])
 	{
 		tab = malloc (((ft_nb_arg(data->env)) + 2) * 8);
@@ -53,5 +54,10 @@ int	ft_export(t_struct *data, char **args)
 		data->env = tab;
 	}
 	// else // printf un tas de trucs dans l'ordre
-	return (1);
+	if (key == 1)
+	{
+		// free ici 
+		exit(EXIT_SUCCESS);
+	}
+	return (0);
 }

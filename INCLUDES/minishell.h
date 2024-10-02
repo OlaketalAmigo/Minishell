@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/02 11:02:34 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/02 12:04:50 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,16 +175,18 @@ int		ft_is_good_flag(char *s);
 int		ft_is_wrong_flag(char *s);
 int		ft_count_good_flags(char **tab);
 int		ft_count_wrong_flags(char **tab);
-int		ft_echo(char **args);
+int		ft_echo(char **args, int key);
 
 // PWD //
 
-int		ft_pwd(char **args);
+int		ft_pwd(char **args, int key);
 
 // CD //
 
+char	*ft_remove_home(char *s1);
 char	*ft_get_home(t_struct *data);
-int		ft_cd(t_struct *data, char	**args);
+int		ft_cd_main(t_struct *data, char **args, int i, char *path);
+int		ft_cd(t_struct *data, char **args, int key);
 
 // ENV //
 
@@ -192,11 +194,11 @@ int	ft_env(t_struct *data, int key);
 
 // EXIT //
 
-int		ft_exit(void);
+int		ft_exit(char **args, int key);
 
 // EXPORT //
 
 char	**ft_replace_tab(char **tab, char **new_tab, char *new);
-int		ft_export(t_struct *data, char **args);
+int		ft_export(t_struct *data, char **args, int key);
 
 #endif
