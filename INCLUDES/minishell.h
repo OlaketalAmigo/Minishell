@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/27 16:13:56 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/02 11:02:34 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct data
 	int		in_fd;
 	int		out_fd;
 	char	**env;
+	int		launched_env;
 	pid_t	pid;
 }	t_struct;
 
@@ -184,6 +185,10 @@ int		ft_pwd(char **args);
 
 char	*ft_get_home(t_struct *data);
 int		ft_cd(t_struct *data, char	**args);
+
+// ENV //
+
+int	ft_env(t_struct *data, int key);
 
 // EXIT //
 
