@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 11:04:41 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/02 16:25:16 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/10/02 16:31:34 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	ft_export(t_struct *data, t_args *arg, char **args, int key)
 	// else // printf un tas de trucs dans l'ordre
 	if (key == 1)
 	{
-		ft_free_child(args, data, arg);
+		ft_free_child(args, data, arg, NULL);
 		exit(EXIT_SUCCESS);
 	}
 	return (0);

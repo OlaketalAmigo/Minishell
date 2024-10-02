@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:08:47 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/02 16:23:50 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/10/02 16:30:29 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	ft_cd(t_struct *data, t_args *arg, char **args, int key)
 	ft_cd_main(data, args, i, path);
 	if (key == 1)
 	{
-		ft_free_child(args, data, arg);
+		ft_free_child(args, data, arg, NULL);
 		exit(EXIT_SUCCESS);
 	}
 	return (0);

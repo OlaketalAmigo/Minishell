@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 10:01:52 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/02 15:46:09 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/02 16:31:24 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_env(t_struct *data, t_args *arg, char **args, int key)
 	}
 	if (key == 1)
 		{
-			ft_free_child(args, data, arg);
+			ft_free_child(args, data, arg, NULL);
 			exit(EXIT_SUCCESS);
 		}
 	else
