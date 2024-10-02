@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utilis3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:36:49 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/02 15:57:09 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/02 16:24:27 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	ft_execve(char **path, char **args, t_struct *data, t_args *arg)
 	if (!path || !path[0])
 	{
 		printf("Command %s not found\n", arg->cmd);
-		ft_free_child(args, data, arg);
+		ft_free_child(args, data, arg, path);
 		exit(EXIT_FAILURE);
 	}
 	return (execve(path[0], args, data->env));

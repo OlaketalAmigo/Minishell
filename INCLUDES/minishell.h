@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/02 15:49:23 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/02 16:23:36 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int		ft_parser_check(t_struct *data);
 
 // SET UP ENV //
 
-int	ft_set_up_env(t_struct *data);
+int		ft_set_up_env(t_struct *data);
 
 // SIGNALS //
 
@@ -141,7 +141,8 @@ int		is_flag(char *arg);
 
 //EXEC UTILIS 2 //
 
-void	ft_free_child(char **args, t_struct *data, t_args *arg);
+void	ft_free_child(char **args, t_struct *data, t_args *arg, char **path);
+void	ft_fill_new_args(char **arg, t_args *full_arg);
 char	**check_access(char *tmp, int s);
 int		ft_hard_path(char *arg);
 int		ft_check_builtins(char *arg);
