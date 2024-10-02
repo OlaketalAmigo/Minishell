@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 15:01:37 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/01 23:03:52 by hehe             ###   ########.fr       */
+/*   Updated: 2024/10/02 12:23:17 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,8 @@ int	split_args(char **arg, t_args **new_args, t_struct *data)
 		ft_assign_args(&(*new_args)[i], temp, data);
 		ft_free(temp);
 		printf("cmd = %s\n", (*new_args)[i].cmd);
-		printf("args = %s\n", (*new_args)[i].args[0]);
 		printf("input = %s\n", (*new_args)[i].input);
 		printf("output = %s\n", (*new_args)[i].output);
-		printf("append = %d\n", (*new_args)[i].append);
 		i++;
 	}
 	return (count_commands(arg, data));
