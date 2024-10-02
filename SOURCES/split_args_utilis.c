@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_args_utilis.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:33:51 by gprunet           #+#    #+#             */
-/*   Updated: 2024/10/02 13:51:17 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/10/02 14:29:04 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,8 +107,10 @@ int	count_commands(char **arg, t_struct *data)
 
 	i = 0;
 	count = 0;
+	printf("arg[%d] = %s\n", i, arg[i]);
 	while (arg[i])
 	{
+		printf("arg[%d] = %s\n", i, arg[i]);
 		if (check_redirection_cmd(arg[i]) == 1)
 		{
 			count++;
@@ -322,7 +324,7 @@ t_args	ft_assign_args(t_args *new_args, char **temp, t_struct *data)
 		printf("temp[%d] = %s\n", i, temp[i]);
 		if (check_redirection(temp, new_args, &i) == 1)
 			continue ;
-		if (check_built(temp[i], new_args, &i) == 1)
+		if (check_built(temp[0], new_args, &i) == 1 && !(*new_args).cmd)
 			continue ;
 		if (ft_check_cmd(new_args, i, NULL) == 1)
 			break ;

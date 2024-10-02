@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utilis2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 13:08:46 by gprunet           #+#    #+#             */
-/*   Updated: 2024/10/02 11:04:59 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/10/02 15:07:25 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,27 @@ int	ft_hard_path(char *arg)
 	if (access(arg, X_OK) == 0)
 		return (1);
 	return (0);
+}
+
+char	**ft_true_path(t_struct *data, char *cmd)
+{
+	char	**tab;
+	char	*tmp;
+	int		i;
+
+	i = 0;
+	tab = NULL;
+	while (data->path[i] || cmd)
+	{
+		tmp = ft_strjoin(data->path[i], cmd);
+		if (ft_strchr(tmp, ' ') == 1)
+			tab = check_access(tmp, 1);
+		else if (access(tmp, X_OK) == 0)
+			tab = check_access(tmp, 0);
+		free(tmp);
+		if (tab)
+			break ;
+		i++;
+	}
+	return (tab);
 }

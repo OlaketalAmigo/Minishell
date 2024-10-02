@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 15:01:37 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/02 13:43:59 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/10/02 15:42:53 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	split_args(char **arg, t_args **new_args, t_struct *data)
 	*new_args = malloc(sizeof(t_args) * (count_commands(arg, data) + 1));
 	if (!*new_args)
 		return (0);
+	printf("arg[0] = %s\n", arg[0]);
 	while (arg[i])
 	{
 		temp = ft_split_cleared(arg[i], ' ');
@@ -109,7 +110,7 @@ void	ft_pipe_exec(t_struct *data, char **args, char **path, t_args *arg)
 			dup2(data->out_fd, 1);
 			close(data->out_fd);
 		}
-		if (ft_check_function(data, args, path, arg) == -1)
+		if (ft_check_function_pipe(data, args, path, arg) == -1)
 		{
 			printf("Command %s not found\n", arg->cmd);
 			ft_free_child(args, data, arg);
@@ -129,8 +130,11 @@ void	ft_algo_exec(t_struct *data, t_args *arg, int i, int cmd_count)
 		return ;
 	ft_check_i(i, cmd_count, data);
 	args = ft_fill_args(arg[i].cmd, arg[i].args);
-	if (ft_check_builtins(arg[i].cmd) && cmd_count == 1)
+	if (cmd_count == 1)
+	{
+		true_path = ft_assign_path(data, arg[i].cmd);
 		ft_check_function(data, args, true_path, &arg[i]);
+	}
 	else
 	{
 		true_path = ft_assign_path(data, arg[i].cmd);

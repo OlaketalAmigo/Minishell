@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/02 13:46:13 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/10/02 15:49:23 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,16 +142,16 @@ int		is_flag(char *arg);
 //EXEC UTILIS 2 //
 
 void	ft_free_child(char **args, t_struct *data, t_args *arg);
-void	ft_fill_new_args(char **arg, t_args *full_arg);
 char	**check_access(char *tmp, int s);
 int		ft_hard_path(char *arg);
 int		ft_check_builtins(char *arg);
+char	**ft_true_path(t_struct *data, char *cmd);
 
 // EXEC UTILIS 3 //ma
 
 char	**ft_split_cleared(char *s, char c);
+int		ft_check_function_pipe(t_struct *d, char **args, char **path, t_args *arg);
 int		ft_check_function(t_struct *d, char **args, char **path, t_args *arg);
-char	**ft_true_path(t_struct *data, char *cmd);
 int		ft_strncmp(char *s1, char *s2, int n);
 
 // SPLIT ARGS UTILIS //
@@ -185,30 +185,30 @@ int		ft_is_good_flag(char *s);
 int		ft_is_wrong_flag(char *s);
 int		ft_count_good_flags(char **tab);
 int		ft_count_wrong_flags(char **tab);
-int		ft_echo(char **args, int key);
+int		ft_echo(t_struct *data, t_args *arg, char **args, int key);
 
 // PWD //
 
-int		ft_pwd(char **args, int key);
+int		ft_pwd(t_struct *data, t_args *arg, char **args, int key);
 
 // CD //
 
 char	*ft_remove_home(char *s1);
 char	*ft_get_home(t_struct *data);
 int		ft_cd_main(t_struct *data, char **args, int i, char *path);
-int		ft_cd(t_struct *data, char **args, int key);
+int		ft_cd(t_struct *data, t_args *arg, char **args, int key);
 
 // ENV //
 
-int	ft_env(t_struct *data, int key);
+int	ft_env(t_struct *data, t_args *arg, char **args, int key);
 
 // EXIT //
 
-int		ft_exit(char **args, int key);
+int		ft_exit(t_struct *data, t_args *arg, char **args, int key);
 
 // EXPORT //
 
 char	**ft_replace_tab(char **tab, char **new_tab, char *new);
-int		ft_export(t_struct *data, char **args, int key);
+int		ft_export(t_struct *data, t_args *arg, char **args, int key);
 
 #endif

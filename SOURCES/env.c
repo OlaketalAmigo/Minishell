@@ -6,13 +6,13 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 10:01:52 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/02 11:24:59 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/02 15:46:09 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_env(t_struct *data, int key)
+int	ft_env(t_struct *data, t_args *arg, char **args, int key)
 {
 	int	i;
 
@@ -24,7 +24,7 @@ int	ft_env(t_struct *data, int key)
 	}
 	if (key == 1)
 		{
-			// FREE ICI
+			ft_free_child(args, data, arg);
 			exit(EXIT_SUCCESS);
 		}
 	else

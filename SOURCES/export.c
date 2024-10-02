@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 11:04:41 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/02 12:13:55 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/02 15:46:46 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	**ft_replace_tab(char **tab, char **new_tab, char *new)
 	return (new_tab);
 }
 
-int	ft_export(t_struct *data, char **args, int key)
+int	ft_export(t_struct *data, t_args *arg, char **args, int key)
 {
 	char	**tab;
 
@@ -56,7 +56,7 @@ int	ft_export(t_struct *data, char **args, int key)
 	// else // printf un tas de trucs dans l'ordre
 	if (key == 1)
 	{
-		// free ici 
+		ft_free_child(args, data, arg);
 		exit(EXIT_SUCCESS);
 	}
 	return (0);

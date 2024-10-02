@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_split.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 15:28:07 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/09/22 14:27:53 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/10/02 14:55:30 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,9 @@ char	**ft_mecanism(int length, char **tab, char *line, char c)
 	int (key2) = 1;
 	while (++i <= length)
 	{
-		if (line[i] == 34)
+		if (line[i] == 34 && key2 != -1)
 			key1 = -key1;
-		if (line[i] == 39)
+		if (line[i] == 39 && key1 != -1)
 			key2 = -key2;
 		if (line[i] != '\0' && line[i] != c && j == -1)
 			j = i;
@@ -83,8 +83,6 @@ char	**ft_mecanism(int length, char **tab, char *line, char c)
 			&& key1 > 0 && key2 > 0)
 		{
 			tab[z++] = ft_writeword(line, j, i);
-			if (line[i])
-				tab[z++] = ft_writeword(line, i, i + 1);
 			j = -1;
 		}
 	}
