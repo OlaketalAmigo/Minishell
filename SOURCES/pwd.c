@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:47:15 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/02 16:04:25 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/10/02 16:31:47 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_pwd(char **args, int key)
+int	ft_pwd(t_struct *data, t_args *arg, char **args, int key)
 {
 	int		i;
 	char	*cwd;
@@ -41,7 +41,7 @@ int	ft_pwd(char **args, int key)
 	}
 	if (key == 1)
 	{
-		// free all
+		ft_free_child(args, data, arg, NULL);
 		exit(EXIT_SUCCESS);
 	}
 	return (0);

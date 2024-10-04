@@ -6,7 +6,7 @@
 #    By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/24 14:38:38 by tfauve-p          #+#    #+#              #
-#    Updated: 2024/09/27 13:27:03 by gprunet          ###   ########.fr        #
+#    Updated: 2024/10/02 13:44:41 by gprunet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,8 @@ SOURCES = \
 	$(SOURCES_DIR)split_args_utilis.c \
 	$(SOURCES_DIR)assign_args_utilis.c \
 	$(SOURCES_DIR)export.c \
+	$(SOURCES_DIR)set_up_env.c \
+	$(SOURCES_DIR)env.c \
 	$(SOURCES_DIR)clear_to_function.c
 
 

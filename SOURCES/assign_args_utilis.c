@@ -25,6 +25,8 @@ int	check_built(char *temp, t_args *new_args, int *i)
 
 int	check_string(char *temp, int *i)
 {
+	if (!temp)
+		return (0);
 	if (ft_strchr(temp, '|') == 1 || is_empty(temp) == 1)
 	{
 		*i = *i + 1;

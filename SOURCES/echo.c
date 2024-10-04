@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:27:45 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/02 16:02:49 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/10/02 16:31:15 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	ft_count_good_flags(char **tab)
 	return (j);
 }
 
-int	ft_echo(char **args, int key)
+int	ft_echo(t_struct *data, t_args *arg, char **args, int key)
 {
 	int		option;
 	int		i;
@@ -118,7 +118,7 @@ int	ft_echo(char **args, int key)
 		printf("\n");
 	if (key == 1)
 	{
-		// FREE
+		ft_free_child(args, data, arg, NULL);
 		exit(EXIT_SUCCESS);
 	}
 	return (0);

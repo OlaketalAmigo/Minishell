@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 15:01:37 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/02 15:54:14 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/10/03 14:55:52 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ int	split_args(char **arg, t_args **new_args, t_struct *data)
 		(*new_args)[i].input = NULL;
 		(*new_args)[i].output = NULL;
 		(*new_args)[i].append = 0;
+		(*new_args)[i].out = 0;
+		(*new_args)[i].in = 0;
 		ft_assign_args(&(*new_args)[i], temp, data);
 		ft_free(temp);
 		i++;
@@ -62,7 +64,7 @@ char	**ft_fill_args(char *cmds, char **args)
 
 void	handle_redirection(t_args *arg, t_struct *data, char **path, char **args)
 {
-	int		fd;
+	int	fd;
 
 	if (arg->input)
 	{
@@ -108,7 +110,7 @@ void	ft_pipe_exec(t_struct *data, char **args, char **path, t_args *arg)
 			dup2(data->out_fd, 1);
 			close(data->out_fd);
 		}
-		if (ft_check_function(data, args, path, arg) == -1)
+		if (ft_check_function_pipe(data, args, path, arg) == -1)
 		{
 			printf("Command %s not found\n", arg->cmd);
 			ft_free_child(args, data, arg, path);
@@ -121,6 +123,7 @@ void	ft_algo_exec(t_struct *data, t_args *arg, int i, int cmd_count)
 {
 	char	**args;
 	char	**true_path;
+	int		saved_out;
 
 	args = NULL;
 	true_path = NULL;
@@ -128,13 +131,31 @@ void	ft_algo_exec(t_struct *data, t_args *arg, int i, int cmd_count)
 		return ;
 	ft_check_i(i, cmd_count, data);
 	args = ft_fill_args(arg[i].cmd, arg[i].args);
-	if (cmd_count == 1 && ft_check_builtins(arg[i].cmd) == 1)
-		ft_check_function(data, args, true_path, &arg[i]);
+	if (arg[i].out == 1)
+	{
+		saved_out = dup(1);
+		handle_redirection(&arg[i], data, true_path, args);
+	}
+	if (cmd_count == 1)
+	{
+		if (ft_check_builtins(arg[i].cmd) == 1)
+			ft_check_function(data, args, true_path, &arg[i]);
+		else
+		{
+			true_path = ft_assign_path(data, arg[i].cmd);
+			ft_check_function(data, args, true_path, &arg[i]);
+		}
+	}
 	else
 	{
 		true_path = ft_assign_path(data, arg[i].cmd);
 		data->pid = fork();
 		ft_pipe_exec(data, args, true_path, &arg[i]);
+	}
+	if (arg[i].out == 1)
+	{
+		dup2(saved_out, 1);
+		close(saved_out);
 	}
 	if (i < cmd_count - 1)
 		close(data->pipefd[1]);
@@ -159,6 +180,7 @@ void	ft_exec(t_struct *data)
 			i++;
 			continue ;
 		}
+		printf("cmd = %s\n", arg[i].cmd);
 		ft_algo_exec(data, arg, i, cmd_count);
 		i++;
 	}

@@ -1,24 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/19 16:46:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/02 16:31:30 by tfauve-p         ###   ########.fr       */
+/*   Created: 2024/10/02 10:01:52 by tfauve-p          #+#    #+#             */
+/*   Updated: 2024/10/02 16:31:24 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_exit(t_struct *data, t_args *arg, char **args, int key)
+int	ft_env(t_struct *data, t_args *arg, char **args, int key)
 {
-	printf("started builtin exit\n");
-	if (key == 1)
+	int	i;
+
+	i = -1;
+	printf("started builtin env\n");
+	while (data->env[++i])
 	{
-		ft_free_child(args, data, arg, NULL);
-		exit(EXIT_SUCCESS);
+		printf("%s\n", data->env[i]);
 	}
-	exit(EXIT_SUCCESS);
+	if (key == 1)
+		{
+			ft_free_child(args, data, arg, NULL);
+			exit(EXIT_SUCCESS);
+		}
+	else
+		return (1);
 }
