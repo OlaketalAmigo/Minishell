@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+         #
+#    By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/24 14:38:38 by tfauve-p          #+#    #+#              #
-#    Updated: 2024/10/02 13:44:41 by gprunet          ###   ########.fr        #
+#    Updated: 2024/10/05 13:44:24 by tfauve-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,11 +34,14 @@ SOURCES = \
 	$(SOURCES_DIR)pwd.c \
 	$(SOURCES_DIR)cd.c \
 	$(SOURCES_DIR)exit.c \
+	$(SOURCES_DIR)env.c \
+	$(SOURCES_DIR)export.c \
 	$(SOURCES_DIR)split_args_utilis.c \
 	$(SOURCES_DIR)assign_args_utilis.c \
-	$(SOURCES_DIR)export.c \
 	$(SOURCES_DIR)set_up_env.c \
-	$(SOURCES_DIR)env.c \
+	$(SOURCES_DIR)history.c \
+	$(SOURCES_DIR)history_utilis.c \
+	$(SOURCES_DIR)tools.c \
 	$(SOURCES_DIR)clear_to_function.c
 
 
@@ -61,35 +64,10 @@ BLUE = \033[0;34m
 RESET = \033[0;0m
 
 all: $(NAME)
+	@clear
+		@$(CC) $(CFLAGS) $(OBJECTS) -o $(NAME) -lreadline -lcurses
 
 $(NAME): $(OBJECTS)
-	@clear
-	@$(CC) $(CFLAGS) $(OBJECTS) -o $(NAME) -lreadline -lcurses
-	@echo -n "$(PURPLE)///"
-	@sleep 0.25
-	@echo -n "$(LIGHTPURPLE)///"
-	@sleep 0.25
-	@echo -n "$(RED)///"
-	@sleep 0.25
-	@echo -n "$(LIGHTRED)///"
-	@sleep 0.25
-	@echo -n "$(ORANGE)///"
-	@sleep 0.25
-	@echo -n "$(YELLOW)///"
-	@sleep 0.25
-	@echo -n "$(LIGHTGREEN)///"
-	@sleep 0.25
-	@echo -n "$(GREEN)///"
-	@sleep 0.25
-	@echo -n "$(LIGHTCYAN)///"
-	@sleep 0.25
-	@echo -n "$(CYAN)///"
-	@sleep 0.25
-	@echo -n "$(LIGHTBLUE)///"
-	@sleep 0.25
-	@echo "$(BLUE)///"
-	@sleep 0.25
-	@echo "$(GREEN)	Compilation Success"
 
 $(OBJECTS_DIR)%.o: $(SOURCES_DIR)%.c
 	@mkdir -p $(OBJECTS_DIR)

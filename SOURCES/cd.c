@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:08:47 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/02 16:30:29 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/05 12:47:52 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,19 +78,27 @@ int	ft_cd_main(t_struct *data, char **args, int i, char *path)
 	}
 }
 
-int	ft_cd(t_struct *data, t_args *arg, char **args, int key)
+int	ft_cd(t_struct *data, char **args)
 {
 	int		i;
-	char	*path;
+	char	*cd;
 
 	printf("started builtin cd\n");
 	i = ft_nb_arg(args);
-	path = NULL;
-	ft_cd_main(data, args, i, path);
-	if (key == 1)
-	{
-		ft_free_child(args, data, arg, NULL);
-		exit(EXIT_SUCCESS);
-	}
+	cd = NULL;
+	ft_cd_main(data, args, i, cd);
 	return (0);
+}
+
+int	ft_cd_pipe(t_struct *data, t_args *arg, char **args, char **path)
+{
+	int		i;
+	char	*cd;
+
+	printf("started builtin cd\n");
+	i = ft_nb_arg(args);
+	cd = NULL;
+	ft_cd_main(data, args, i, cd);
+	ft_free_child(args, data, arg, path);
+	exit(EXIT_SUCCESS);
 }

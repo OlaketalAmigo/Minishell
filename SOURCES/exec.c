@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 15:01:37 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/02 16:24:49 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/10/02 17:30:35 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,8 +131,13 @@ void	ft_algo_exec(t_struct *data, t_args *arg, int i, int cmd_count)
 	args = ft_fill_args(arg[i].cmd, arg[i].args);
 	if (cmd_count == 1)
 	{
-		true_path = ft_assign_path(data, arg[i].cmd);
-		ft_check_function(data, args, true_path, &arg[i]);
+		if (ft_check_builtins(args[0]) == 1)
+			ft_check_function(data, args, true_path, &arg[i]);
+		else
+		{
+			true_path = ft_assign_path(data, arg[i].cmd);
+			ft_check_function(data, args, true_path, &arg[i]);
+		}
 	}
 	else
 	{

@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:52:11 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/02 15:17:45 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/05 15:07:40 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_main(int g_sig_receiver, t_struct *data)
 			continue ;
 		if (data->line && data->line[0] != '\0')
 		{
-			add_history(data->line);
+			ft_update_history(data->line);
 			if (ft_parser(data) < 0)
 				continue ;
 			ft_exec(data);
@@ -57,9 +57,8 @@ int	main(void)
 	}
 	else
 		data.env = environ;
-	// while (data.env[++i])
-	// 	printf("%s", data.env[i]);
 	ft_init_signals();
+	ft_set_up_history();
 	ft_main(g_sig_receiver, &data);
 	if (data.launched_env == 1)
 		ft_free(data.env);

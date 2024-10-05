@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 15:28:07 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/02 14:55:30 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/02 17:14:38 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ char	**ft_mecanism(int length, char **tab, char *line, char c)
 			&& key1 > 0 && key2 > 0)
 		{
 			tab[z++] = ft_writeword(line, j, i);
+			if (line[i])
+				tab[z++] = ft_writeword(line, i, i + 1);
 			j = -1;
 		}
 	}
