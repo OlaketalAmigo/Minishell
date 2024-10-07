@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+         #
+#    By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/24 14:38:38 by tfauve-p          #+#    #+#              #
-#    Updated: 2024/10/07 12:30:31 by gprunet          ###   ########.fr        #
+#    Updated: 2024/10/07 15:51:47 by tfauve-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,9 @@ SOURCES = \
 	$(SOURCES_DIR)cd.c \
 	$(SOURCES_DIR)exit.c \
 	$(SOURCES_DIR)env.c \
+	$(SOURCES_DIR)unset.c \
 	$(SOURCES_DIR)export.c \
+	$(SOURCES_DIR)export_utilis.c \
 	$(SOURCES_DIR)split_args_utilis.c \
 	$(SOURCES_DIR)assign_args_utilis.c \
 	$(SOURCES_DIR)set_up_env.c \

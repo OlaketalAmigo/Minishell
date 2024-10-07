@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/07 12:29:27 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/10/07 15:59:28 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,11 +218,24 @@ int		ft_env(t_struct *data);
 int		ft_exit(t_struct *data, t_args *arg, char **args, char **path);
 int		ft_exit_pipe(t_struct *data, t_args *arg, char **args, char **path);
 
+// UNSET //
+
+char	*ft_str_with_equal(char *args);
+int		ft_unset(t_struct *data, char **args);
+int		ft_unset_pipe(t_struct *data, t_args *arg, char **args, char **path);
+
 // EXPORT //
 
-char	**ft_replace_tab(char **tab, char **new_tab, char *new);
+void	ft_export_printf_ordered(t_struct *data);
 int		ft_export(t_struct *data, char **args);
 int		ft_export_pipe(t_struct *data, t_args *arg, char **args, char **path);
+
+// EXPORT UTILIS //
+
+char	*ft_str_until_equal(char *args);
+int		ft_search(char *str, char **tab);
+void	ft_export_add(t_struct *data, char *args);
+void	ft_export_update(t_struct *data, char *args);
 
 // HISTORY //
 
@@ -239,6 +252,9 @@ char	*ft_to_return(char *string);
 
 // TOOLS //
 
+void	ft_swap(char *s1, char *s2);
+int		ft_strcmp(char *s1, char *s2);
+char	**ft_replace_tab(char **tab, char **new_tab, char *new);
 int		ft_strchr_gnl(const char *s, int c);
 char	*ft_strjoin_gnl(char *s1, char *s2);
 

@@ -1,1 +1,1 @@
-lsd < output.txt 
+export aa=pogog"opog" Pog="4512"
