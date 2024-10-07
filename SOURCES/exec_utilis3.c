@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utilis3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:36:49 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/05 12:50:48 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/07 12:31:09 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int	ft_execve(char **path, char **args, t_struct *data, t_args *arg)
 	return (execve(path[0], args, data->env));
 }
 
+int	ft_check_function_pipe(t_struct *d, char **args, char **path, t_args *arg)
 int	ft_check_function_pipe(t_struct *d, char **args, char **path, t_args *arg)
 {
 	if (!args)
@@ -103,5 +104,6 @@ int	ft_check_function(t_struct *d, char **args, char **path, t_args *arg)
 			return (ft_execve(path, args, d, arg));
 		waitpid(d->pid, NULL, 0);
 	}
+	return (0);
 	return (0);
 }

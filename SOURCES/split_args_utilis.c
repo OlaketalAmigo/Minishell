@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:33:51 by gprunet           #+#    #+#             */
-/*   Updated: 2024/10/02 16:25:55 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/10/07 12:32:46 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,7 +210,7 @@ char	*check_next(char **temp, int *i, char *c)
 	if (str[len - 1] == c[0])
 	{
 		str = ft_strdup(temp[*i + 2]);
-		*i = *i + 2;
+		*i = *i + 3;
 		return (str);
 	}
 	if (str[len - 1] != c[0])
@@ -234,7 +234,8 @@ int	separate_command2(char **temp, t_args *new_args, int *i)
 	int	j;
 	int	k;
 
-	(*new_args).cmd = malloc(sizeof(char) * ft_strlen(temp[*i]) + 1);
+	if (!(*new_args).cmd)
+		(*new_args).cmd = malloc(sizeof(char) * ft_strlen(temp[*i]) + 1);
 	if (!(*new_args).cmd)
 		return (0);
 	j = 0;
@@ -262,46 +263,55 @@ int	separate_command2(char **temp, t_args *new_args, int *i)
 	return (1);
 }
 
-int	separate_command(char **temp, t_args *new_args, int *i)
+int	separate_command(char **temp, t_args *new_args, int *i, int *args)
 {
 	int	j;
 	int	k;
 
-	(*new_args).cmd = malloc(sizeof(char) * ft_strlen(temp[*i]) + 1);
-	if (!(*new_args).cmd || !(*new_args).output)
+	if (!(*new_args).cmd)
+		(*new_args).cmd = malloc(sizeof(char) * ft_strlen(temp[*i]) + 1);
+	(*new_args).args[0] = malloc(sizeof(char) * ft_strlen(temp[*i]) + 1);
+	if (!(*new_args).cmd)
 		return (0);
 	j = 0;
 	k = 0;
 	while (temp[*i][j] != '>')
 	{
-		new_args->cmd[j] = (temp[*i][j]);
+		new_args->args[0][j] = temp[*i][j];
 		j++;
 	}
-	new_args->cmd[j] = '\0';
+	new_args->args[0][j] = '\0';
+	*args = *args + 1;
+	k = 0;
 	j++;
+	if (check_append(temp[*i]) == 1)
+		(*new_args).append = 1;
 	if (!temp[*i][j])
-		(*new_args).output = malloc(sizeof(char) * ft_strlen(temp[*i]) + 1);
+	{
+		(*new_args).output = ft_strdup(temp[*i + 2]);
+		*i = *i + 3;
+	}
 	else
 	{
+		(*new_args).output = malloc(sizeof(char) * ft_strlen(temp[*i]) + 1);
 		while (temp[*i][j + k])
 		{
 			(*new_args).output[k] = temp[*i][j + k];
 			k++;
 		}
 		(*new_args).output[k] = '\0';
+		*i = *i + 1;
 	}
-	if (check_append(temp[*i]) == 1)
-		(*new_args).append = 1;
-	*i = *i + 1;
+	(*new_args).out = 1;
 	return (1);
 }
 
-int	check_redirection(char **temp, t_args *new_args, int *i)
+int	check_redirection(char **temp, t_args *new_args, int *i, int *j)
 {
 	if (ft_strchr(temp[*i], '<') == 1 && temp[*i][0] != '<')
 		return (separate_command2(temp, new_args, &(*i)));
 	if (ft_strchr(temp[*i], '>') == 1 && temp[*i][0] != '>')
-		return (separate_command(temp, new_args, &(*i)));
+		return (separate_command(temp, new_args, &(*i), &(*j)));
 	if (ft_strchr(temp[*i], '<') == 1)
 	{
 		(*new_args).input = check_next(temp, &(*i), "<");
@@ -309,6 +319,7 @@ int	check_redirection(char **temp, t_args *new_args, int *i)
 	}
 	if (ft_strchr(temp[*i], '>') == 1)
 	{
+		(*new_args).out = 1;
 		if (check_append(temp[*i]) == 1)
 		{
 			(*new_args).output = check_next(temp, &(*i), ">>");
@@ -331,7 +342,7 @@ t_args	ft_assign_args(t_args *new_args, char **temp, t_struct *data)
 	j = 0;
 	while (temp[i])
 	{
-		if (check_redirection(temp, new_args, &i) == 1)
+		if (check_redirection(temp, new_args, &i, &j) == 1)
 			continue ;
 		if (check_built(temp[0], new_args, &i) == 1 && !(*new_args).cmd)
 			continue ;
@@ -341,7 +352,7 @@ t_args	ft_assign_args(t_args *new_args, char **temp, t_struct *data)
 			continue ;
 		if (verif_command(data, &temp[i], new_args) == 1)
 			(*new_args).cmd = ft_strdup(temp[i]);
-		else if ((*new_args).cmd)
+		else if ((*new_args).cmd && check_redirection(temp, new_args, &i, &j) == 0)
 			(*new_args).args[j++] = ft_strdup(temp[i]);
 		else if (ft_check_cmd(new_args, i, "free") == 1)
 			break ;

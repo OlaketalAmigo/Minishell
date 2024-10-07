@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 12:27:46 by gprunet           #+#    #+#             */
-/*   Updated: 2024/09/22 14:37:37 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/10/03 13:14:26 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ int	ft_strchr(char *s, char c)
 	int	i;
 
 	i = 0;
+	if (!s)
+		return (0);
 	while (s[i])
 	{
 		if (s[i] == c)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/05 15:00:25 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/07 12:29:27 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ typedef struct s_cmd
 	char	*input;
 	char	*output;
 	int		append;
+	int		in;
+	int		out;
 }	t_args;
 
 // SIGNALS //
@@ -127,6 +129,7 @@ void	ft_handle_signals(void);
 
 void	ft_exec(t_struct *data);
 int		split_args(char **arg, t_args **new_args, t_struct *data);
+void	handle_redirection(t_args *arg, t_struct *data, char **path, char **args);
 
 // FT EXEC UTILIS //
 
