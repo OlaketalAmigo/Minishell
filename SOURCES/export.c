@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 11:04:41 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/02 16:31:34 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/07 12:31:34 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	**ft_replace_tab(char **tab, char **new_tab, char *new)
 	return (new_tab);
 }
 
-int	ft_export(t_struct *data, t_args *arg, char **args, int key)
+int	ft_export(t_struct *data, char **args)
 {
 	char	**tab;
 
@@ -54,10 +54,23 @@ int	ft_export(t_struct *data, t_args *arg, char **args, int key)
 		data->env = tab;
 	}
 	// else // printf un tas de trucs dans l'ordre
-	if (key == 1)
-	{
-		ft_free_child(args, data, arg, NULL);
-		exit(EXIT_SUCCESS);
-	}
 	return (0);
+}
+
+int	ft_export_pipe(t_struct *data, t_args *arg, char **args, char **path)
+{
+	char	**tab;
+
+	printf("started builtin export\n");
+	if (args[1])
+	{
+		tab = malloc (((ft_nb_arg(data->env)) + 2) * 8);
+		if (!tab)
+			return (0);
+		tab = ft_replace_tab(data->env, tab, args[1]); // douteux
+		data->env = tab;
+	}
+	// else // printf un tas de trucs dans l'ordre
+	ft_free_child(args, data, arg, path);
+	exit(EXIT_SUCCESS);
 }

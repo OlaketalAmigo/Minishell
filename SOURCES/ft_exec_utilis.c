@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 16:05:50 by gprunet           #+#    #+#             */
-/*   Updated: 2024/10/03 14:48:33 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/10/07 15:41:51 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	ft_check_i(int i, int cmd_count, t_struct *data)
 		if (pipe(data->pipefd) == -1)
 		{
 			close(data->pipefd[0]);
+			close(data->pipefd[1]);
 			exit(EXIT_FAILURE);
 		}
 		data->out_fd = data->pipefd[1];
@@ -46,6 +47,7 @@ void	ft_2nd_exec(t_struct *data, char **args, char **true_path)
 	ft_free(args);
 	if (data->pid != 0)
 		waitpid(data->pid, NULL, 0);
+	printf("les problemes\n");
 }
 
 char	**ft_assign_path(t_struct *data, char *cmd)

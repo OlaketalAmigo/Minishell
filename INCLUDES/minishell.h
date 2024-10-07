@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/03 14:44:46 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/10/07 13:20:44 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,10 @@
 # include "fcntl.h"
 # include "sys/types.h"
 # include "sys/wait.h"
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 100
+# endif
 
 // COLORS //
 
@@ -175,6 +179,7 @@ void	ft_free_struct(t_args **arg, int cmd_count);
 void	ft_free_all(t_struct *data);
 void	ft_free(char **tab);
 void	ft_exec_cleanup(t_struct *data, t_args *arg, int cmd_count);
+void	ft_single_arg(t_args *arg);
 
 // CLEAR TO FUNCTION	
 
@@ -188,31 +193,54 @@ char	**ft_clear_to_function(char **tab);
 int		ft_is_good_flag(char *s);
 int		ft_is_wrong_flag(char *s);
 int		ft_count_good_flags(char **tab);
-int		ft_count_wrong_flags(char **tab);
-int		ft_echo(t_struct *data, t_args *arg, char **args, int key);
+int		ft_echo(char **args);
+int		ft_echo_pipe(t_struct *data, t_args *arg, char **args, char **paths);
 
 // PWD //
 
-int		ft_pwd(t_struct *data, t_args *arg, char **args, int key);
+int		ft_pwd(char **args);
+int		ft_pwd_pipe(t_struct *data, t_args *arg, char **args, char **path);
 
 // CD //
 
 char	*ft_remove_home(char *s1);
 char	*ft_get_home(t_struct *data);
 int		ft_cd_main(t_struct *data, char **args, int i, char *path);
-int		ft_cd(t_struct *data, t_args *arg, char **args, int key);
+int		ft_cd(t_struct *data, char **args);
+int		ft_cd_pipe(t_struct *data, t_args *arg, char **args, char **path);
 
 // ENV //
 
-int	ft_env(t_struct *data, t_args *arg, char **args, int key);
+int		ft_env_pipe(t_struct *data, t_args *arg, char **args, char **path);
+int		ft_env(t_struct *data);
 
 // EXIT //
 
-int		ft_exit(t_struct *data, t_args *arg, char **args, int key);
+int		ft_exit(t_struct *data, t_args *arg, char **args, char **path);
+int		ft_exit_pipe(t_struct *data, t_args *arg, char **args, char **path);
 
 // EXPORT //
 
 char	**ft_replace_tab(char **tab, char **new_tab, char *new);
-int		ft_export(t_struct *data, t_args *arg, char **args, int key);
+int		ft_export(t_struct *data, char **args);
+int		ft_export_pipe(t_struct *data, t_args *arg, char **args, char **path);
+
+// HISTORY //
+
+void	ft_putchar_fd(char c, int fd);
+void	ft_update_history(char *line);
+void 	ft_set_up_history(void);
+
+// HISTORY UTILIS //
+
+int		ft_read_line(int fd, char **stock);
+char	*get_next_line(int fd);
+char	*ft_to_keep(char *string);
+char	*ft_to_return(char *string);
+
+// TOOLS //
+
+int		ft_strchr_gnl(const char *s, int c);
+char	*ft_strjoin_gnl(char *s1, char *s2);
 
 #endif

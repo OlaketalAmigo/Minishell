@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:59:25 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/02 15:39:50 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/07 12:32:25 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,5 @@ int	ft_parser(t_struct *data)
 		return (-1);
 	}
 	ft_set_up_struct(data);
-	// if ((ft_nb_arg(data->arg) % 2) == 0)
-	// {
-	// 	ft_free(data->arg);
-	// 	printf("Erreur d'entree\n");
-	// 	return (-1);
-	// }
 	return (1);
 }
