@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:33:51 by gprunet           #+#    #+#             */
-/*   Updated: 2024/10/07 12:32:46 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/10/07 12:40:34 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -344,7 +344,7 @@ t_args	ft_assign_args(t_args *new_args, char **temp, t_struct *data)
 	{
 		if (check_redirection(temp, new_args, &i, &j) == 1)
 			continue ;
-		if (check_built(temp[0], new_args, &i) == 1 && !(*new_args).cmd)
+		if (!(*new_args).cmd && check_built(temp[0], new_args, &i) == 1)
 			continue ;
 		if (ft_check_cmd(new_args, i, NULL) == 1)
 			break ;

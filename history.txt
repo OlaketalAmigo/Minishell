@@ -1,1 +1,1 @@
-lsh pog fufn
+pwd < output.txt 
