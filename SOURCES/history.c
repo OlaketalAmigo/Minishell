@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 12:41:41 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/07 12:31:50 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/10/07 12:42:54 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void 	ft_set_up_history(void)
 		add_history(line);
 	while (line)
 	{
+		free(line);
 		line = get_next_line(i);
 		if (line)
 			add_history(line);
