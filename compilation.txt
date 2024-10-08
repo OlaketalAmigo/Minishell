@@ -1,0 +1,27 @@
+@clear
+	@$(CC) $(CFLAGS) $(OBJECTS) -o $(NAME) -lreadline -lcurses
+	@echo -n "$(PURPLE)///"
+	@sleep 0.25
+	@echo -n "$(LIGHTPURPLE)///"
+	@sleep 0.25
+	@echo -n "$(RED)///"
+	@sleep 0.25
+	@echo -n "$(LIGHTRED)///"
+	@sleep 0.25
+	@echo -n "$(ORANGE)///"
+	@sleep 0.25
+	@echo -n "$(YELLOW)///"
+	@sleep 0.25
+	@echo -n "$(LIGHTGREEN)///"
+	@sleep 0.25
+	@echo -n "$(GREEN)///"
+	@sleep 0.25
+	@echo -n "$(LIGHTCYAN)///"
+	@sleep 0.25
+	@echo -n "$(CYAN)///"
+	@sleep 0.25
+	@echo -n "$(LIGHTBLUE)///"
+	@sleep 0.25
+	@echo "$(BLUE)///"
+	@sleep 0.25
+	@echo "$(GREEN)	Compilation Success"

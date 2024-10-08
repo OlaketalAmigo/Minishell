@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:36:49 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/07 15:01:08 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/10/07 12:34:14 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,18 @@ int	ft_strncmp(char *s1, char *s2, int n)
 
 int	ft_execve(char **path, char **args, t_struct *data, t_args *arg)
 {
-	if ((!path || !path[0]) && arg->in == 0)
+	int	result;
+
+	if (!path || !path[0])
 	{
 		printf("Command %s not found\n", arg->cmd);
 		ft_free_child(args, data, arg, path);
-		exit(EXIT_FAILURE);
+		return (-1);
 	}
-	return (execve(path[0], args, data->env));
+	printf("We gonna execute %s\n", arg->cmd);
+	result = execve(path[0], args, data->env);
+	perror("execve errror");
+	return (result);
 }
 
 int	ft_check_function_pipe(t_struct *d, char **args, char **path, t_args *arg)
@@ -94,14 +99,12 @@ int	ft_check_function(t_struct *d, char **args, char **path, t_args *arg)
 		return (ft_env(d));
 	else if (ft_strncmp(args[0], "exit", 4) == 1)
 		return (ft_exit(d, arg, args, path));
+	d->pid = fork();
+	if (d->pid == -1)
+		return (-1);
+	if (d->pid == 0)
+		return (ft_execve(path, args, d, arg));
 	else
-	{
-		d->pid = fork();
-		if (d->pid == -1)
-			return (-1);
-		if (d->pid == 0)
-			return (ft_execve(path, args, d, arg));
 		waitpid(d->pid, NULL, 0);
-	}
 	return (0);
 }

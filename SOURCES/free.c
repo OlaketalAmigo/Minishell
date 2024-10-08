@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 15:06:49 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/07 15:00:20 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/10/03 15:01:50 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,6 @@ void	ft_free_args(char ***args)
 	}
 	free(*args);
 	*args = NULL;
-}
-
-void	ft_single_arg(t_args *arg)
-{
-	free(arg->input);
-	free (arg);
 }
 
 void	ft_free_struct(t_args **arg, int cmd_count)

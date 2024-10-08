@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:33:51 by gprunet           #+#    #+#             */
-/*   Updated: 2024/10/07 13:12:22 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/10/07 12:40:34 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -306,7 +306,7 @@ int	separate_command(char **temp, t_args *new_args, int *i, int *args)
 	return (1);
 }
 
-int	check_redirec(char **temp, t_args *new_args, int *i, int *j)
+int	check_redirection(char **temp, t_args *new_args, int *i, int *j)
 {
 	if (ft_strchr(temp[*i], '<') == 1 && temp[*i][0] != '<')
 		return (separate_command2(temp, new_args, &(*i)));
@@ -315,7 +315,6 @@ int	check_redirec(char **temp, t_args *new_args, int *i, int *j)
 	if (ft_strchr(temp[*i], '<') == 1)
 	{
 		(*new_args).input = check_next(temp, &(*i), "<");
-		(*new_args).in = 1;
 		return (1);
 	}
 	if (ft_strchr(temp[*i], '>') == 1)
@@ -343,7 +342,7 @@ t_args	ft_assign_args(t_args *new_args, char **temp, t_struct *data)
 	j = 0;
 	while (temp[i])
 	{
-		if (check_redirec(temp, new_args, &i, &j) == 1)
+		if (check_redirection(temp, new_args, &i, &j) == 1)
 			continue ;
 		if (!(*new_args).cmd && check_built(temp[0], new_args, &i) == 1)
 			continue ;
@@ -353,7 +352,7 @@ t_args	ft_assign_args(t_args *new_args, char **temp, t_struct *data)
 			continue ;
 		if (verif_command(data, &temp[i], new_args) == 1)
 			(*new_args).cmd = ft_strdup(temp[i]);
-		else if ((*new_args).cmd && check_redirec(temp, new_args, &i, &j) == 0)
+		else if ((*new_args).cmd && check_redirection(temp, new_args, &i, &j) == 0)
 			(*new_args).args[j++] = ft_strdup(temp[i]);
 		else if (ft_check_cmd(new_args, i, "free") == 1)
 			break ;

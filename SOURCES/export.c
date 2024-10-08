@@ -3,57 +3,60 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 11:04:41 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/07 12:31:34 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/10/07 15:26:06 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**ft_replace_tab(char **tab, char **new_tab, char *new)
+void	ft_export_printf_ordered(t_struct *data)
 {
-	int		j;
-	int		k;
+	int	i;
+	int	j;
+	int	k;
 
-	j = -1;
-	while (tab[++j])
+	k = ft_nb_arg(data->env);
+	i = 0;
+	while (i < k)
 	{
-		k = -1;
-		new_tab[j] = malloc ((ft_strlen(tab[j]) + 1) * 1);
-		if (!new_tab)
-			return (NULL);
-		while (tab[j][++k])
-			new_tab[j][k] = tab[j][k];
-		new_tab[j][k] = '\0';
+		j = i + 1;
+		while (j < k)
+		{
+			if (ft_strcmp(data->env[i], data->env[j]) < 0)
+			{
+				ft_swap(data->env[i], data->env[j]);
+				j = i + 1;
+			}
+			else
+				j++;
+		}
+		i++;
 	}
-	k = -1;
-	new_tab[j] = malloc ((ft_strlen(new) + 1) * 1);
-	if (!new_tab)
-		return (NULL);
-	while (new[++k])
-		new_tab[j][k] = new[k];
-	new_tab[j][k] = '\0';
-	new_tab[j + 1] = NULL;
-	ft_free(tab);
-	return (new_tab);
 }
 
 int	ft_export(t_struct *data, char **args)
 {
-	char	**tab;
+	int		i;
+	char	*str;
 
 	printf("started builtin export\n");
-	if (args[1])
+	i = 0;
+	if (args[i])
 	{
-		tab = malloc (((ft_nb_arg(data->env)) + 2) * 8);
-		if (!tab)
-			return (0);
-		tab = ft_replace_tab(data->env, tab, args[1]); // douteux
-		data->env = tab;
+		while (args[i])
+		{
+			str = ft_str_until_equal(args[i]);
+			if (ft_search(str, data->env) == 1)
+				ft_export_update(data, args[i]);
+			else
+				ft_export_add(data, args[i]);
+		}
 	}
-	// else // printf un tas de trucs dans l'ordre
+	else
+		ft_export_printf_ordered(data);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:52:11 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/07 14:48:23 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/10/07 12:32:07 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,7 @@ void	ft_main(int g_sig_receiver, t_struct *data)
 int	main(void)
 {
 	t_struct	data;
-	int			i;
 
-	i = -1;
 	data.launched_env = 0;
 	if (environ[0] == NULL)
 	{

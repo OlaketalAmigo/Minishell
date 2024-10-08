@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:27:45 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/07 13:32:03 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/10/07 12:30:15 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ int	ft_echo(char **args)
 
 	option = 0;
 	i = 1;
-	printf("started builtin echo\n");
 	if (ft_count_good_flags(args) >= 1)
 		option = 1;
 	if (ft_count_good_flags(args) == -1)
@@ -111,7 +110,6 @@ int	ft_echo_pipe(t_struct *data, t_args *arg, char **args, char **path)
 
 	option = 0;
 	i = 1;
-	printf("started builtin echo_pipe\n");
 	if (ft_count_good_flags(args) >= 1)
 		option = 1;
 	if (ft_count_good_flags(args) == -1)
