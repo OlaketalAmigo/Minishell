@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/07 15:59:28 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/08 16:00:17 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,8 @@ int		ft_parser_check(t_struct *data);
 
 // SET UP ENV //
 
-int		ft_set_up_env(t_struct *data);
+int		ft_write_env(t_struct *data);
+void		ft_set_up_env(t_struct *data, char **environ);
 
 // SIGNALS //
 
@@ -232,6 +233,7 @@ int		ft_export_pipe(t_struct *data, t_args *arg, char **args, char **path);
 
 // EXPORT UTILIS //
 
+char	*ft_put_string_to_tab(t_struct *data, char **tab, int i, int j);
 char	*ft_str_until_equal(char *args);
 int		ft_search(char *str, char **tab);
 void	ft_export_add(t_struct *data, char *args);
@@ -252,7 +254,7 @@ char	*ft_to_return(char *string);
 
 // TOOLS //
 
-void	ft_swap(char *s1, char *s2);
+char	**ft_swap(t_struct *data, int i, int j);
 int		ft_strcmp(char *s1, char *s2);
 char	**ft_replace_tab(char **tab, char **new_tab, char *new);
 int		ft_strchr_gnl(const char *s, int c);

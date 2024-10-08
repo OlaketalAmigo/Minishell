@@ -6,11 +6,23 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 13:01:01 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/07 16:01:19 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/08 16:51:07 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char 	*ft_put_string_to_tab(t_struct *data, char **tab, int i, int j)
+{
+	int	b;
+
+	b = -1;
+	tab[i] = malloc ((ft_strlen(data->env[j]) + 1) * 1);
+	while (++b < ft_strlen(data->env[j]))
+		tab[i][b] = data->env[j][b];
+	tab[i][b] = '\0';
+	return (tab[i]);
+}
 
 char	*ft_str_until_equal(char *args)
 {
@@ -23,7 +35,7 @@ char	*ft_str_until_equal(char *args)
 	while (args[i] && args[i] != 61)
 		i++;
 	str = malloc ((i + 1) * 1);
-	while (++j < i)
+	while (++j < i && args[j])
 		str[j] = args[j];
 	str[j] = '\0';
 	return (str);
@@ -52,7 +64,6 @@ void	ft_export_add(t_struct *data, char *args)
 	tab = ft_replace_tab(data->env, tab, args);
 	ft_free(data->env);
 	data->env = tab;
-	ft_free(tab);
 }
 
 void	ft_export_update(t_struct *data, char *args)
