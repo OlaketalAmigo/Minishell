@@ -59,9 +59,11 @@ int	c_args(char **temp, t_struct *data)
 	count = 0;
 	while (temp[i])
 	{
-		if (ft_strchr(temp[i], '|') == 0)
+		if (ft_strchr(temp[i], '|') == 0 && is_empty(temp[i]) == 0)
 		{
-			if (!ft_check_path(data, temp[i]))
+			if ((i > 1 && ft_check_path(data, temp[i - 2])))
+				count++;
+			else if (!ft_check_path(data, temp[i]))
 				count++;
 		}
 		i++;
@@ -107,10 +109,9 @@ int	count_commands(char **arg, t_struct *data)
 
 	i = 0;
 	count = 0;
-	// printf("arg[%d] = %s\n", i, arg[i]);
 	while (arg[i])
 	{
-		// printf("arg[%d] = %s\n", i, arg[i]);
+		//printf("arg[%d] = %s\n", i, arg[i]);
 		if (check_redirection_cmd(arg[i]) == 1)
 		{
 			count++;

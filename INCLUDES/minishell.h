@@ -181,6 +181,8 @@ void	ft_free_struct(t_args **arg, int cmd_count);
 void	ft_free_all(t_struct *data);
 void	ft_free(char **tab);
 void	ft_exec_cleanup(t_struct *data, t_args *arg, int cmd_count);
+void	ft_free_one_arg(t_args *arg);
+void	ft_free_args(char ***args);
 
 // CLEAR TO FUNCTION	
 

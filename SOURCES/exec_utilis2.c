@@ -44,6 +44,7 @@ void	ft_free_child(char **args, t_struct *data, t_args *arg, char **path)
 		ft_free(path);
 	ft_free(args);
 	ft_free(data->arg);
+	free(arg);
 }
 
 char	**check_access(char *tmp, int s)

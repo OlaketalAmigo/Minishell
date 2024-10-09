@@ -126,6 +126,5 @@ int	ft_echo_pipe(t_struct *data, t_args *arg, char **args, char **path)
 	if (option == 0)
 		printf("\n");
 	ft_free_child(args, data, arg, path);
-	free(arg);
 	exit(EXIT_SUCCESS);
 }

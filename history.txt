@@ -1,1 +1,1 @@
-ls -l | wc -ltxt t.txt    | wc -lput.txt 
+echo hehe > output.txt | cat < output.txt 

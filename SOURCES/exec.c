@@ -133,7 +133,7 @@ void	ft_algo_exec(t_struct *data, t_args *arg, int i)
 	handle_redirection(&arg[i], data, data->path, args);
 	if (ft_check_builtins(arg[i].cmd) && !arg->output)
 	{
-		if (ft_check_function_pipe(data, args, data->path, &arg[i]) == -1)
+		if (ft_check_function(data, args, data->path, &arg[i]) == -1)
 		{
 			printf("Command %s not found\n", arg[i].cmd);
 			ft_free_child(args, data, &arg[i], data->path);
@@ -216,7 +216,6 @@ void	ft_exec(t_struct *data)
 			continue ;
 		}
 		//print_struc(arg[i]);
-		printf("i = %d\n", i);
 		if (i < cmd_count - 1)
 		{
 			if (pipe(data->pipefd) == -1)
