@@ -1,1 +1,1 @@
-echo hehe > output.txt | cat < output.txt 
+cat < output.txtadatxt | cat < output.txt  |cat <output.txt 

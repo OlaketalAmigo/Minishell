@@ -131,7 +131,7 @@ void	ft_handle_signals(void);
 
 void	ft_exec(t_struct *data);
 int		split_args(char **arg, t_args **new_args, t_struct *data);
-void	handle_redirection(t_args *arg, t_struct *data, char **path, char **args);
+int		handle_redirection(t_args *arg, t_struct *data, char **args);
 
 // FT EXEC UTILIS //
 
@@ -169,11 +169,30 @@ int		ft_strncmp(char *s1, char *s2, int n);
 int		c_args(char **temp, t_struct *data);
 int		count_commands(char **arg, t_struct *data);
 t_args	ft_assign_args(t_args *new_args, char **temp, t_struct *data);
+char	*ft_strstr(char *str, char *find);
+int		ft_check_hard_path(t_struct *data, char *arg);
+int		ft_check_path(t_struct *data, char *arg);
+
+// REDIRECTION //
+
+int		check_redirection(char **temp, t_args *new_args, int *i, int *j);
+int		separate_command(char **temp, t_args *new_args, int *i, int *args);
+int		separate_command2(char **temp, t_args *new_args, int *i);
+char	*check_next(char **temp, int *i, char *c);
+
+// REDIRECTION UTILIS //
+
+int		check_redirection_cmd(char *arg);
+char	*ft_strstr(char *str, char *find);
+int		check_append(char *temp);
 
 // ASSIGN ARGS UTILIS //
 
 int		check_built(char *temp, t_args *new_args, int *i);
 int		check_string(char *temp, int *i);
+int		verif_command(t_struct *data, char **cmd, t_args *new_args);
+int		ft_check_cmd(t_args *new_args, int i, char *str);
+int		ft_tab_len(char **tab);
 
 // FREE //
 

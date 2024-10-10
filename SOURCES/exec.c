@@ -63,7 +63,7 @@ char	**ft_fill_args(char *cmds, char **args)
 	return (new_args);
 }
 
-void	handle_redirection(t_args *arg, t_struct *data, char **path, char **args)
+int	handle_redirection(t_args *arg, t_struct *data, char **args)
 {
 	int	fd;
 
@@ -72,9 +72,9 @@ void	handle_redirection(t_args *arg, t_struct *data, char **path, char **args)
 		fd = open(arg->input, O_RDONLY);
 		if (fd < 0)
 		{
-			printf("File %s not found\n", arg->input);
-			ft_free_child(args, data, arg, path);
-			exit(EXIT_FAILURE);
+			perror(arg->input);
+			ft_free(args);
+			return (-1);
 		}
 		data->saved_stdin = dup(0);
 		dup2(fd, 0);
@@ -88,21 +88,26 @@ void	handle_redirection(t_args *arg, t_struct *data, char **path, char **args)
 			fd = open(arg->output, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		if (fd < 0)
 		{
-			printf("File %s not found\n", arg->output);
-			ft_free_child(args, data, arg, path);
+			perror(arg->output);
+			ft_free(args);
 			exit(EXIT_FAILURE);
 		}
 		data->saved_stdout = dup(1);
 		dup2(fd, 1);
 		close(fd);
 	}
+	return (1);
 }
 
 void	ft_pipe_exec(t_struct *data, char **args, char **path, t_args *arg)
 {
 	if (data->pid == 0)
 	{
-		handle_redirection(arg, data, path, args);
+		if (handle_redirection(arg, data, args) == -1)
+		{
+			ft_free_child(args, data, arg, path);
+			exit(EXIT_FAILURE);
+		}
 		if (data->in_fd != 0 && !arg->input)
 		{
 			dup2(data->in_fd, 0);
@@ -130,7 +135,8 @@ void	ft_algo_exec(t_struct *data, t_args *arg, int i)
 	args = ft_fill_args(arg[i].cmd, arg[i].args);
 	true_path = NULL;
 	//ft_check_i(i, cmd_count, data);
-	handle_redirection(&arg[i], data, data->path, args);
+	if (handle_redirection(&arg[i], data, args) == -1)
+		return ;
 	if (ft_check_builtins(arg[i].cmd) && !arg->output)
 	{
 		if (ft_check_function(data, args, data->path, &arg[i]) == -1)
@@ -162,6 +168,7 @@ void	ft_algo_exec(t_struct *data, t_args *arg, int i)
 	}
 	else if (data->pid == 0)
 	{
+		printf("on est la oe oe oe oe\n");
 		true_path = ft_assign_path(data, arg[i].cmd);
 		ft_pipe_exec(data, args, true_path, &arg[i]);
 	}
