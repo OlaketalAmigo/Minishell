@@ -104,7 +104,7 @@ int	count_commands(char **arg, t_struct *data)
 		}
 		else if (is_empty(arg[i]) == 0)
 		{
-			if (ft_check_builtins(arg[i]) == 1 || ft_strchr(arg[i], '|') == 1)
+			if (ft_check_builtins_init(arg[i]) == 1 || ft_strchr(arg[i], '|') == 1)
 				count++;
 			else if (ft_check_path(data, arg[i]))
 				count++;
@@ -123,6 +123,8 @@ t_args	ft_assign_args(t_args *new_args, char **temp, t_struct *data)
 	j = 0;
 	while (temp[i])
 	{
+		if (check_heredoc(temp, new_args, &i) == 1)
+			continue ;
 		if (check_redirection(temp, new_args, &i, &j) == 1)
 			continue ;
 		if (!(*new_args).cmd && check_built(temp[0], new_args, &i) == 1)
@@ -133,7 +135,7 @@ t_args	ft_assign_args(t_args *new_args, char **temp, t_struct *data)
 			continue ;
 		if (verif_command(data, &temp[i], new_args) == 1)
 			(*new_args).cmd = ft_strdup(temp[i]);
-		else if ((*new_args).cmd && check_redirection(temp, new_args, &i, &j) == 0)
+		else if ((*new_args).cmd && check_redirection(temp, new_args, &i, &j) == 0 && temp[i])
 			(*new_args).args[j++] = ft_strdup(temp[i]);
 		else if (ft_check_cmd(new_args, i, "free") == 1)
 			break ;

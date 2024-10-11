@@ -69,6 +69,7 @@ typedef struct s_cmd
 	char	**args;
 	char	*input;
 	char	*output;
+	char	*delimiter;
 	int		append;
 	int		in;
 	int		out;
@@ -154,7 +155,8 @@ void	ft_free_child(char **args, t_struct *data, t_args *arg, char **path);
 void	ft_fill_new_args(char **arg, t_args *full_arg);
 char	**check_access(char *tmp, int s);
 int		ft_hard_path(char *arg);
-int		ft_check_builtins(char *arg);
+int		ft_check_builtins(char *cmd, t_args *arg);
+int		ft_check_builtins_init(char *arg);
 char	**ft_true_path(t_struct *data, char *cmd);
 
 // EXEC UTILIS 3 //ma
@@ -192,7 +194,7 @@ int		check_built(char *temp, t_args *new_args, int *i);
 int		check_string(char *temp, int *i);
 int		verif_command(t_struct *data, char **cmd, t_args *new_args);
 int		ft_check_cmd(t_args *new_args, int i, char *str);
-int		ft_tab_len(char **tab);
+int		ft_tablen(char **tab);
 
 // FREE //
 
@@ -209,6 +211,12 @@ int		ft_isalnum(int c);
 char	*ft_replace(char *tab, int i);
 char	**ft_clear(char **tab, int i, int dquote, int quote);
 char	**ft_clear_to_function(char **tab);
+
+//	HEREDOC //
+
+int		ft_heredoc(t_args *arg, int pipefd);
+int		ft_heredoc_pipe(t_args *arg, t_struct *data, char **args, char **path);
+int		check_heredoc(char **temp, t_args *new_args, int *i);
 
 // ECHO //
 

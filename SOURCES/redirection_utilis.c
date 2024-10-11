@@ -2,7 +2,7 @@
 
 int	check_append(char *temp)
 {
-	if (ft_strstr(temp, ">>"))
+	if (ft_strstr(temp, ">>") != NULL)
 		return (1);
 	return (0);
 }

@@ -42,6 +42,7 @@ SOURCES = 								\
 	$(SOURCES_DIR)assign_args_utilis.c 	\
 	$(SOURCES_DIR)redirection.c 		\
 	$(SOURCES_DIR)redirection_utilis.c 	\
+	$(SOURCES_DIR)heredoc.c				\
 	$(SOURCES_DIR)set_up_env.c 			\
 	$(SOURCES_DIR)history.c 			\
 	$(SOURCES_DIR)history_utilis.c 		\

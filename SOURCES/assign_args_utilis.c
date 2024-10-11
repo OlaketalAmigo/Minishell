@@ -41,7 +41,7 @@ int	ft_check_cmd(t_args *new_args, int i, char *str)
 
 int	check_built(char *temp, t_args *new_args, int *i)
 {
-	if (ft_check_builtins(temp) == 1 && (*new_args).cmd == NULL)
+	if (ft_check_builtins_init(temp) == 1 && (*new_args).cmd == NULL)
 	{
 		(*new_args).cmd = ft_strdup(temp);
 		*i = *i + 1;
@@ -80,7 +80,7 @@ int	verif_command(t_struct *data, char **cmd, t_args *new_args)
 			return (1);
 		}
 	}
-	if (ft_check_builtins(*cmd) == 1 || ft_strchr(*cmd, '|') == 1)
+	if (ft_check_builtins_init(*cmd) == 1 || ft_strchr(*cmd, '|') == 1)
 		return (1);
 	else if (ft_check_path(data, *cmd))
 		return (1);

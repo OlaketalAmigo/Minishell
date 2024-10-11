@@ -1,1 +1,1 @@
-cat < output.txtadatxt | cat < output.txt  |cat <output.txt 
+cat <<EOFds > output.txt | cat< output.txt |cat <output.txt 

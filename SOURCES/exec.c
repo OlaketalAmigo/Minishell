@@ -21,7 +21,6 @@ int	split_args(char **arg, t_args **new_args, t_struct *data)
 	*new_args = malloc(sizeof(t_args) * (count_commands(arg, data) + 1));
 	if (!*new_args)
 		return (0);
-	// printf("arg[0] = %s\n", arg[0]);
 	while (arg[i])
 	{
 		temp = ft_split_cleared(arg[i], ' ');
@@ -31,6 +30,7 @@ int	split_args(char **arg, t_args **new_args, t_struct *data)
 		(*new_args)[i].cmd = NULL;
 		(*new_args)[i].input = NULL;
 		(*new_args)[i].output = NULL;
+		(*new_args)[i].delimiter = NULL;
 		(*new_args)[i].append = 0;
 		(*new_args)[i].out = 0;
 		(*new_args)[i].in = 0;
@@ -137,7 +137,7 @@ void	ft_algo_exec(t_struct *data, t_args *arg, int i)
 	//ft_check_i(i, cmd_count, data);
 	if (handle_redirection(&arg[i], data, args) == -1)
 		return ;
-	if (ft_check_builtins(arg[i].cmd) && !arg->output)
+	if (ft_check_builtins(arg[i].cmd, arg) && !arg->output)
 	{
 		if (ft_check_function(data, args, data->path, &arg[i]) == -1)
 		{
@@ -168,7 +168,6 @@ void	ft_algo_exec(t_struct *data, t_args *arg, int i)
 	}
 	else if (data->pid == 0)
 	{
-		printf("on est la oe oe oe oe\n");
 		true_path = ft_assign_path(data, arg[i].cmd);
 		ft_pipe_exec(data, args, true_path, &arg[i]);
 	}
@@ -202,6 +201,8 @@ void	print_struc(t_args arg)
 	}
 	printf("input = %s\n", arg.input);
 	printf("output = %s\n", arg.output);
+	printf("delimiter = %s\n", arg.delimiter);
+	printf("append = %d\n", arg.append);
 }
 
 void	ft_exec(t_struct *data)
@@ -222,7 +223,7 @@ void	ft_exec(t_struct *data)
 			i++;
 			continue ;
 		}
-		//print_struc(arg[i]);
+		print_struc(arg[i]);
 		if (i < cmd_count - 1)
 		{
 			if (pipe(data->pipefd) == -1)
