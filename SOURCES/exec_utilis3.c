@@ -63,12 +63,6 @@ int	ft_check_function_pipe(t_struct *d, char **args, char **path, t_args *arg)
 {
 	if (!args)
 		return (-1);
-	if (arg->delimiter)
-	{
-		if (ft_heredoc_pipe(arg, d, args, path) == -1)
-			return (-1);
-		return (0);
-	}
 	if (ft_strncmp(args[0], "echo", 4) == 1)
 		return (ft_echo_pipe(d, arg, args, path));
 	else if (ft_strncmp(args[0], "export", 6) == 1)
@@ -89,27 +83,8 @@ int	ft_check_function_pipe(t_struct *d, char **args, char **path, t_args *arg)
 
 int	ft_check_function(t_struct *d, char **args, char **path, t_args *arg)
 {
-	int	pipefd[2];
 	if (!args)
 		return (-1);
-	if (arg->delimiter)
-	{
-		if (pipe(pipefd) == -1)
-    	{
-        	perror("pipe error");
-        	return (-1);
-    	}
-		if (ft_heredoc(arg, pipefd[1]) == -1)
-		{
-			close(pipefd[0]);
-			close(pipefd[1]);
-			return (-1);
-		}
-		dup2(pipefd[0], 0);
-		close(pipefd[0]);
-		close(pipefd[1]);
-		return (0);
-	}
 	if (ft_strncmp(args[0], "echo", 4) == 1)
 		return (ft_echo(args));
 	else if (ft_strncmp(args[0], "export", 6) == 1)

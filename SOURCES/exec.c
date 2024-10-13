@@ -120,10 +120,25 @@ void	ft_pipe_exec(t_struct *data, char **args, char **path, t_args *arg)
 		}
 		if (ft_check_function_pipe(data, args, path, arg) == -1)
 		{
+			printf("Ca exit pipe exec ma gueule\n");
 			printf("Command %s not found\n", arg->cmd);
 			ft_free_child(args, data, arg, path);
 			exit(EXIT_FAILURE);
 		}
+	}
+}
+
+void	reset_stds(t_struct *data, t_args *arg)
+{
+	if (arg->input)
+	{
+		dup2(data->saved_stdin, 0);
+		close(data->saved_stdin);
+	}
+	if (arg->output)
+	{
+		dup2(data->saved_stdout, 1);
+		close(data->saved_stdout);
 	}
 }
 
@@ -133,28 +148,33 @@ void	ft_algo_exec(t_struct *data, t_args *arg, int i)
 	char	**true_path;
 
 	args = ft_fill_args(arg[i].cmd, arg[i].args);
-	true_path = NULL;
-	//ft_check_i(i, cmd_count, data);
+	true_path = ft_assign_path(data, arg[i].cmd);
 	if (handle_redirection(&arg[i], data, args) == -1)
+	{
+		ft_free(args);
+		if (true_path)
+			ft_free(true_path);
 		return ;
+	}
+	if (arg[i].delimiter)
+	{
+		if (ft_heredoc(&arg[i]) == -1)
+		{
+			perror("heredoc error");
+			ft_free(args);
+			return ;
+		}
+	}
 	if (ft_check_builtins(arg[i].cmd, arg) && !arg->output)
 	{
-		if (ft_check_function(data, args, data->path, &arg[i]) == -1)
+		if (ft_check_function(data, args, true_path, &arg[i]) == -1)
 		{
+			printf("Ca exit algo exec ma gueule\n");
 			printf("Command %s not found\n", arg[i].cmd);
 			ft_free_child(args, data, &arg[i], data->path);
 			return ;
 		}
-		if (arg[i].input)
-		{
-			dup2(data->saved_stdin, 0);
-			close(data->saved_stdin);
-		}
-		if (arg[i].output)
-		{
-			dup2(data->saved_stdout, 1);
-			close(data->saved_stdout);
-		}
+		reset_stds(data, &arg[i]);
 		ft_free(args);
 		if (true_path)
 			ft_free(true_path);
@@ -167,22 +187,10 @@ void	ft_algo_exec(t_struct *data, t_args *arg, int i)
 		exit(EXIT_FAILURE);
 	}
 	else if (data->pid == 0)
-	{
-		true_path = ft_assign_path(data, arg[i].cmd);
 		ft_pipe_exec(data, args, true_path, &arg[i]);
-	}
 	else
 		waitpid(data->pid, NULL, 0);
-	if (arg[i].input)
-	{
-		dup2(data->saved_stdin, 0);
-		close(data->saved_stdin);
-	}
-	if (arg[i].output)
-	{
-		dup2(data->saved_stdout, 1);
-		close(data->saved_stdout);
-	}
+	reset_stds(data, &arg[i]);
 	ft_free(args);
 	if (true_path)
 		ft_free(true_path);

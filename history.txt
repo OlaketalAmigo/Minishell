@@ -1,1 +1,1 @@
-cat <<EOFds > output.txt | cat< output.txt |cat <output.txt 
+cat << lol > output.txt  | cat< output.txt |cat <output.txt 

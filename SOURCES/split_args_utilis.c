@@ -135,7 +135,7 @@ t_args	ft_assign_args(t_args *new_args, char **temp, t_struct *data)
 			continue ;
 		if (verif_command(data, &temp[i], new_args) == 1)
 			(*new_args).cmd = ft_strdup(temp[i]);
-		else if ((*new_args).cmd && check_redirection(temp, new_args, &i, &j) == 0 && temp[i])
+		else if ((*new_args).cmd)
 			(*new_args).args[j++] = ft_strdup(temp[i]);
 		else if (ft_check_cmd(new_args, i, "free") == 1)
 			break ;

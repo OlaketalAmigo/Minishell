@@ -16,19 +16,19 @@ char	*assign_delimiter(char *temp)
 
 int	check_heredoc(char **temp, t_args *new_args, int *i)
 {
-	printf("temp[%d] = %s\n", *i, temp[*i]);
 	if (temp[*i][0] == '<' && temp[*i][1] == '<')
 	{
 		if (temp[*i][2] == '\0' && (*i + 2) < ft_tablen(temp))
 		{
 			new_args->delimiter = ft_strdup(temp[*i + 2]);
-			if (temp[*i + 3])
 				*i = *i + 3;
+			return (1);
 		}
 		else if (temp[*i][2] != '\0')
 		{
 			new_args->delimiter = assign_delimiter(temp[*i]);
-				*i = *i + 1;
+			*i = *i + 1;
+			return (1);
 		}
 		else
 		{
@@ -39,8 +39,6 @@ int	check_heredoc(char **temp, t_args *new_args, int *i)
 			return (0);
 		}
 	}
-	if (new_args->delimiter)
-		return (1);
 	return (0);
 }
 
@@ -52,13 +50,13 @@ int	ft_heredoc_pipe(t_args *arg, t_struct *data, char **args, char **path)
 	if (arg->delimiter[0] == '\0')
 	{
 		printf("Error: Missing delimiter\n");
-		return (0);
+		return (-1);
 	}
 	while (1)
 	{
 		line = readline("> ");
 		if (!line)
-			return (0);
+			return (-1);
 		if (ft_strcmp(line, arg->delimiter) == 0)
 		{
 			free(line);
@@ -71,21 +69,19 @@ int	ft_heredoc_pipe(t_args *arg, t_struct *data, char **args, char **path)
 	exit(EXIT_SUCCESS);
 }
 
-int	ft_heredoc(t_args *arg, int pipefd)
+int	heredoc_algo(int pipefd, t_args *arg)
 {
 	char	*line;
 
 	line = NULL;
-	if (arg->delimiter[0] == '\0')
-	{
-		printf("Error: Missing delimiter\n");
-		return (0);
-	}
 	while (1)
 	{
 		line = readline("> ");
 		if (!line)
-			return (0);
+		{
+			perror("readline error");
+			return (-1);
+		}
 		if (ft_strcmp(line, arg->delimiter) == 0)
 		{
 			free(line);
@@ -95,5 +91,43 @@ int	ft_heredoc(t_args *arg, int pipefd)
 		write(pipefd, "\n", 1);
 		free(line);
 	}
-	return (1);
+	return (0);
+}
+
+int	ft_heredoc(t_args *arg)
+{
+	int	pipefd[2];
+	int	end;
+	int	saved_stdin;
+
+	end = 0;
+	saved_stdin = dup(0);
+	if (arg->delimiter[0] == '\0')
+	{
+		printf("Error: Missing delimiter\n");
+		return (-1);
+	}
+	if (pipe(pipefd) == -1)
+	{
+		perror("pipe error");
+		return (-1);
+	}
+	end = heredoc_algo(pipefd[1], arg);
+	printf("end = %d\n", end);
+	close(pipefd[1]);
+	if (end == -1)
+	{
+		close(pipefd[0]);
+		return (-1);
+	}
+	if (dup2(pipefd[0], 0) == -1)
+	{
+		perror("dup2 error");
+		close(pipefd[0]);
+		return (-1);
+	}
+	close(pipefd[0]);
+	dup2(saved_stdin, 0);
+	close(saved_stdin);
+	return (end);
 }

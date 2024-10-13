@@ -214,7 +214,7 @@ char	**ft_clear_to_function(char **tab);
 
 //	HEREDOC //
 
-int		ft_heredoc(t_args *arg, int pipefd);
+int		ft_heredoc(t_args *arg);
 int		ft_heredoc_pipe(t_args *arg, t_struct *data, char **args, char **path);
 int		check_heredoc(char **temp, t_args *new_args, int *i);
 

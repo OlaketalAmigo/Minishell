@@ -14,8 +14,9 @@
 
 void	ft_exec_cleanup(t_struct *data, t_args *arg, int cmd_count)
 {
+	(void)data;
 	if (cmd_count == 0)
-		printf("Command %s not found\n", data->arg[0]);
+		printf("No command to execute\n");
 	ft_free_struct(&arg, cmd_count);
 }
 
