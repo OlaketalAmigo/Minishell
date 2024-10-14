@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/14 16:28:02 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/14 16:30:59 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ void	ft_handle_signals(void);
 
 void	ft_exec(t_struct *data);
 int		split_args(char **arg, t_args **new_args, t_struct *data);
-void	handle_redir(t_args *arg, t_struct *data, char **path, char **args);
+void	handle_redirection(t_args *arg, t_struct *data, char **path, char **args);
 
 // FT EXEC UTILIS //
 

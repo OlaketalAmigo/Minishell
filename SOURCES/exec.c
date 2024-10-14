@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 15:01:37 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/14 16:28:54 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/14 16:30:43 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	**ft_fill_args(char *cmds, char **args)
 	return (new_args);
 }
 
-void	handle_redir(t_args *arg, t_struct *data, char **path, char **args)
+void	handle_redirection(t_args *arg, t_struct *data, char **path, char **args)
 {
 	int	fd;
 
@@ -99,7 +99,7 @@ void	ft_pipe_exec(t_struct *data, char **args, char **path, t_args *arg)
 {
 	if (data->pid == 0)
 	{
-		handle_redir(arg, data, path, args);
+		handle_redirection(arg, data, path, args);
 		if (data->in_fd != 0)
 		{
 			dup2(data->in_fd, 0);
@@ -134,7 +134,7 @@ void	ft_algo_exec(t_struct *data, t_args *arg, int i, int cmd_count)
 	if (arg[i].out == 1)
 	{
 		saved_out = dup(1);
-		handle_redir(&arg[i], data, true_path, args);
+		handle_redirection(&arg[i], data, true_path, args);
 	}
 	if (cmd_count == 1)
 	{
