@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   history.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 12:41:41 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/07 12:42:54 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/10/14 16:05:51 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	ft_update_history(char *line)
 	close (i);
 }
 
-void 	ft_set_up_history(void)
+void	ft_set_up_history(void)
 {
 	char	*line;
 	int		i;

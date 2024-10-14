@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 12:44:32 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/08 16:03:22 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/14 16:03:49 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,18 @@ void	ft_set_up_env(t_struct *data, char **environ)
 	int		i;
 	int		j;
 	char	**tab;
+
 	if (environ[0] == NULL)
-		ft_write_env(data);  // VA FALLOIR CHANGER
+		ft_write_env(data); // VA FALLOIR CHANGER
 	else
 	{
 		data->env = environ;
 		i = -1;
 		printf("nb arg = %d\n", ft_nb_arg(data->env));
 		tab = malloc ((ft_nb_arg(data->env) + 1) * 8);
-		while (++i < ft_nb_arg(data->env))	
+		while (++i < ft_nb_arg(data->env))
 		{
-			j = - 1;
+			j = -1;
 			tab[i] = malloc (ft_strlen(data->env[i]) + 1);
 			while (++j < ft_strlen(data->env[i]))
 				tab[i][j] = data->env[i][j];

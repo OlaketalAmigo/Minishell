@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/14 13:42:44 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/14 16:28:02 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ int		ft_parser_check(t_struct *data);
 // SET UP ENV //
 
 int		ft_write_env(t_struct *data);
-void		ft_set_up_env(t_struct *data, char **environ);
+void	ft_set_up_env(t_struct *data, char **environ);
 
 // SIGNALS //
 
@@ -130,7 +130,7 @@ void	ft_handle_signals(void);
 
 void	ft_exec(t_struct *data);
 int		split_args(char **arg, t_args **new_args, t_struct *data);
-void	handle_redirection(t_args *arg, t_struct *data, char **path, char **args);
+void	handle_redir(t_args *arg, t_struct *data, char **path, char **args);
 
 // FT EXEC UTILIS //
 
@@ -159,8 +159,8 @@ char	**ft_true_path(t_struct *data, char *cmd);
 // EXEC UTILIS 3 //ma
 
 char	**ft_split_cleared(char *s, char c);
-int		ft_check_function_pipe(t_struct *d, char **args, char **path, t_args *arg);
-int		ft_check_function(t_struct *d, char **args, char **path, t_args *arg);
+int		function_pipe(t_struct *d, char **args, char **path, t_args *arg);
+int		function(t_struct *d, char **args, char **path, t_args *arg);
 int		ft_strncmp(char *s1, char *s2, int n);
 
 // SPLIT ARGS UTILIS //
@@ -245,7 +245,7 @@ void	ft_export_update(t_struct *data, char *args);
 
 void	ft_putchar_fd(char c, int fd);
 void	ft_update_history(char *line);
-void 	ft_set_up_history(void);
+void	ft_set_up_history(void);
 
 // HISTORY UTILIS //
 

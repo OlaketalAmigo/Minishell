@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:08:47 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/14 15:58:24 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/14 16:08:05 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ char	*ft_remove_home(char *s1)
 	s2 = malloc (((ft_strlen(s1) - 5) + 1) * 1);
 	if (!s2)
 	{
-		// PRINTF MALLOC FAILED
 		return (NULL);
 	}
 	while (s1[++j])

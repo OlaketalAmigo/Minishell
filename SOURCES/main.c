@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:52:11 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/08 14:10:32 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/14 16:05:36 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ void	ft_main(int g_sig_receiver, t_struct *data)
 int	main(void)
 {
 	t_struct	data;
-	int		i;
-	
+	int			i;
+
 	i = -1;
 	ft_set_up_env(&data, environ);
 	ft_init_signals();
