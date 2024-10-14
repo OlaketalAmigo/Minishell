@@ -1,1 +1,1 @@
-cat << lol > output.txt at < output.txt  t |cat <output.txt 
+cat << ui | grep "hehe" at < output.txt  t |cat <output.txt 

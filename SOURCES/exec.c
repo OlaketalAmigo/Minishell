@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 15:01:37 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/14 16:54:44 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/10/14 17:11:13 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ void	ft_pipe_exec(t_struct *data, char **args, char **path, t_args *arg)
 	}
 }
 
-void	reset_stds(t_struct *data, t_args *arg)
+void	reset_stds(t_struct *data, t_args *arg, int i, int cmd_count)
 {
 	if (arg->input || arg->delimiter)
 	{
@@ -139,6 +139,16 @@ void	reset_stds(t_struct *data, t_args *arg)
 	{
 		dup2(data->saved_stdout, 1);
 		close(data->saved_stdout);
+	}
+	if (data->in_fd != 0 && i == cmd_count - 1)
+	{
+		close(data->in_fd);
+		data->in_fd = 0;
+	}
+	if (data->out_fd != 1 && i == cmd_count - 1)
+	{
+		close(data->out_fd);
+		data->out_fd = 1;
 	}
 }
 
@@ -172,7 +182,7 @@ void	ft_algo_exec(t_struct *data, t_args *arg, int i, int cmd_count)
 		if (ft_strncmp(arg[i].cmd, "<<", 2) == 1)
 		{
 			if (i == cmd_count - 1)
-				reset_stds(data, &arg[i]);
+				reset_stds(data, &arg[i], 0, 0);
 			ft_free(args);
 			if (true_path)
 				ft_free(true_path);
@@ -188,7 +198,8 @@ void	ft_algo_exec(t_struct *data, t_args *arg, int i, int cmd_count)
 			ft_free_child(args, data, &arg[i], data->path);
 			return ;
 		}
-		reset_stds(data, &arg[i]);
+		if (i == cmd_count - 1)
+			reset_stds(data, &arg[i], 0, 0);
 		ft_free(args);
 		if (true_path)
 			ft_free(true_path);
@@ -204,7 +215,9 @@ void	ft_algo_exec(t_struct *data, t_args *arg, int i, int cmd_count)
 		ft_pipe_exec(data, args, true_path, &arg[i]);
 	else
 		waitpid(data->pid, NULL, 0);
-	reset_stds(data, &arg[i]);
+	printf("post exec\n");
+	printf("i = %d\n", i);
+	reset_stds(data, &arg[i], i, cmd_count);
 	ft_free(args);
 	if (true_path)
 		ft_free(true_path);
