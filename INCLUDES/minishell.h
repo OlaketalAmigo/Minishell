@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/07 15:59:28 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/14 16:52:42 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,7 +214,7 @@ char	**ft_clear_to_function(char **tab);
 
 //	HEREDOC //
 
-int		ft_heredoc(t_args *arg);
+int		ft_heredoc(t_args *arg, t_struct *data);
 int		ft_heredoc_pipe(t_args *arg, t_struct *data, char **args, char **path);
 int		check_heredoc(char **temp, t_args *new_args, int *i);
 

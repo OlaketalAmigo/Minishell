@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-char	*assign_delimiter(char *temp)
+char	*assign_delimiter(char *temp, t_args *new_args)
 {
 	int	i;
 
@@ -8,9 +8,9 @@ char	*assign_delimiter(char *temp)
 	while (temp[i] && temp[i] == ' ')
 		i++;
 	if (!temp[i])
-	{
 		return (NULL);
-	}
+	if (!new_args->cmd)
+		new_args->cmd = ft_strdup("<<");
 	return (ft_strdup(&temp[i]));
 }
 
@@ -21,12 +21,14 @@ int	check_heredoc(char **temp, t_args *new_args, int *i)
 		if (temp[*i][2] == '\0' && (*i + 2) < ft_tablen(temp))
 		{
 			new_args->delimiter = ft_strdup(temp[*i + 2]);
-				*i = *i + 3;
+			if (!new_args->cmd)
+				new_args->cmd = ft_strdup(temp[*i]);
+			*i = *i + 3;
 			return (1);
 		}
 		else if (temp[*i][2] != '\0')
 		{
-			new_args->delimiter = assign_delimiter(temp[*i]);
+			new_args->delimiter = assign_delimiter(temp[*i], new_args);
 			*i = *i + 1;
 			return (1);
 		}
@@ -94,19 +96,18 @@ int	heredoc_algo(int pipefd, t_args *arg)
 	return (0);
 }
 
-int	ft_heredoc(t_args *arg)
+int	ft_heredoc(t_args *arg, t_struct *data)
 {
 	int	pipefd[2];
 	int	end;
-	int	saved_stdin;
 
 	end = 0;
-	saved_stdin = dup(0);
 	if (arg->delimiter[0] == '\0')
 	{
 		printf("Error: Missing delimiter\n");
 		return (-1);
 	}
+	data->saved_stdin = dup(0);
 	if (pipe(pipefd) == -1)
 	{
 		perror("pipe error");
@@ -127,7 +128,5 @@ int	ft_heredoc(t_args *arg)
 		return (-1);
 	}
 	close(pipefd[0]);
-	dup2(saved_stdin, 0);
-	close(saved_stdin);
 	return (end);
 }

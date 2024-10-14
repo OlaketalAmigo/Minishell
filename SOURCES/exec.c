@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 15:01:37 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/07 12:28:57 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/10/14 16:54:44 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ void	ft_pipe_exec(t_struct *data, char **args, char **path, t_args *arg)
 
 void	reset_stds(t_struct *data, t_args *arg)
 {
-	if (arg->input)
+	if (arg->input || arg->delimiter)
 	{
 		dup2(data->saved_stdin, 0);
 		close(data->saved_stdin);
@@ -142,7 +142,7 @@ void	reset_stds(t_struct *data, t_args *arg)
 	}
 }
 
-void	ft_algo_exec(t_struct *data, t_args *arg, int i)
+void	ft_algo_exec(t_struct *data, t_args *arg, int i, int cmd_count)
 {
 	char	**args;
 	char	**true_path;
@@ -158,14 +158,28 @@ void	ft_algo_exec(t_struct *data, t_args *arg, int i)
 	}
 	if (arg[i].delimiter)
 	{
-		if (ft_heredoc(&arg[i]) == -1)
+		if (arg[i].output)
+		{
+			dup2(data->saved_stdout, 1);
+			close(data->saved_stdout);
+		}
+		if (ft_heredoc(&arg[i], data) == -1)
 		{
 			perror("heredoc error");
 			ft_free(args);
 			return ;
 		}
+		if (ft_strncmp(arg[i].cmd, "<<", 2) == 1)
+		{
+			if (i == cmd_count - 1)
+				reset_stds(data, &arg[i]);
+			ft_free(args);
+			if (true_path)
+				ft_free(true_path);
+			return ;
+		}
 	}
-	if (ft_check_builtins(arg[i].cmd, arg) && !arg->output)
+	if (ft_check_builtins(arg[i].cmd, &arg[i]) && !arg[i].output)
 	{
 		if (ft_check_function(data, args, true_path, &arg[i]) == -1)
 		{
@@ -243,7 +257,7 @@ void	ft_exec(t_struct *data)
 		}
 		else
 			data->out_fd = STDOUT_FILENO;
-		ft_algo_exec(data, arg, i);
+		ft_algo_exec(data, arg, i, cmd_count);
 		if (i < cmd_count - 1)
 		{
 			close(data->pipefd[1]);

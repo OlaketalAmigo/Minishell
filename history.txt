@@ -1,1 +1,1 @@
-cat << lol > output.txt  | cat< output.txt |cat <output.txt 
+cat << lol > output.txt at < output.txt  t |cat <output.txt 
