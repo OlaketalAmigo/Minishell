@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 15:28:07 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/08 14:14:55 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/14 15:52:48 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ int	ft_countword(char const *s, char c)
 	int (key2) = 1;
 	while (s[i])
 	{
-		if (s[i] == 34)
+		if (s[i] == 34 && key2 != -1)
 			key1 = -key1;
-		if (s[i] == 39)
+		if (s[i] == 39 && key1 != -1)
 			key2 = -key2;
 		if (s[i] != c && (s[i + 1] == c || s[i + 1] == '\0' )
 			&& key1 > 0 && key2 > 0)

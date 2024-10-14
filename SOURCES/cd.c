@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:08:47 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/07 12:29:59 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/10/14 15:58:24 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ int	ft_cd(t_struct *data, char **args)
 	int		i;
 	char	*cd;
 
-	printf("started builtin cd\n");
 	i = ft_nb_arg(args);
 	cd = NULL;
 	ft_cd_main(data, args, i, cd);
@@ -95,7 +94,6 @@ int	ft_cd_pipe(t_struct *data, t_args *arg, char **args, char **path)
 	int		i;
 	char	*cd;
 
-	printf("started builtin cd\n");
 	i = ft_nb_arg(args);
 	cd = NULL;
 	ft_cd_main(data, args, i, cd);

@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 13:01:01 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/08 16:51:07 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/14 12:20:05 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,6 @@ void	ft_export_add(t_struct *data, char *args)
 
 void	ft_export_update(t_struct *data, char *args)
 {
-	char	**tab;
-	
-	tab = malloc (16);
-	tab[0] = args;
-	tab[1] = NULL;
-	ft_unset(data, tab);
+	ft_unset(data, args);
 	ft_export_add(data, args);
-	ft_free(tab);
 }

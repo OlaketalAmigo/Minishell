@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utilis3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:36:49 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/07 12:34:14 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/10/14 13:38:30 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	ft_check_function_pipe(t_struct *d, char **args, char **path, t_args *arg)
 	else if (ft_strncmp(args[0], "export", 6) == 1)
 		return (ft_export_pipe(d, arg, args, path));
 	else if (ft_strncmp(args[0], "unset", 5) == 1)
-		return (-1);
+		return (ft_unset_pipe(d, arg, args, path));
 	else if (ft_strncmp(args[0], "pwd", 3) == 1)
 		return (ft_pwd_pipe(d, arg, args, path));
 	else if (ft_strncmp(args[0], "cd", 2) == 1)
@@ -85,7 +85,7 @@ int	ft_check_function(t_struct *d, char **args, char **path, t_args *arg)
 	else if (ft_strncmp(args[0], "export", 6) == 1)
 		return (ft_export(d, args));
 	else if (ft_strncmp(args[0], "unset", 5) == 1)
-		return (-1);
+		return (ft_unset(d, args));
 	else if (ft_strncmp(args[0], "pwd", 3) == 1)
 		return (ft_pwd(args));
 	else if (ft_strncmp(args[0], "cd", 2) == 1)

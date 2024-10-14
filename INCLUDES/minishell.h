@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/08 16:00:17 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/14 13:42:44 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,6 +222,8 @@ int		ft_exit_pipe(t_struct *data, t_args *arg, char **args, char **path);
 // UNSET //
 
 char	*ft_str_with_equal(char *args);
+void	ft_delete_tab_case(t_struct *data, int i, int a, int b);
+int		ft_unset_main(t_struct *data, char *args);
 int		ft_unset(t_struct *data, char **args);
 int		ft_unset_pipe(t_struct *data, t_args *arg, char **args, char **path);
 
