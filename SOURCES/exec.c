@@ -120,7 +120,6 @@ void	ft_pipe_exec(t_struct *data, char **args, char **path, t_args *arg)
 		}
 		if (ft_check_function_pipe(data, args, path, arg) == -1)
 		{
-			printf("Ca exit pipe exec ma gueule\n");
 			printf("Command %s not found\n", arg->cmd);
 			ft_free_child(args, data, arg, path);
 			exit(EXIT_FAILURE);
@@ -140,7 +139,7 @@ void	reset_stds(t_struct *data, t_args *arg, int i, int cmd_count)
 		dup2(data->saved_stdout, 1);
 		close(data->saved_stdout);
 	}
-	if (data->in_fd != 0 && i == cmd_count - 1)
+		if (data->in_fd != 0 && i == cmd_count - 1)
 	{
 		close(data->in_fd);
 		data->in_fd = 0;
@@ -177,12 +176,21 @@ void	ft_algo_exec(t_struct *data, t_args *arg, int i, int cmd_count)
 		{
 			perror("heredoc error");
 			ft_free(args);
+			if (true_path)
+				ft_free(true_path);
 			return ;
 		}
 		if (ft_strncmp(arg[i].cmd, "<<", 2) == 1)
 		{
 			if (i == cmd_count - 1)
-				reset_stds(data, &arg[i], 0, 0);
+				reset_stds(data, &arg[i], i, cmd_count);
+			ft_free(args);
+			if (true_path)
+				ft_free(true_path);
+			return ;
+		}
+		if (i < cmd_count - 1)
+		{
 			ft_free(args);
 			if (true_path)
 				ft_free(true_path);
@@ -193,13 +201,12 @@ void	ft_algo_exec(t_struct *data, t_args *arg, int i, int cmd_count)
 	{
 		if (ft_check_function(data, args, true_path, &arg[i]) == -1)
 		{
-			printf("Ca exit algo exec ma gueule\n");
 			printf("Command %s not found\n", arg[i].cmd);
 			ft_free_child(args, data, &arg[i], data->path);
 			return ;
 		}
 		if (i == cmd_count - 1)
-			reset_stds(data, &arg[i], 0, 0);
+			reset_stds(data, &arg[i], i, cmd_count);
 		ft_free(args);
 		if (true_path)
 			ft_free(true_path);
@@ -214,9 +221,9 @@ void	ft_algo_exec(t_struct *data, t_args *arg, int i, int cmd_count)
 	else if (data->pid == 0)
 		ft_pipe_exec(data, args, true_path, &arg[i]);
 	else
+	{
 		waitpid(data->pid, NULL, 0);
-	printf("post exec\n");
-	printf("i = %d\n", i);
+	}
 	reset_stds(data, &arg[i], i, cmd_count);
 	ft_free(args);
 	if (true_path)
@@ -237,7 +244,16 @@ void	print_struc(t_args arg)
 	printf("input = %s\n", arg.input);
 	printf("output = %s\n", arg.output);
 	printf("delimiter = %s\n", arg.delimiter);
-	printf("append = %d\n", arg.append);
+}
+
+void	final_reset(t_struct *data)
+{
+	if (data->saved_stdin != 0 && data->saved_stdin != -1)
+	{
+		dup2(data->saved_stdin, 0);
+		close(data->saved_stdin);
+		data->saved_stdin = -1;
+	}
 }
 
 void	ft_exec(t_struct *data)
@@ -249,8 +265,11 @@ void	ft_exec(t_struct *data)
 	i = 0;
 	cmd_count = 0;
 	arg = NULL;
+	data->heredoc = 0;
+	data->saved_stdin = -1;
+	data->saved_stdout = -1;
 	ft_exec_init(data, &arg, &cmd_count);
-	printf("cmd_count = %d\n", cmd_count);
+	//printf("cmd_count = %d\n", cmd_count);
 	while (i < cmd_count)
 	{
 		if (!arg[i].cmd)
@@ -278,5 +297,7 @@ void	ft_exec(t_struct *data)
 		}
 		i++;
 	}
+	// if (data->heredoc == 1 && cmd_count > 1)
+	// 	final_reset(data);
 	ft_exec_cleanup(data, arg, cmd_count);
 }

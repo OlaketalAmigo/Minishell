@@ -44,33 +44,6 @@ int	check_heredoc(char **temp, t_args *new_args, int *i)
 	return (0);
 }
 
-int	ft_heredoc_pipe(t_args *arg, t_struct *data, char **args, char **path)
-{
-	char	*line;
-
-	line = NULL;
-	if (arg->delimiter[0] == '\0')
-	{
-		printf("Error: Missing delimiter\n");
-		return (-1);
-	}
-	while (1)
-	{
-		line = readline("> ");
-		if (!line)
-			return (-1);
-		if (ft_strcmp(line, arg->delimiter) == 0)
-		{
-			free(line);
-			break ;
-		}
-		printf("%s\n", line);
-		free(line);
-	}
-	ft_free_child(args, data, arg, path);
-	exit(EXIT_SUCCESS);
-}
-
 int	heredoc_algo(int pipefd, t_args *arg)
 {
 	char	*line;
@@ -98,35 +71,34 @@ int	heredoc_algo(int pipefd, t_args *arg)
 
 int	ft_heredoc(t_args *arg, t_struct *data)
 {
-	int	pipefd[2];
-	int	end;
-
-	end = 0;
 	if (arg->delimiter[0] == '\0')
 	{
 		printf("Error: Missing delimiter\n");
 		return (-1);
 	}
 	data->saved_stdin = dup(0);
-	if (pipe(pipefd) == -1)
+	if (data->saved_stdin == -1)
+	{
+		perror("dup error");
+		return (-1);
+	}
+	if (pipe(data->pipefd) == -1)
 	{
 		perror("pipe error");
 		return (-1);
 	}
-	end = heredoc_algo(pipefd[1], arg);
-	printf("end = %d\n", end);
-	close(pipefd[1]);
-	if (end == -1)
+	if (heredoc_algo(data->pipefd[1], arg) == -1)
 	{
-		close(pipefd[0]);
+		close(data->pipefd[1]);
 		return (-1);
 	}
-	if (dup2(pipefd[0], 0) == -1)
+	close(data->pipefd[1]);
+	if (dup2(data->pipefd[0], 0) == -1)
 	{
 		perror("dup2 error");
-		close(pipefd[0]);
+		close(data->pipefd[0]);
 		return (-1);
 	}
-	close(pipefd[0]);
-	return (end);
+	close(data->pipefd[0]);
+	return (0);
 }

@@ -141,6 +141,8 @@ t_args	ft_assign_args(t_args *new_args, char **temp, t_struct *data)
 			break ;
 		i++;
 	}
+	if ((*new_args).delimiter)
+		data->heredoc = 1;
 	if ((*new_args).args)
 		(*new_args).args[j] = NULL;
 	return (*new_args);

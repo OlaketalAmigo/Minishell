@@ -60,6 +60,7 @@ typedef struct data
 	int		launched_env;
 	int		saved_stdout;
 	int		saved_stdin;
+	int		heredoc;
 	pid_t	pid;
 }	t_struct;
 

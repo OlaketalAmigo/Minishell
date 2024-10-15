@@ -22,7 +22,6 @@ void	ft_main(int g_sig_receiver, t_struct *data)
 	{
 		g_sig_receiver = 0;
 		data->line = readline("MiniHell->");
-		printf("data->line = %s\n", data->line);
 		if (g_sig_receiver == 1)
 			continue ;
 		if (data->line && data->line[0] != '\0')
@@ -38,7 +37,7 @@ void	ft_main(int g_sig_receiver, t_struct *data)
 		{
 			if (data->line && data->line[0] == '\0')
 				continue ;
-			printf("exit du main putaingue\n");
+			printf("exit\n");
 			break ;
 		}
 	}
