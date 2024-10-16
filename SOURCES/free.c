@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 15:06:49 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/08 14:06:55 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/16 16:18:16 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ void	ft_free_struct(t_args **arg, int cmd_count)
 
 void	ft_free_all(t_struct *data)
 {
-	ft_free(data->path);
+	if (data->path)
+		ft_free(data->path);
 	ft_free(data->arg);
 }
 

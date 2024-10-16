@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 13:36:54 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/14 16:02:03 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/16 13:07:54 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,10 @@ char	*ft_strjoin_gnl(char *s1, char *s2)
 	int		k;
 
 	k = -1;
+	if (!s1)
+		return (s2);
+	if (!s2)
+		return (s1);
 	string = malloc (ft_strlen(s1) + ft_strlen(s2) + 1);
 	if (!string)
 		return (NULL);

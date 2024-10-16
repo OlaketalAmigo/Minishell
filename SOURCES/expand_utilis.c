@@ -1,18 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_split.c                                     :+:      :+:    :+:   */
+/*   expand_utilis.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/06 15:28:07 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/16 11:00:16 by tfauve-p         ###   ########.fr       */
+/*   Created: 2024/10/16 10:57:58 by tfauve-p          #+#    #+#             */
+/*   Updated: 2024/10/16 16:41:45 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_countword(char const *s, char c)
+char	*ft_copy_tab(char *s)
+{
+	int		i;
+	int		j;
+	char	*new;
+
+	i = ft_strlen(s);
+	j = -1;
+	new = malloc ((i + 1) * 1);
+	if (!new)
+		return (s);
+	while (s[++j])
+	{
+		new[j] = s[j];
+	}
+	new[j] = '\0';
+	free(s);
+	return (new);
+}
+
+int	ft_countword_expand(char const *s, char c)
 {
 	int (i) = 0;
 	int (j) = 0;
@@ -24,9 +44,8 @@ int	ft_countword(char const *s, char c)
 			dq = -dq;
 		if (s[i] == 39 && dq != -1)
 			q = -q;
-		if (s[i] != c && (s[i + 1] == c || s[i + 1] == '\0' )
-			&& dq > 0 && q > 0)
-			j = j + 2;
+		if (((s[i] != c && (s[i + 1] == c || s[i + 1] == 36 || s[i + 1] == '\0')) || s[i] == c) && q > 0)
+			j++;
 		i++;
 	}
 	if (j == 0 && s[i] == '\0')
@@ -34,39 +53,7 @@ int	ft_countword(char const *s, char c)
 	return (j);
 }
 
-int	ft_strlen(char const *s)
-{
-	int	i;
-
-	if (!s)
-		return (0);
-	i = 0;
-	if (!s)
-		return (0);
-	while (s[i])
-		i++;
-	return (i);
-}
-
-char	*ft_writeword(char const *s, int start, int end)
-{
-	char	*word;
-	int		i;
-
-	i = 0;
-	word = malloc (1 + end - start);
-	if (!word)
-		return (NULL);
-	while (start + i < end)
-	{
-		word[i] = s[start + i];
-		i++;
-	}
-	word[i] = '\0';
-	return (word);
-}
-
-char	**ft_mecanism(int length, char **tab, char *line, char c)
+char	**ft_mecanism_expand(int length, char **tab, char *line, char c)
 {
 	int (i) = -1;
 	int (j) = -1;
@@ -81,8 +68,8 @@ char	**ft_mecanism(int length, char **tab, char *line, char c)
 			q = -q;
 		if (line[i] != '\0' && line[i] != c && j == -1)
 			j = i;
-		if (((line[i] == c || line[i] == '\0') && j >= 0)
-			&& dq > 0 && q > 0)
+		if (((line[i] == c || line[i] == '\0' || line[i] == 36) && j >= 0)
+			&& q > 0)
 		{
 			tab[z++] = ft_writeword(line, j, i);
 			if (line[i])
@@ -94,15 +81,15 @@ char	**ft_mecanism(int length, char **tab, char *line, char c)
 	return (tab);
 }
 
-char	**ft_split(char *s, char c)
+char	**ft_split_expand(char *s, char c)
 {
 	char	**word_list;
 	int		length;
 
 	length = ft_strlen(s);
-	word_list = malloc (sizeof(char *) * (ft_countword(s, c) + 1));
+	word_list = malloc (sizeof(char *) * (ft_countword_expand(s, c) + 1));
 	if (!word_list)
 		return (NULL);
-	word_list = ft_mecanism(length, word_list, s, c);
+	word_list = ft_mecanism_expand(length, word_list, s, c);
 	return (word_list);
 }

@@ -6,7 +6,7 @@
 #    By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/24 14:38:38 by tfauve-p          #+#    #+#              #
-#    Updated: 2024/10/07 15:51:47 by tfauve-p         ###   ########.fr        #
+#    Updated: 2024/10/16 15:03:50 by tfauve-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,12 +38,15 @@ SOURCES = \
 	$(SOURCES_DIR)unset.c \
 	$(SOURCES_DIR)export.c \
 	$(SOURCES_DIR)export_utilis.c \
+	$(SOURCES_DIR)expand.c \
+	$(SOURCES_DIR)expand_utilis.c \
 	$(SOURCES_DIR)split_args_utilis.c \
 	$(SOURCES_DIR)assign_args_utilis.c \
 	$(SOURCES_DIR)set_up_env.c \
 	$(SOURCES_DIR)history.c \
 	$(SOURCES_DIR)history_utilis.c \
 	$(SOURCES_DIR)tools.c \
+	$(SOURCES_DIR)tools_2.c \
 	$(SOURCES_DIR)clear_to_function.c
 
 

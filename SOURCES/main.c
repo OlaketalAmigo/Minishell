@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:52:11 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/14 16:05:36 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/16 16:36:00 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,9 @@ void	ft_main(int g_sig_receiver, t_struct *data)
 			ft_update_history(data->line);
 			if (ft_parser(data) < 0)
 				continue ;
-			ft_exec(data);
-			ft_free_all(data);
+			//ft_exec(data);
+			//ft_free_all(data);
+			ft_free(data->arg);
 			continue ;
 		}
 		if (g_sig_receiver == 0)

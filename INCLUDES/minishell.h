@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/14 16:30:59 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/16 16:05:26 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,6 +241,22 @@ int		ft_search(char *str, char **tab);
 void	ft_export_add(t_struct *data, char *args);
 void	ft_export_update(t_struct *data, char *args);
 
+// EXPAND //
+
+char	**ft_expand_join(char **tab, int j);
+char	*ft_get_from_env(t_struct *data, char *s);
+char	*ft_expanded(t_struct *data, char *s);
+char	**ft_expand_replace(t_struct *data, char **tab);
+void	ft_expand(t_struct *data);
+
+// EXPAND UTILIS //
+
+char	*ft_copy_tab(char *s);
+int		ft_countword_expand(char const *s, char c);
+char	*ft_writeword(char const *s, int start, int end);
+char	**ft_mecanism_expand(int length, char **tab, char *line, char c);
+char	**ft_split_expand(char *s, char c);
+
 // HISTORY //
 
 void	ft_putchar_fd(char c, int fd);
@@ -261,5 +277,9 @@ int		ft_strcmp(char *s1, char *s2);
 char	**ft_replace_tab(char **tab, char **new_tab, char *new);
 int		ft_strchr_gnl(const char *s, int c);
 char	*ft_strjoin_gnl(char *s1, char *s2);
+
+// TOOLS 2 //
+
+int		ft_search_expand(char *str, char **tab);
 
 #endif
