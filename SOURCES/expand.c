@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 17:08:06 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/16 16:44:11 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/21 15:11:46 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ char	**ft_expand_join(char **tab, int j)
 	i = -1;
 	k = -1;
 	new_tab = malloc ((j + 1) * 8);
-	printf("j = %d\n", j);
 	if (!new_tab)
 		return (NULL);
 	i = -1;
@@ -60,7 +59,7 @@ char	*ft_get_from_env(t_struct *data, char *s)
 			new = malloc ((ft_strlen(data->env[i]) - k) * 1);
 			if (!new)
 				return (s);
-			while (data->env[i][++k] && ++j != -4)
+			while (++j != -4 && data->env[i][++k])
 				new[j] = data->env[i][k];
 			new[j] = '\0';
 		}
@@ -78,13 +77,13 @@ char	*ft_expanded(t_struct *data, char *s)
 	new = malloc (ft_strlen(s) + 1);
 	if (!new)
 		return (NULL);
-	while (s[i])
+	while (s[++i])
 	{
 		if (i != 0)
 			new[i - 1] = s[i];
 	}
-	new[i] = 61;
-	new[++i] = '\0';
+	new[i - 1] = 61;
+	new[++i - 1] = '\0';
 	if (ft_search_expand(new, data->env) == 1)
 	{
 		new = ft_get_from_env(data, new);
@@ -125,14 +124,16 @@ void	ft_expand(t_struct *data)
 
 	i = -1;
 	j = 0;
-	tab = ft_split_expand(data->line, 32);
+	tab = ft_split_expand(data->line, 36);
 	while (tab[++i])
+	{
 		if (ft_strncmp(tab[i], "$", 1) == 1)
 			j++;
-	// ICI TOUT EST NIQUEL
+	}
 	new_tab = ft_expand_join(tab, (ft_nb_arg(tab) - j));
 	tab = ft_expand_replace(data, new_tab);
 	i = -1;
+	data->line = NULL;
 	while (tab[++i])
 		data->line = ft_strjoin_gnl(data->line, tab[i]);
 	free(tab);

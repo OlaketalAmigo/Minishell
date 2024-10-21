@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 10:57:58 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/16 16:41:45 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/21 15:19:03 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,9 @@ int	ft_countword_expand(char const *s, char c)
 			dq = -dq;
 		if (s[i] == 39 && dq != -1)
 			q = -q;
-		if (((s[i] != c && (s[i + 1] == c || s[i + 1] == 36 || s[i + 1] == '\0')) || s[i] == c) && q > 0)
-			j++;
+		if (s[i] != c && (s[i + 1] == c || s[i + 1] == 32 || s[i + 1] == '\0' )
+			&& q > 0)
+			j = j + 2;
 		i++;
 	}
 	if (j == 0 && s[i] == '\0')
@@ -66,9 +67,9 @@ char	**ft_mecanism_expand(int length, char **tab, char *line, char c)
 			dq = -dq;
 		if (line[i] == 39 && dq != -1)
 			q = -q;
-		if (line[i] != '\0' && line[i] != c && j == -1)
+		if (line[i] != '\0' && j == -1)
 			j = i;
-		if (((line[i] == c || line[i] == '\0' || line[i] == 36) && j >= 0)
+		if (((line[i] == 32 || line[i] == c || line[i] == '\0') && j >= 0)
 			&& q > 0)
 		{
 			tab[z++] = ft_writeword(line, j, i);

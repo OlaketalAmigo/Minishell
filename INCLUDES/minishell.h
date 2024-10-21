@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/16 16:05:26 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/21 14:04:47 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -253,7 +253,6 @@ void	ft_expand(t_struct *data);
 
 char	*ft_copy_tab(char *s);
 int		ft_countword_expand(char const *s, char c);
-char	*ft_writeword(char const *s, int start, int end);
 char	**ft_mecanism_expand(int length, char **tab, char *line, char c);
 char	**ft_split_expand(char *s, char c);
 

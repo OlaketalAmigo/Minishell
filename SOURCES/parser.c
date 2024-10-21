@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:59:25 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/16 16:48:01 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/21 12:37:07 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,6 @@ int	ft_parser(t_struct *data)
 	}
 	ft_expand(data);
 	ft_set_up_struct(data);
-	ft_printf_parsing(data->arg);
+	// ft_printf_parsing(data->arg);
 	return (1);
 }

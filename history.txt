@@ -1,1 +1,1 @@
-salut les boyssn $roya
+export $ich = pogla miflide solide
