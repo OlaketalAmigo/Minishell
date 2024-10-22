@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 15:01:37 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/14 16:30:43 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/22 16:04:44 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,7 +179,6 @@ void	ft_exec(t_struct *data)
 			i++;
 			continue ;
 		}
-		printf("cmd = %s\n", arg[i].cmd);
 		ft_algo_exec(data, arg, i, cmd_count);
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 13:01:01 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/14 16:26:31 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/22 16:03:44 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	ft_search(char *str, char **tab)
 	i = -1;
 	while (tab[++i])
 	{
-		if (ft_strcmp(tab[i], str) == 0)
+		if (ft_strncmp(tab[i], str, ft_strlen(str)) == 1)
 			return (1);
 	}
 	return (-1);
@@ -70,13 +70,15 @@ void	ft_export_update(t_struct *data, char *args)
 {
 	char	**tab;
 
-	tab = malloc (2 * 8);
+	tab = malloc (3 * 8);
 	if (tab)
 	{
-		tab[0] = args;
-		tab[1] = NULL;
+		tab[0] = "unset";
+		tab[1] = ft_str_until_equal(args);
+		tab[2] = NULL;
 		ft_unset(data, tab);
 		ft_export_add(data, args);
-		ft_free(tab);
+		free(tab[1]);
+		free(tab);
 	}
 }

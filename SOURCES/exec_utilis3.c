@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:36:49 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/14 16:09:16 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/22 12:28:13 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,10 @@ int	ft_strncmp(char *s1, char *s2, int n)
 	i = 0;
 	while (i < n)
 	{
-		if (s1[i] == s2[i] && s1[i] && s2[i])
+		if (s1[i] && s2[i] && s1[i] == s2[i])
 			i++;
 		else
-		{
 			return (-1);
-		}
 	}
 	return (1);
 }

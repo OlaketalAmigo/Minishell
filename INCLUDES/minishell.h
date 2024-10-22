@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/21 14:04:47 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/22 14:19:38 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,6 +229,8 @@ int		ft_unset_pipe(t_struct *data, t_args *arg, char **args, char **path);
 
 // EXPORT //
 
+int		ft_ok_for_export(char *args);
+int		ft_ok_for_export2(char *args);
 void	ft_export_printf_ordered(t_struct *data);
 int		ft_export(t_struct *data, char **args);
 int		ft_export_pipe(t_struct *data, t_args *arg, char **args, char **path);
@@ -280,5 +282,6 @@ char	*ft_strjoin_gnl(char *s1, char *s2);
 // TOOLS 2 //
 
 int		ft_search_expand(char *str, char **tab);
+int		ft_isalpha(int c);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 17:08:06 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/21 15:11:46 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/22 16:00:54 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,20 +118,18 @@ char	**ft_expand_replace(t_struct *data, char **tab)
 void	ft_expand(t_struct *data)
 {
 	char	**tab;
-	char	**new_tab;
 	int		i;
 	int		j;
 
 	i = -1;
 	j = 0;
-	tab = ft_split_expand(data->line, 36);
+	tab = ft_split_expand(data->line, 32);
 	while (tab[++i])
 	{
 		if (ft_strncmp(tab[i], "$", 1) == 1)
 			j++;
 	}
-	new_tab = ft_expand_join(tab, (ft_nb_arg(tab) - j));
-	tab = ft_expand_replace(data, new_tab);
+	tab = ft_expand_replace(data, tab);
 	i = -1;
 	data->line = NULL;
 	while (tab[++i])

@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 11:04:41 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/14 15:56:34 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/22 16:04:09 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,18 @@ int	ft_ok_for_export(char *args)
 			return (1);
 	}
 	return (-1);
+}
+
+int	ft_ok_for_export2(char *args)
+{
+	int	i;
+
+	i = 0;
+	while (args[i] && ft_isalpha(args[i]) == 1)
+		i++;
+	if (i == 0)
+		return (-1);
+	return  (1);
 }
 
 void	ft_export_printf_ordered(t_struct *data)
@@ -66,7 +78,7 @@ int	ft_export(t_struct *data, char **args)
 	{
 		while (args[++i])
 		{
-			if (ft_ok_for_export(args[i]) == 1)
+			if (ft_ok_for_export(args[i]) == 1 && ft_ok_for_export2(args[i]) == 1)
 			{
 				str = ft_str_with_equal(args[i]);
 				if (ft_search(str, data->env) == 1)
