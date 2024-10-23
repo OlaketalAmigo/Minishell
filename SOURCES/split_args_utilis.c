@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_args_utilis.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:33:51 by gprunet           #+#    #+#             */
-/*   Updated: 2024/10/07 12:40:34 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/10/21 13:47:47 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,37 +81,12 @@ int	ft_check_hard_path(t_struct *data, char *arg)
 	return (0);
 }
 
-int	count_commands(char **arg, t_struct *data)
+void	post_assign_args(t_args *new_args, int j, t_struct *data)
 {
-	int		i;
-	int		count;
-
-	i = 0;
-	count = 0;
-	while (arg[i])
-	{
-		//printf("arg[%d] = %s\n", i, arg[i]);
-		if (check_redirection_cmd(arg[i]) == 1)
-		{
-			count++;
-			i++;
-			continue ;
-		}
-		if (ft_strchr(arg[i], '/') == 1)
-		{
-			if (ft_check_hard_path(data, arg[i]))
-				count++;
-		}
-		else if (is_empty(arg[i]) == 0)
-		{
-			if (ft_check_builtins_init(arg[i]) == 1 || ft_strchr(arg[i], '|') == 1)
-				count++;
-			else if (ft_check_path(data, arg[i]))
-				count++;
-		}
-		i++;
-	}
-	return (count);
+	if ((*new_args).delimiter)
+		data->heredoc = 1;
+	if ((*new_args).args)
+		(*new_args).args[j] = NULL;
 }
 
 t_args	ft_assign_args(t_args *new_args, char **temp, t_struct *data)
@@ -123,8 +98,6 @@ t_args	ft_assign_args(t_args *new_args, char **temp, t_struct *data)
 	j = 0;
 	while (temp[i])
 	{
-		if (check_heredoc(temp, new_args, &i) == 1)
-			continue ;
 		if (check_redirection(temp, new_args, &i, &j) == 1)
 			continue ;
 		if (!(*new_args).cmd && check_built(temp[0], new_args, &i) == 1)
@@ -141,9 +114,6 @@ t_args	ft_assign_args(t_args *new_args, char **temp, t_struct *data)
 			break ;
 		i++;
 	}
-	if ((*new_args).delimiter)
-		data->heredoc = 1;
-	if ((*new_args).args)
-		(*new_args).args[j] = NULL;
+	post_assign_args(new_args, j, data);
 	return (*new_args);
 }

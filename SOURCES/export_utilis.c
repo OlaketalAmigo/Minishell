@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utilis.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 13:01:01 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/07 16:01:19 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/21 13:29:21 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	ft_search(char *str, char **tab)
 void	ft_export_add(t_struct *data, char *args)
 {
 	char	**tab;
-	
+
 	tab = malloc (((ft_nb_arg(data->env)) + 2) * 8);
 	if (!tab)
 		return ;
@@ -58,7 +58,7 @@ void	ft_export_add(t_struct *data, char *args)
 void	ft_export_update(t_struct *data, char *args)
 {
 	char	**tab;
-	
+
 	tab = malloc (16);
 	tab[0] = args;
 	tab[1] = NULL;

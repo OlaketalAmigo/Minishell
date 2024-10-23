@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   redirection_utilis.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/21 12:53:15 by hehe              #+#    #+#             */
+/*   Updated: 2024/10/21 13:08:22 by hehe             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int	check_append(char *temp)
@@ -40,4 +52,49 @@ char	*ft_strstr(char *str, char *find)
 		i++;
 	}
 	return (NULL);
+}
+
+void	command2_utilis(char **temp, t_args *new_args, int *i, int j)
+{
+	int	k;
+
+	k = 0;
+	if (!temp[*i][j])
+		(*new_args).input = ft_strdup(temp[*i + 2]);
+	else
+	{
+		(*new_args).input = malloc(sizeof(char) * ft_strlen(temp[*i]) + 1);
+		while (temp[*i][j + k])
+		{
+			(*new_args).input[k] = temp[*i][j + k];
+			k++;
+		}
+		(*new_args).input[k] = '\0';
+	}
+	*i = *i + 1;
+}
+
+void	command1_utilis(char **temp, t_args *new_args, int *i, int j)
+{
+	int	k;
+
+	k = 0;
+	if (check_append(temp[*i]) == 1)
+		(*new_args).append = 1;
+	if (!temp[*i][j])
+	{
+		(*new_args).output = ft_strdup(temp[*i + 2]);
+		*i = *i + 3;
+	}
+	else
+	{
+		(*new_args).output = malloc(sizeof(char) * ft_strlen(temp[*i]) + 1);
+		while (temp[*i][j + k])
+		{
+			(*new_args).output[k] = temp[*i][j + k];
+			k++;
+		}
+		(*new_args).output[k] = '\0';
+		*i = *i + 1;
+	}
 }

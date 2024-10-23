@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utilis3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:36:49 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/07 12:34:14 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/10/23 20:00:29 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,12 @@ int	ft_execve(char **path, char **args, t_struct *data, t_args *arg)
 		ft_free_child(args, data, arg, path);
 		return (-1);
 	}
-	printf("We gonna execute %s\n", arg->cmd);
 	result = execve(path[0], args, data->env);
 	perror("execve errror");
 	return (result);
 }
 
-int	ft_check_function_pipe(t_struct *d, char **args, char **path, t_args *arg)
+int	ft_function_pipe(t_struct *d, char **args, char **path, t_args *arg)
 {
 	if (!args)
 		return (-1);

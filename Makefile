@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+         #
+#    By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/24 14:38:38 by tfauve-p          #+#    #+#              #
-#    Updated: 2024/10/07 15:51:47 by tfauve-p         ###   ########.fr        #
+#    Updated: 2024/10/23 20:30:32 by hehe             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,9 +26,11 @@ SOURCES = 								\
 	$(SOURCES_DIR)signals.c 			\
 	$(SOURCES_DIR)exec.c 				\
 	$(SOURCES_DIR)ft_exec_utilis.c 		\
+	$(SOURCES_DIR)algo_exec_utilis.c 	\
 	$(SOURCES_DIR)exec_utilis.c 		\
 	$(SOURCES_DIR)exec_utilis2.c 		\
 	$(SOURCES_DIR)exec_utilis3.c 		\
+	$(SOURCES_DIR)check_builtins.c 		\
 	$(SOURCES_DIR)free.c 				\
 	$(SOURCES_DIR)echo.c				\
 	$(SOURCES_DIR)pwd.c 				\
@@ -40,6 +42,7 @@ SOURCES = 								\
 	$(SOURCES_DIR)export_utilis.c 		\
 	$(SOURCES_DIR)split_args_utilis.c 	\
 	$(SOURCES_DIR)assign_args_utilis.c 	\
+	$(SOURCES_DIR)count_commands.c 		\
 	$(SOURCES_DIR)redirection.c 		\
 	$(SOURCES_DIR)redirection_utilis.c 	\
 	$(SOURCES_DIR)heredoc.c				\

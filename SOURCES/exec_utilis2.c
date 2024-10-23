@@ -3,56 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utilis2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 13:08:46 by gprunet           #+#    #+#             */
-/*   Updated: 2024/10/14 16:57:03 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/10/23 20:24:01 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	ft_check_builtins(char *cmd, t_args *arg)
-{
-	if (arg->delimiter)
-		return (1);
-	if (ft_strncmp(cmd, "echo", 4) == 1)
-		return (1);
-	if (ft_strncmp(cmd, "cd", 2) == 1)
-		return (1);
-	if (ft_strncmp(cmd, "pwd", 3) == 1)
-		return (1);
-	if (ft_strncmp(cmd, "export", 6) == 1)
-		return (1);
-	if (ft_strncmp(cmd, "unset", 5) == 1)
-		return (1);
-	if (ft_strncmp(cmd, "env", 3) == 1)
-		return (1);
-	if (ft_strncmp(cmd, "exit", 4) == 1)
-		return (1);
-	return (0);
-}
-
-int	ft_check_builtins_init(char *arg)
-{
-	if (ft_strncmp(arg, "<<", 2) == 1)
-		return (1);
-	if (ft_strncmp(arg, "echo", 4) == 1)
-		return (1);
-	if (ft_strncmp(arg, "cd", 2) == 1)
-		return (1);
-	if (ft_strncmp(arg, "pwd", 3) == 1)
-		return (1);
-	if (ft_strncmp(arg, "export", 6) == 1)
-		return (1);
-	if (ft_strncmp(arg, "unset", 5) == 1)
-		return (1);
-	if (ft_strncmp(arg, "env", 3) == 1)
-		return (1);
-	if (ft_strncmp(arg, "exit", 4) == 1)
-		return (1);
-	return (0);
-}
 
 void	ft_free_child(char **args, t_struct *data, t_args *arg, char **path)
 {
@@ -96,6 +54,21 @@ int	ft_hard_path(char *arg)
 	if (access(arg, X_OK) == 0)
 		return (1);
 	return (0);
+}
+
+char	**ft_assign_path(t_struct *data, char *cmd)
+{
+	char	**true_path;
+
+	if (!ft_hard_path(cmd))
+		true_path = ft_true_path(data, cmd);
+	else
+	{
+		true_path = malloc(sizeof(char *) * 2);
+		true_path[0] = ft_strdup(cmd);
+		true_path[1] = NULL;
+	}
+	return (true_path);
 }
 
 char	**ft_true_path(t_struct *data, char *cmd)

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   heredoc.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/21 13:11:06 by hehe              #+#    #+#             */
+/*   Updated: 2024/10/21 13:25:15 by hehe             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 char	*assign_delimiter(char *temp, t_args *new_args)
@@ -14,32 +26,30 @@ char	*assign_delimiter(char *temp, t_args *new_args)
 	return (ft_strdup(&temp[i]));
 }
 
-int	check_heredoc(char **temp, t_args *new_args, int *i)
+int	check_heredoc(char **temp, t_args *arg, int *i)
 {
 	if (temp[*i][0] == '<' && temp[*i][1] == '<')
 	{
 		if (temp[*i][2] == '\0' && (*i + 2) < ft_tablen(temp))
 		{
-			new_args->delimiter = ft_strdup(temp[*i + 2]);
-			if (!new_args->cmd)
-				new_args->cmd = ft_strdup(temp[*i]);
+			arg->delimiter = ft_strdup(temp[*i + 2]);
+			if (!arg->cmd)
+				arg->cmd = ft_strdup(temp[*i]);
 			*i = *i + 3;
-			return (1);
 		}
 		else if (temp[*i][2] != '\0')
 		{
-			new_args->delimiter = assign_delimiter(temp[*i], new_args);
+			arg->delimiter = assign_delimiter(temp[*i], arg);
 			*i = *i + 1;
-			return (1);
 		}
 		else
 		{
-			printf("Error: Missing delimiter\n");
-			new_args->delimiter = malloc(sizeof(char) * 1);
-			new_args->delimiter[0] = '\0';
+			arg->delimiter = malloc(sizeof(char) * 1);
+			arg->delimiter[0] = '\0';
 			*i = *i + 1;
-			return (0);
+			return (1);
 		}
+		return (1);
 	}
 	return (0);
 }
@@ -69,6 +79,19 @@ int	heredoc_algo(int pipefd, t_args *arg)
 	return (0);
 }
 
+int	heredoc_pipe(t_struct *data)
+{
+	close(data->pipefd[1]);
+	if (dup2(data->pipefd[0], 0) == -1)
+	{
+		perror("dup2 error");
+		close(data->pipefd[0]);
+		return (-1);
+	}
+	close(data->pipefd[0]);
+	return (0);
+}
+
 int	ft_heredoc(t_args *arg, t_struct *data)
 {
 	if (arg->delimiter[0] == '\0')
@@ -92,13 +115,7 @@ int	ft_heredoc(t_args *arg, t_struct *data)
 		close(data->pipefd[1]);
 		return (-1);
 	}
-	close(data->pipefd[1]);
-	if (dup2(data->pipefd[0], 0) == -1)
-	{
-		perror("dup2 error");
-		close(data->pipefd[0]);
+	if (heredoc_pipe(data) == -1)
 		return (-1);
-	}
-	close(data->pipefd[0]);
 	return (0);
 }
