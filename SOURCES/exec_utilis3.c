@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:36:49 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/22 12:28:13 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/23 15:29:12 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,13 +79,13 @@ int	function(t_struct *d, char **args, char **path, t_args *arg)
 	if (!args)
 		return (-1);
 	if (ft_strncmp(args[0], "echo", 4) == 1)
-		return (ft_echo(args));
+		return (ft_echo(d, args));
 	else if (ft_strncmp(args[0], "export", 6) == 1)
 		return (ft_export(d, args));
 	else if (ft_strncmp(args[0], "unset", 5) == 1)
 		return (ft_unset(d, args));
 	else if (ft_strncmp(args[0], "pwd", 3) == 1)
-		return (ft_pwd(args));
+		return (ft_pwd(d, args));
 	else if (ft_strncmp(args[0], "cd", 2) == 1)
 		return (ft_cd(d, args));
 	else if (ft_strncmp(args[0], "env", 3) == 1)

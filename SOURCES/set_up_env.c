@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 12:44:32 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/21 16:41:13 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/23 13:52:25 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	ft_set_up_env(t_struct *data, char **environ)
 	int		i;
 	int		j;
 	char	**tab;
+	char	*x;
 
 	if (environ[0] == NULL)
 		ft_write_env(data);
@@ -61,4 +62,6 @@ void	ft_set_up_env(t_struct *data, char **environ)
 		tab[i] = NULL;
 		data->env = tab;
 	}
+	x = "?=0";
+	ft_export_add(data, x);
 }

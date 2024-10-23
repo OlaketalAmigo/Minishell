@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 10:57:58 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/23 12:01:25 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/23 15:16:31 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ char	**ft_mecanism_expand(int length, char **tab, char *line, char c)
 			q = -q;
 		if (line[i] != '\0' && j == -1)
 			j = i;
-		if (((line[i] == 36 || line[i] == 39 || line[i] == c || line[i] == '\0') && j >= 0)
-			&& dq > 0)
+		if (((line[i] == 36 || line[i] == 39 || line[i] == c
+					|| line[i] == '\0') && j >= 0) && dq > 0)
 		{
 			tab[z++] = ft_writeword(line, j, i);
 			j = i;

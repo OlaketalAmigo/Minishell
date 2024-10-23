@@ -6,13 +6,13 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 11:04:41 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/22 16:04:09 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/23 15:49:29 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_ok_for_export(char *args)
+int	ft_ok_1(char *args)
 {
 	int	i;
 	int	q;
@@ -33,7 +33,7 @@ int	ft_ok_for_export(char *args)
 	return (-1);
 }
 
-int	ft_ok_for_export2(char *args)
+int	ft_ok_2(char *args)
 {
 	int	i;
 
@@ -42,7 +42,7 @@ int	ft_ok_for_export2(char *args)
 		i++;
 	if (i == 0)
 		return (-1);
-	return  (1);
+	return (1);
 }
 
 void	ft_export_printf_ordered(t_struct *data)
@@ -70,53 +70,51 @@ void	ft_export_printf_ordered(t_struct *data)
 
 int	ft_export(t_struct *data, char **args)
 {
-	int		i;
-	char	*str;
+	int	i;
 
 	i = 0;
 	if (args[1])
 	{
 		while (args[++i])
 		{
-			if (ft_ok_for_export(args[i]) == 1 && ft_ok_for_export2(args[i]) == 1)
+			if (ft_ok_1(args[i]) == 1 && ft_ok_2(args[i]) == 1)
 			{
-				str = ft_str_with_equal(args[i]);
-				if (ft_search(str, data->env) == 1)
-					ft_export_update(data, args[i]);
-				else
-					ft_export_add(data, args[i]);
-				free(str);
+				ft_export_add_or_update(data, args, i);
+			}
+			else
+			{
+				ft_export_update(data, "?=1");
+				printf("export: `%s': not a valid identifier\n", args[i]);
 			}
 		}
 	}
 	else
 		ft_export_printf_ordered(data);
+	ft_export_update(data, "?=0");
 	return (0);
 }
 
 int	ft_export_pipe(t_struct *data, t_args *arg, char **args, char **path)
 {
-	int		i;
-	char	*str;
+	int	i;
 
 	i = 0;
 	if (args[1])
 	{
 		while (args[++i])
 		{
-			if (ft_ok_for_export(args[i]) == 1)
+			if (ft_ok_1(args[i]) == 1 && ft_ok_2(args[i]) == 1)
+				ft_export_add_or_update(data, args, i);
+			else
 			{
-				str = ft_str_with_equal(args[i]);
-				if (ft_search(str, data->env) == 1)
-					ft_export_update(data, args[i]);
-				else
-					ft_export_add(data, args[i]);
-				free(str);
+				ft_export_update(data, "?=1");
+				printf("export: `%s': not a valid identifier\n", args[i]);
 			}
 		}
 	}
 	else
 		ft_export_printf_ordered(data);
+	ft_export_update(data, "?=0");
 	ft_free_child(args, data, arg, path);
 	exit(EXIT_SUCCESS);
 }

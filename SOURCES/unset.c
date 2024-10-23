@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 15:12:14 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/22 13:18:03 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/23 15:49:53 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ int	ft_unset(t_struct *data, char **args)
 			ft_unset_main(data, args[i]);
 		}
 	}
+	ft_export_update(data, "?=0");
 	return (0);
 }
 
@@ -111,6 +112,7 @@ int	ft_unset_pipe(t_struct *data, t_args *arg, char **args, char **path)
 			ft_unset_main(data, args[i]);
 		}
 	}
+	ft_export_update(data, "?=0");
 	ft_free_child(args, data, arg, path);
 	exit(EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:08:47 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/14 16:08:05 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/23 15:48:49 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,16 +59,16 @@ int	ft_cd_main(t_struct *data, char **args, int i, char *path)
 		if (path)
 			chdir(path);
 		else
-			printf("HOME not set\n");
-		if (path)
-			free(path);
-		return (1);
+			return (printf("HOME not set\n"), -1);
+		return (free(path), 1);
 	}
 	else if (i == 2)
 	{
 		path = args[1];
-		chdir(path);
-		return (1);
+		if (chdir(path) == 0)
+			return (1);
+		printf("cd: %s: No such file or directory\n", args[1]);
+		return (-1);
 	}
 	else
 	{
@@ -81,10 +81,15 @@ int	ft_cd(t_struct *data, char **args)
 {
 	int		i;
 	char	*cd;
+	char	*update;
 
 	i = ft_nb_arg(args);
 	cd = NULL;
-	ft_cd_main(data, args, i, cd);
+	if (ft_cd_main(data, args, i, cd) == 1)
+		update = "?=0";
+	else
+		update = "?=1";
+	ft_export_update(data, update);
 	return (0);
 }
 
@@ -92,10 +97,15 @@ int	ft_cd_pipe(t_struct *data, t_args *arg, char **args, char **path)
 {
 	int		i;
 	char	*cd;
+	char	*update;
 
 	i = ft_nb_arg(args);
 	cd = NULL;
-	ft_cd_main(data, args, i, cd);
+	if (ft_cd_main(data, args, i, cd) == 1)
+		update = "?=0";
+	else
+		update = "?=1";
+	ft_export_update(data, update);
 	ft_free_child(args, data, arg, path);
 	exit(EXIT_SUCCESS);
 }

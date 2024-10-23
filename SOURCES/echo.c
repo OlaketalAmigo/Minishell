@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:27:45 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/14 16:06:36 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/23 15:48:59 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,9 @@ int	ft_count_good_flags(char **tab)
 	return (j);
 }
 
-int	ft_echo(char **args)
+int	ft_echo(t_struct *data, char **args)
 {
+	char	*update;
 	int		option;
 	int		i;
 
@@ -94,11 +95,14 @@ int	ft_echo(char **args)
 		printf("%s ", args[i++]);
 	if (option == 0)
 		printf("\n");
+	update = "?=0";
+	ft_export_update(data, update);
 	return (0);
 }
 
 int	ft_echo_pipe(t_struct *data, t_args *arg, char **args, char **path)
 {
+	char	*update;
 	int		option;
 	int		i;
 
@@ -119,6 +123,8 @@ int	ft_echo_pipe(t_struct *data, t_args *arg, char **args, char **path)
 		printf("%s ", args[i++]);
 	if (option == 0)
 		printf("\n");
+	update = "?=0";
+	ft_export_update(data, update);
 	ft_free_child(args, data, arg, path);
 	exit(EXIT_SUCCESS);
 }
