@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 12:41:41 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/14 16:05:51 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/28 14:03:52 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_update_history(char *line)
 	int	j;
 
 	j = -1;
-	i = open("history.txt", O_WRONLY | O_CREAT, 0777);
+	i = open("history.txt", O_WRONLY | O_TRUNC | O_CREAT, 0777);
 	if (i == -1)
 	{
 		printf("Couldn't update history\n");

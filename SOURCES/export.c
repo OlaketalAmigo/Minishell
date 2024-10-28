@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 11:04:41 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/23 15:49:29 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/28 13:03:37 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,10 @@ void	ft_export_printf_ordered(t_struct *data)
 int	ft_export(t_struct *data, char **args)
 {
 	int	i;
+	int	status;
 
 	i = 0;
+	status = 0;
 	if (args[1])
 	{
 		while (args[++i])
@@ -83,22 +85,23 @@ int	ft_export(t_struct *data, char **args)
 			}
 			else
 			{
-				ft_export_update(data, "?=1");
+				status = 1;
 				printf("export: `%s': not a valid identifier\n", args[i]);
 			}
 		}
 	}
 	else
 		ft_export_printf_ordered(data);
-	ft_export_update(data, "?=0");
-	return (0);
+	return (status);
 }
 
 int	ft_export_pipe(t_struct *data, t_args *arg, char **args, char **path)
 {
 	int	i;
+	int	status;
 
 	i = 0;
+	status = 0;
 	if (args[1])
 	{
 		while (args[++i])
@@ -107,14 +110,13 @@ int	ft_export_pipe(t_struct *data, t_args *arg, char **args, char **path)
 				ft_export_add_or_update(data, args, i);
 			else
 			{
-				ft_export_update(data, "?=1");
+				status = 1;
 				printf("export: `%s': not a valid identifier\n", args[i]);
 			}
 		}
 	}
 	else
 		ft_export_printf_ordered(data);
-	ft_export_update(data, "?=0");
 	ft_free_child(args, data, arg, path);
-	exit(EXIT_SUCCESS);
+	exit(status);
 }

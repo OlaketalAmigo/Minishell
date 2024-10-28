@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 17:08:06 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/22 16:00:54 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/28 13:34:04 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,22 +117,28 @@ char	**ft_expand_replace(t_struct *data, char **tab)
 
 void	ft_expand(t_struct *data)
 {
-	char	**tab;
+	int		x;
 	int		i;
 	int		j;
+	char	**new;
+	char	**tab;
 
+	x = ft_nb_arg(data->arg);
+	new = malloc ((x + 1) * 8);
 	i = -1;
-	j = 0;
-	tab = ft_split_expand(data->line, 32);
-	while (tab[++i])
+	if (!new)
+		return ;
+	while (data->arg[++i])
 	{
-		if (ft_strncmp(tab[i], "$", 1) == 1)
-			j++;
+		tab = ft_split_expand(data->arg[i], 32);
+		tab = ft_expand_replace(data, tab);
+		j = -1;
+		new[i] = NULL;
+		while (tab[++j])
+			new[i] = ft_strjoin_gnl(new[i], tab[j]);
+		free(tab);
 	}
-	tab = ft_expand_replace(data, tab);
-	i = -1;
-	data->line = NULL;
-	while (tab[++i])
-		data->line = ft_strjoin_gnl(data->line, tab[i]);
-	free(tab);
+	new[i] = NULL;
+	ft_free(data->arg);
+	data->arg = new;
 }

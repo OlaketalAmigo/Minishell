@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/23 15:37:06 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/28 13:20:06 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ typedef struct data
 	int		in_fd;
 	int		out_fd;
 	char	**env;
-	int		launched_env;
 	pid_t	pid;
 }	t_struct;
 
@@ -193,12 +192,12 @@ char	**ft_clear_to_function(char **tab);
 int		ft_is_good_flag(char *s);
 int		ft_is_wrong_flag(char *s);
 int		ft_count_good_flags(char **tab);
-int		ft_echo(t_struct *data, char **args);
+int		ft_echo(char **args);
 int		ft_echo_pipe(t_struct *data, t_args *arg, char **args, char **paths);
 
 // PWD //
 
-int		ft_pwd(t_struct *data, char **args);
+int		ft_pwd(char **args);
 int		ft_pwd_pipe(t_struct *data, t_args *arg, char **args, char **path);
 
 // CD //

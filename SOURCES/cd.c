@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:08:47 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/23 15:48:49 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/28 13:21:18 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,31 +81,29 @@ int	ft_cd(t_struct *data, char **args)
 {
 	int		i;
 	char	*cd;
-	char	*update;
+	int		status;
 
 	i = ft_nb_arg(args);
 	cd = NULL;
 	if (ft_cd_main(data, args, i, cd) == 1)
-		update = "?=0";
+		status = 0;
 	else
-		update = "?=1";
-	ft_export_update(data, update);
-	return (0);
+		status = 1;
+	return (status);
 }
 
 int	ft_cd_pipe(t_struct *data, t_args *arg, char **args, char **path)
 {
 	int		i;
+	int		status;
 	char	*cd;
-	char	*update;
 
 	i = ft_nb_arg(args);
 	cd = NULL;
 	if (ft_cd_main(data, args, i, cd) == 1)
-		update = "?=0";
+		status = 0;
 	else
-		update = "?=1";
-	ft_export_update(data, update);
+		status = 1;
 	ft_free_child(args, data, arg, path);
-	exit(EXIT_SUCCESS);
+	exit(status);
 }
