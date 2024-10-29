@@ -6,11 +6,33 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 16:05:50 by gprunet           #+#    #+#             */
-/*   Updated: 2024/10/07 12:31:39 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/10/29 14:21:14 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	**ft_fill_args(char *cmds, char **args)
+{
+	int		i;
+	int		j;
+	char	**new_args;
+
+	i = 0;
+	while (args[i] && is_empty(args[i]) == 0)
+		i++;
+	new_args = malloc(sizeof(char *) * (i + 2));
+	i = 0;
+	j = 1;
+	if (cmds)
+	{
+		new_args[i] = ft_strdup(cmds);
+		while (args[i])
+			new_args[j++] = ft_strdup(args[i++]);
+	}
+	new_args[j] = NULL;
+	return (new_args);
+}
 
 void	ft_exec_init(t_struct *data, t_args **arg, int *cmd_count)
 {
@@ -18,47 +40,43 @@ void	ft_exec_init(t_struct *data, t_args **arg, int *cmd_count)
 	data->in_fd = 0;
 	data->out_fd = 1;
 	data->pid = 0;
+	data->heredoc = 0;
+	data->saved_stdin = -1;
+	data->saved_stdout = -1;
 	*cmd_count = split_args(data->arg, arg, data);
 }
 
-void	ft_check_i(int i, int cmd_count, t_struct *data)
+void	final_reset(t_struct *data)
+{
+	if (data->saved_stdin != 0 && data->saved_stdin != -1)
+	{
+		dup2(data->saved_stdin, 0);
+		close(data->saved_stdin);
+		data->saved_stdin = -1;
+	}
+}
+
+int	pipe_check(t_struct *data, int i, int cmd_count)
 {
 	if (i < cmd_count - 1)
 	{
 		if (pipe(data->pipefd) == -1)
 		{
-			close(data->pipefd[0]);
-			exit(EXIT_FAILURE);
+			perror("pipe error");
+			return (-1);
 		}
 		data->out_fd = data->pipefd[1];
 	}
 	else
 		data->out_fd = STDOUT_FILENO;
+	return (0);
 }
 
-void	ft_2nd_exec(t_struct *data, char **args, char **true_path)
+void	reset_pipe_exit(t_struct *data, int i, int cmd_count)
 {
-	if (data->in_fd != 0)
-		close(data->in_fd);
-	data->in_fd = data->pipefd[0];
-	if (true_path)
-		ft_free(true_path);
-	ft_free(args);
-	if (data->pid != 0)
-		waitpid(data->pid, NULL, 0);
-}
-
-char	**ft_assign_path(t_struct *data, char *cmd)
-{
-	char	**true_path;
-
-	if (!ft_hard_path(cmd))
-		true_path = ft_true_path(data, cmd);
-	else
+	if (i < cmd_count - 1)
 	{
-		true_path = malloc(sizeof(char *) * 2);
-		true_path[0] = ft_strdup(cmd);
-		true_path[1] = NULL;
+		close(data->pipefd[1]);
+		data->in_fd = data->pipefd[0];
 	}
-	return (true_path);
 }

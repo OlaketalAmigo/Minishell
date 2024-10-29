@@ -14,23 +14,10 @@
 
 void	ft_exec_cleanup(t_struct *data, t_args *arg, int cmd_count)
 {
+	(void)data;
 	if (cmd_count == 0)
-		printf("Command %s not found\n", data->arg[0]);
+		printf("No command to execute\n");
 	ft_free_struct(&arg, cmd_count);
-}
-
-void	ft_free_args(char ***args)
-{
-	int	i;
-
-	i = 0;
-	while ((*args)[i])
-	{
-		free((*args)[i]);
-		i++;
-	}
-	free(*args);
-	*args = NULL;
 }
 
 void	ft_free_struct(t_args **arg, int cmd_count)
@@ -46,11 +33,12 @@ void	ft_free_struct(t_args **arg, int cmd_count)
 	}
 	while (i < cmd_count)
 	{
-		if ((*arg)[i].cmd != NULL)
+		if ((*arg)[i].cmd)
 			free((*arg)[i].cmd);
 		free((*arg)[i].input);
 		free((*arg)[i].output);
-		ft_free_args(&(*arg)[i].args);
+		free((*arg)[i].delimiter);
+		ft_free((*arg)[i].args);
 		i++;
 	}
 	if (*arg)

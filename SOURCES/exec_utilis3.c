@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utilis3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:36:49 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/28 13:20:30 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/29 14:32:52 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,17 @@ int	ft_strncmp(char *s1, char *s2, int n)
 
 int	ft_execve(char **path, char **args, t_struct *data, t_args *arg)
 {
+	int	result;
+
 	if (!path || !path[0])
 	{
 		printf("Command %s not found\n", arg->cmd);
 		ft_free_child(args, data, arg, path);
-		exit(EXIT_FAILURE);
+		return (-1);
 	}
-	return (execve(path[0], args, data->env));
+	result = execve(path[0], args, data->env);
+	perror("execve errror");
+	return (result);
 }
 
 int	function_pipe(t_struct *d, char **args, char **path, t_args *arg)
@@ -74,7 +78,7 @@ int	function_pipe(t_struct *d, char **args, char **path, t_args *arg)
 		return (ft_execve(path, args, d, arg));
 }
 
-int	function(t_struct *d, char **args, char **path, t_args *arg)
+int	ft_check_function(t_struct *d, char **args, char **path, t_args *arg)
 {
 	if (!args)
 		return (-1);
@@ -92,14 +96,11 @@ int	function(t_struct *d, char **args, char **path, t_args *arg)
 		return (ft_env(d));
 	else if (ft_strncmp(args[0], "exit", 4) == 1)
 		return (ft_exit(d, arg, args, path));
-	else
-	{
-		d->pid = fork();
-		if (d->pid == -1)
-			return (-1);
-		if (d->pid == 0)
-			return (ft_execve(path, args, d, arg));
-		waitpid(d->pid, NULL, 0);
-	}
+	d->pid = fork();
+	if (d->pid == -1)
+		return (-1);
+	if (d->pid == 0)
+		return (ft_execve(path, args, d, arg));
+	waitpid(d->pid, NULL, 0);
 	return (0);
 }

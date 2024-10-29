@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/29 13:07:14 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/29 14:45:13 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,11 @@ typedef struct data
 	int		in_fd;
 	int		out_fd;
 	char	**env;
+	int		launched_env;
+	int		saved_stdout;
+	int		saved_stdin;
+	int		heredoc;
+	int		status;
 	pid_t	pid;
 }	t_struct;
 
@@ -66,9 +71,8 @@ typedef struct s_cmd
 	char	**args;
 	char	*input;
 	char	*output;
+	char	*delimiter;
 	int		append;
-	int		in;
-	int		out;
 }	t_args;
 
 // SIGNALS //
@@ -128,15 +132,26 @@ void	ft_handle_signals(void);
 // EXEC //
 
 void	ft_exec(t_struct *data);
+void	ft_algo_exec(t_struct *data, t_args *arg, int i, int cmd_count);
+void	ft_pipe_exec(t_struct *data, char **args, char **path, t_args *arg);
 int		split_args(char **arg, t_args **new_args, t_struct *data);
-void	handle_redirection(t_args *arg, t_struct *data, char **path, char **args);
+int		handle_redirection(t_args *arg, t_struct *data);
 
 // FT EXEC UTILIS //
 
-void	ft_check_i(int i, int cmd_count, t_struct *data);
-void	ft_2nd_exec(t_struct *data, char **args, char **true_path);
-char	**ft_assign_path(t_struct *data, char *cmd);
+char	**ft_fill_args(char *cmds, char **args);
 void	ft_exec_init(t_struct *data, t_args **arg, int *cmd_count);
+void	final_reset(t_struct *data);
+int		pipe_check(t_struct *data, int i, int cmd_count);
+void	reset_pipe_exit(t_struct *data, int i, int cmd_count);
+
+// ALGO EXEC UTILIS //
+
+int		algo_heredoc(t_struct *data, t_args *arg, int i, int cmd_count);
+int		algo_built(t_struct *data, char **args, char **true_path, t_args *arg);
+void	algo_fork(t_struct *data, char **args, char **true_path, t_args *arg);
+void	post_algo_free(char **args, char **true_path);
+void	reset_stds(t_struct *data, t_args *arg, int i, int cmd_count);
 
 // EXEC UTILIS //
 
@@ -149,29 +164,60 @@ int		is_flag(char *arg);
 //EXEC UTILIS 2 //
 
 void	ft_free_child(char **args, t_struct *data, t_args *arg, char **path);
-void	ft_fill_new_args(char **arg, t_args *full_arg);
+char	**ft_assign_path(t_struct *data, char *cmd);
 char	**check_access(char *tmp, int s);
 int		ft_hard_path(char *arg);
-int		ft_check_builtins(char *arg);
 char	**ft_true_path(t_struct *data, char *cmd);
 
-// EXEC UTILIS 3 //ma
+// EXEC UTILIS 3 //
 
 char	**ft_split_cleared(char *s, char c);
-int		function_pipe(t_struct *d, char **args, char **path, t_args *arg);
-int		function(t_struct *d, char **args, char **path, t_args *arg);
+int		ft_function_pipe(t_struct *d, char **args, char **path, t_args *arg);
+int		ft_check_function(t_struct *d, char **args, char **path, t_args *arg);
 int		ft_strncmp(char *s1, char *s2, int n);
+
+// CHECK BUILTINS //
+
+int		ft_check_builtins(char *cmd, t_args *arg);
+int		ft_check_builtins_init(char *arg);
 
 // SPLIT ARGS UTILIS //
 
 int		c_args(char **temp, t_struct *data);
 int		count_commands(char **arg, t_struct *data);
 t_args	ft_assign_args(t_args *new_args, char **temp, t_struct *data);
+char	*ft_strstr(char *str, char *find);
+int		ft_check_hard_path(t_struct *data, char *arg);
+int		ft_check_path(t_struct *data, char *arg);
+
+// REDIRECTION //
+
+int		check_redirection(char **temp, t_args *new_args, int *i, int *j);
+int		separate_command(char **temp, t_args *new_args, int *i, int *args);
+int		separate_command2(char **temp, t_args *new_args, int *i);
+char	*check_next(char **temp, int *i, char *c);
+int		check_fd(int fd, t_args *arg);
+
+// REDIRECTION UTILIS //
+
+int		check_redirection_cmd(char *arg);
+char	*ft_strstr(char *str, char *find);
+int		check_append(char *temp);
+void	command2_utilis(char **temp, t_args *new_args, int *i, int j);
+void	command1_utilis(char **temp, t_args *new_args, int *i, int j);
 
 // ASSIGN ARGS UTILIS //
 
 int		check_built(char *temp, t_args *new_args, int *i);
 int		check_string(char *temp, int *i);
+int		verif_command(t_struct *data, char **cmd, t_args *new_args);
+int		ft_check_cmd(t_args *new_args, int i, char *str);
+int		ft_tablen(char **tab);
+
+// COUNT COMMANDS //
+
+void	count_commands_utils(char **arg, t_struct *data, int i, int *count);
+int		count_commands(char **arg, t_struct *data);
 
 // FREE //
 
@@ -179,6 +225,8 @@ void	ft_free_struct(t_args **arg, int cmd_count);
 void	ft_free_all(t_struct *data);
 void	ft_free(char **tab);
 void	ft_exec_cleanup(t_struct *data, t_args *arg, int cmd_count);
+void	ft_free_one_arg(t_args *arg);
+void	ft_free_args(char ***args);
 
 // CLEAR TO FUNCTION	
 
@@ -186,6 +234,14 @@ int		ft_isalnum(int c);
 char	*ft_replace(char *tab, int i);
 char	**ft_clear(char **tab, int i, int dquote, int quote);
 char	**ft_clear_to_function(char **tab);
+
+//	HEREDOC //
+
+int		ft_heredoc(t_args *arg, t_struct *data);
+int		ft_heredoc_pipe(t_args *arg, t_struct *data, char **args, char **path);
+int		heredoc_algo(int pipefd, t_args *arg);
+int		check_heredoc(char **temp, t_args *new_args, int *i);
+char	*assign_delimiter(char *temp, t_args *new_args);
 
 // ECHO //
 

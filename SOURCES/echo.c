@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:27:45 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/29 13:38:26 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/29 14:17:10 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ int	ft_count_good_flags(char **tab)
 	while (tab[i])
 	{
 		if (ft_is_good_flag(tab[i]) == 1)
+			j++;
+		if (ft_is_wrong_flag(tab[i]) == 1)
 			j++;
 		if (ft_is_wrong_flag(tab[i]) == 1)
 			return (-1);
