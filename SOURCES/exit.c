@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 16:46:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/29 14:20:45 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/10/29 15:34:54 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	ft_atoi(const char *nptr)
 	return (nb * sign);
 }
 
-int	ft_exit(t_struct *data, t_args *arg, char **args, char **path)
+int	ft_exit(t_struct *data, t_args **arg, char **args, char **path)
 {
 	int	i;
 
@@ -76,7 +76,7 @@ int	ft_exit(t_struct *data, t_args *arg, char **args, char **path)
 	ft_free(data->path);
 	ft_free(args);
 	path = NULL;
-	ft_free_struct(&arg, 1);
+	ft_free_struct(arg, data->count);
 	exit(i);
 }
 

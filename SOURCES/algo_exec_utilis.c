@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 20:21:36 by hehe              #+#    #+#             */
-/*   Updated: 2024/10/29 15:00:05 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/10/29 17:03:15 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,21 +43,21 @@ void	post_algo_free(char **args, char **true_path)
 		ft_free(true_path);
 }
 
-int	algo_heredoc(t_struct *data, t_args *arg, int i, int cmd_count)
+int	algo_heredoc(t_struct *data, t_args **arg, int i, int cmd_count)
 {
-	if (arg[i].delimiter)
+	if ((*arg)[i].delimiter)
 	{
-		if (arg[i].output)
+		if ((*arg)[i].output)
 		{
 			dup2(data->saved_stdout, 1);
 			close(data->saved_stdout);
 		}
-		if (ft_heredoc(&arg[i], data) == -1)
+		if (ft_heredoc(&(*arg)[i], data) == -1)
 			return (-1);
-		if (ft_strncmp(arg[i].cmd, "<<", 2) == 1)
+		if (ft_strncmp((*arg)[i].cmd, "<<", 2) == 1)
 		{
 			if (i == cmd_count - 1)
-				reset_stds(data, &arg[i], i, cmd_count);
+				reset_stds(data, &(*arg)[i], i, cmd_count);
 			return (-1);
 		}
 		if (i < cmd_count - 1)
@@ -66,20 +66,20 @@ int	algo_heredoc(t_struct *data, t_args *arg, int i, int cmd_count)
 	return (1);
 }
 
-int	algo_built(t_struct *data, char **args, char **true_path, t_args *arg)
+int	algo_built(t_struct *data, char **args, char **true_path, t_args **arg)
 {
 	data->status = ft_check_function(data, args, true_path, arg);
 	if (data->status != 0)
 	{
-		printf("Command %s not found\n", arg->cmd);
-		ft_free_child(args, data, arg, data->path);
+		printf("Command %s not found\n", arg[data->i]->cmd);
+		ft_free_child(args, data, arg[data->i], data->path);
 		return (-1);
 	}
 	post_algo_free(args, true_path);
 	return (1);
 }
 
-void	algo_fork(t_struct *data, char **args, char **true_path, t_args *arg)
+void	algo_fork(t_struct *data, char **args, char **true_path, t_args **arg)
 {
 	data->pid = fork();
 	if (data->pid == -1)
@@ -87,8 +87,10 @@ void	algo_fork(t_struct *data, char **args, char **true_path, t_args *arg)
 		perror("fork error");
 		exit(EXIT_FAILURE);
 	}
-	else if (data->pid == 0)
+	if (data->pid == 0)
+	{
 		ft_pipe_exec(data, args, true_path, arg);
+	}
 	else
 		waitpid(data->pid, &data->status, 0);
 	if (WIFEXITED(data->status))

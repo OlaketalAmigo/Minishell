@@ -1,1 +1,1 @@
-ls | ls
+echo a | ls
