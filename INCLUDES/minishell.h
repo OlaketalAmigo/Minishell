@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/28 13:20:06 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/29 13:07:14 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,7 +240,6 @@ char	*ft_put_string_to_tab(t_struct *data, char **tab, int i, int j);
 char	*ft_str_until_equal(char *args);
 int		ft_search(char *str, char **tab);
 void	ft_export_add(t_struct *data, char *args);
-void	ft_export_update(t_struct *data, char *args);
 
 // EXPAND //
 
@@ -284,5 +283,13 @@ int		ft_unset_export(t_struct *data, char **args);
 int		ft_export_add_or_update(t_struct *data, char **args, int i);
 int		ft_search_expand(char *str, char **tab);
 int		ft_isalpha(int c);
+
+// RETURN STATUS //
+
+void	ft_export_update(t_struct *data, char *args);
+int		ft_negative(int n);
+int		ft_dizaine(long nombre);
+char	*ft_itoa(int n);
+int		ft_update_return_status(t_struct *data, int i);
 
 #endif

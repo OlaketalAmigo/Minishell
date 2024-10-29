@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 15:12:14 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/28 13:23:02 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/29 13:12:23 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ int	ft_unset_main(t_struct *data, char *args)
 	j = 0;
 	a = -1;
 	b = 0;
+	if (ft_strncmp(str, "?=", 2) == 1)
+		return (0);
 	while (data->env[j])
 	{
 		if (ft_strncmp(str, data->env[j], ft_strlen(str)) == 1)

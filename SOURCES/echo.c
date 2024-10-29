@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:27:45 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/28 12:45:28 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/29 13:38:26 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	ft_echo(char **args)
 			break ;
 	}
 	while (args[i])
-		printf("%s", args[i++]);
+		printf("%s ", args[i++]);
 	if (option == 0)
 		printf("\n");
 	return (0);

@@ -6,7 +6,7 @@
 #    By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/24 14:38:38 by tfauve-p          #+#    #+#              #
-#    Updated: 2024/10/16 15:03:50 by tfauve-p         ###   ########.fr        #
+#    Updated: 2024/10/29 13:24:56 by tfauve-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,7 @@ SOURCES = \
 	$(SOURCES_DIR)history_utilis.c \
 	$(SOURCES_DIR)tools.c \
 	$(SOURCES_DIR)tools_2.c \
+	$(SOURCES_DIR)return_status.c \
 	$(SOURCES_DIR)clear_to_function.c
 
 
