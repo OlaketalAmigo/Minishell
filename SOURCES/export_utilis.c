@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 13:01:01 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/29 14:21:07 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/10/29 15:00:51 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,3 @@ void	ft_export_add(t_struct *data, char *args)
 	ft_free(data->env);
 	data->env = tab;
 }
-

@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 20:21:36 by hehe              #+#    #+#             */
-/*   Updated: 2024/10/29 14:45:02 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/10/29 15:00:05 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ int	algo_heredoc(t_struct *data, t_args *arg, int i, int cmd_count)
 
 int	algo_built(t_struct *data, char **args, char **true_path, t_args *arg)
 {
-	if (ft_check_function(data, args, true_path, arg) == -1)
+	data->status = ft_check_function(data, args, true_path, arg);
+	if (data->status != 0)
 	{
 		printf("Command %s not found\n", arg->cmd);
 		ft_free_child(args, data, arg, data->path);

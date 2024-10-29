@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 15:01:37 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/29 14:20:28 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/10/29 15:00:33 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,8 @@ void	ft_pipe_exec(t_struct *data, char **args, char **path, t_args *arg)
 			dup2(data->out_fd, 1);
 			close(data->out_fd);
 		}
-		if (function_pipe(data, args, path, arg) == -1)
+		data->status = function_pipe(data, args, path, arg);
+		if (data->status != 0)
 		{
 			printf("Command %s not found\n", arg->cmd);
 			ft_free_child(args, data, arg, path);
