@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 11:04:41 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/29 14:13:58 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/10/30 15:20:24 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	ft_export(t_struct *data, char **args)
 	return (status);
 }
 
-int	ft_export_pipe(t_struct *data, t_args *arg, char **args, char **path)
+int	ft_export_pipe(t_struct *data, t_args **arg, char **args, char **path)
 {
 	int	i;
 	int	status;

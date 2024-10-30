@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:08:47 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/29 14:27:34 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/10/30 15:20:41 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	ft_cd(t_struct *data, char **args)
 	return (status);
 }
 
-int	ft_cd_pipe(t_struct *data, t_args *arg, char **args, char **path)
+int	ft_cd_pipe(t_struct *data, t_args **arg, char **args, char **path)
 {
 	int		i;
 	int		status;

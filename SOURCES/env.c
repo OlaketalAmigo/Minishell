@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 10:01:52 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/29 14:27:56 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/10/30 15:20:47 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_env(t_struct *data)
 	return (0);
 }
 
-int	ft_env_pipe(t_struct *data, t_args *arg, char **args, char **path)
+int	ft_env_pipe(t_struct *data, t_args **arg, char **args, char **path)
 {
 	int		i;
 

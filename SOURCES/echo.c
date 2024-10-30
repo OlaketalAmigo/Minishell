@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:27:45 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/29 14:17:10 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/10/30 15:20:10 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int	ft_echo(char **args)
 	return (0);
 }
 
-int	ft_echo_pipe(t_struct *data, t_args *arg, char **args, char **path)
+int	ft_echo_pipe(t_struct *data, t_args **arg, char **args, char **path)
 {
 	int		status;
 	int		option;

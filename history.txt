@@ -1,1 +1,1 @@
-echo a | ls
+ls -l | pwd | cd | pwd | echo a

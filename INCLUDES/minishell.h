@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/29 16:59:11 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/10/30 15:29:30 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,7 @@ int		is_flag(char *arg);
 
 //EXEC UTILIS 2 //
 
-void	ft_free_child(char **args, t_struct *data, t_args *arg, char **path);
+void	ft_free_child(char **args, t_struct *data, t_args **arg, char **path);
 char	**ft_assign_path(t_struct *data, char *cmd);
 char	**check_access(char *tmp, int s);
 int		ft_hard_path(char *arg);
@@ -252,12 +252,12 @@ int		ft_is_good_flag(char *s);
 int		ft_is_wrong_flag(char *s);
 int		ft_count_good_flags(char **tab);
 int		ft_echo(char **args);
-int		ft_echo_pipe(t_struct *data, t_args *arg, char **args, char **paths);
+int		ft_echo_pipe(t_struct *data, t_args **arg, char **args, char **paths);
 
 // PWD //
 
 int		ft_pwd(char **args);
-int		ft_pwd_pipe(t_struct *data, t_args *arg, char **args, char **path);
+int		ft_pwd_pipe(t_struct *data, t_args **arg, char **args, char **path);
 
 // CD //
 
@@ -265,17 +265,17 @@ char	*ft_remove_home(char *s1);
 char	*ft_get_home(t_struct *data);
 int		ft_cd_main(t_struct *data, char **args, int i, char *path);
 int		ft_cd(t_struct *data, char **args);
-int		ft_cd_pipe(t_struct *data, t_args *arg, char **args, char **path);
+int		ft_cd_pipe(t_struct *data, t_args **arg, char **args, char **path);
 
 // ENV //
 
-int		ft_env_pipe(t_struct *data, t_args *arg, char **args, char **path);
+int		ft_env_pipe(t_struct *data, t_args **arg, char **args, char **path);
 int		ft_env(t_struct *data);
 
 // EXIT //
 
 int		ft_exit(t_struct *data, t_args **arg, char **args, char **path);
-int		ft_exit_pipe(t_struct *data, t_args *arg, char **args, char **path);
+int		ft_exit_pipe(t_struct *data, t_args **arg, char **args, char **path);
 
 // UNSET //
 
@@ -283,7 +283,7 @@ char	*ft_str_with_equal(char *args);
 void	ft_delete_tab_case(t_struct *data, int i, int a, int b);
 int		ft_unset_main(t_struct *data, char *args);
 int		ft_unset(t_struct *data, char **args);
-int		ft_unset_pipe(t_struct *data, t_args *arg, char **args, char **path);
+int		ft_unset_pipe(t_struct *data, t_args **arg, char **args, char **path);
 
 // EXPORT //
 
@@ -291,7 +291,7 @@ int		ft_ok_1(char *args);
 int		ft_ok_2(char *args);
 void	ft_export_printf_ordered(t_struct *data);
 int		ft_export(t_struct *data, char **args);
-int		ft_export_pipe(t_struct *data, t_args *arg, char **args, char **path);
+int		ft_export_pipe(t_struct *data, t_args **arg, char **args, char **path);
 
 // EXPORT UTILIS //
 

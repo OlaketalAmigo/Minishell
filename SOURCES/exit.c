@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 16:46:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/29 15:34:54 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/10/30 15:20:55 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,12 +75,12 @@ int	ft_exit(t_struct *data, t_args **arg, char **args, char **path)
 	ft_free(data->arg);
 	ft_free(data->path);
 	ft_free(args);
-	path = NULL;
+	ft_free(path);
 	ft_free_struct(arg, data->count);
 	exit(i);
 }
 
-int	ft_exit_pipe(t_struct *data, t_args *arg, char **args, char **path)
+int	ft_exit_pipe(t_struct *data, t_args **arg, char **args, char **path)
 {
 	int	i;
 

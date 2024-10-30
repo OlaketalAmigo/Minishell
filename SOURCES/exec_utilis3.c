@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utilis3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:36:49 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/29 16:51:53 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/10/30 15:30:51 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,13 @@ int	ft_strncmp(char *s1, char *s2, int n)
 	return (1);
 }
 
-int	ft_execve(char **path, char **args, t_struct *data, t_args *arg)
+int	ft_execve(char **path, char **args, t_struct *data, t_args **arg)
 {
 	int	result;
 
 	if (!path || !path[0])
 	{
-		printf("Command %s not found\n", arg->cmd);
+		printf("Command %s not found\n", arg[data->i]->cmd);
 		ft_free_child(args, data, arg, path);
 		return (-1);
 	}
@@ -61,20 +61,20 @@ int	ft_function_pipe(t_struct *d, char **args, char **path, t_args **arg)
 	if (!args)
 		return (-1);
 	if (ft_strncmp(args[0], "echo", 4) == 1)
-		return (ft_echo_pipe(d, arg[d->i], args, path));
+		return (ft_echo_pipe(d, arg, args, path));
 	else if (ft_strncmp(args[0], "export", 6) == 1)
-		return (ft_export_pipe(d, arg[d->i], args, path));
+		return (ft_export_pipe(d, arg, args, path));
 	else if (ft_strncmp(args[0], "unset", 5) == 1)
-		return (ft_unset_pipe(d, arg[d->i], args, path));
+		return (ft_unset_pipe(d, arg, args, path));
 	else if (ft_strncmp(args[0], "pwd", 3) == 1)
-		return (ft_pwd_pipe(d, arg[d->i], args, path));
+		return (ft_pwd_pipe(d, arg, args, path));
 	else if (ft_strncmp(args[0], "cd", 2) == 1)
-		return (ft_cd_pipe(d, arg[d->i], args, path));
+		return (ft_cd_pipe(d, arg, args, path));
 	else if (ft_strncmp(args[0], "env", 3) == 1)
-		return (ft_env_pipe(d, arg[d->i], args, path));
+		return (ft_env_pipe(d, arg, args, path));
 	else if (ft_strncmp(args[0], "exit", 4) == 1)
-		return (ft_exit_pipe(d, arg[d->i], args, path));
-	return (ft_execve(path, args, d, arg[d->i]));
+		return (ft_exit_pipe(d, arg, args, path));
+	return (ft_execve(path, args, d, arg));
 }
 
 int	ft_check_function(t_struct *d, char **args, char **path, t_args **arg)
@@ -99,7 +99,7 @@ int	ft_check_function(t_struct *d, char **args, char **path, t_args **arg)
 	if (d->pid == -1)
 		return (-1);
 	if (d->pid == 0)
-		return (ft_execve(path, args, d, arg[d->i]));
+		return (ft_execve(path, args, d, arg));
 	waitpid(d->pid, NULL, 0);
 	return (0);
 }

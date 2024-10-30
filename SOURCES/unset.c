@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 15:12:14 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/29 14:25:24 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/10/30 15:20:30 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	ft_delete_tab_case(t_struct *data, int i, int a, int b)
 {
 	char	**tab;
 	int		j;
-	int		k;
 
 	j = ft_nb_arg(data->env);
 	tab = malloc ((j) * 8);
@@ -46,7 +45,6 @@ void	ft_delete_tab_case(t_struct *data, int i, int a, int b)
 			b = 1;
 		else
 		{
-			k = -1;
 			if (!tab)
 				return (ft_free(tab));
 			tab[a - b] = ft_put_string_to_tab(data, tab, (a - b), a);
@@ -103,7 +101,7 @@ int	ft_unset(t_struct *data, char **args)
 	return (status);
 }
 
-int	ft_unset_pipe(t_struct *data, t_args *arg, char **args, char **path)
+int	ft_unset_pipe(t_struct *data, t_args **arg, char **args, char **path)
 {
 	int	i;
 	int	status;
