@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   algo_exec_utilis.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: moo <moo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 20:21:36 by hehe              #+#    #+#             */
-/*   Updated: 2024/10/29 17:03:15 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/11/04 16:31:41 by moo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	algo_built(t_struct *data, char **args, char **true_path, t_args **arg)
 	if (data->status != 0)
 	{
 		printf("Command %s not found\n", arg[data->i]->cmd);
-		ft_free_child(args, data, arg[data->i], data->path);
+		ft_free_child(args, data, arg, data->path);
 		return (-1);
 	}
 	post_algo_free(args, true_path);
