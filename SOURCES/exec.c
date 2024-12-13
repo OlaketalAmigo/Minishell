@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moo <moo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 15:01:37 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/11/04 16:31:15 by moo              ###   ########.fr       */
+/*   Updated: 2024/12/13 14:24:56 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,8 @@ void	ft_exec(t_struct *data)
 		ft_algo_exec(data, &arg, data->i, cmd_count);
 		reset_pipe_exit(data, data->i, cmd_count);
 		data->i++;
+		printf("data->status = %d\n", data->status);
+		ft_update_return_status(data, data->status);
 	}
 	if (data->heredoc == 1 && cmd_count > 1)
 		final_reset(data);

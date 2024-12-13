@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 15:12:14 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/30 15:20:30 by hehe             ###   ########.fr       */
+/*   Updated: 2024/12/13 14:52:23 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,21 +55,17 @@ void	ft_delete_tab_case(t_struct *data, int i, int a, int b)
 	data->env = tab;
 }
 
-int	ft_unset_main(t_struct *data, char *args)
+int	ft_unset_main(t_struct *data, char *str)
 {
-	char	*str;
 	int		i;
 	int		j;
 	int		a;
 	int		b;
 
 	i = 0;
-	str = ft_str_with_equal(args);
 	j = 0;
 	a = -1;
 	b = 0;
-	if (ft_strncmp(str, "?=", 2) == 1)
-		return (0);
 	while (data->env[j])
 	{
 		if (ft_strncmp(str, data->env[j], ft_strlen(str)) == 1)
@@ -86,8 +82,9 @@ int	ft_unset_main(t_struct *data, char *args)
 
 int	ft_unset(t_struct *data, char **args)
 {
-	int	i;
-	int	status;
+	int		i;
+	int		status;
+	char	*str;
 
 	i = 0;
 	status = 0;
@@ -95,7 +92,16 @@ int	ft_unset(t_struct *data, char **args)
 	{
 		while (args[++i])
 		{
-			ft_unset_main(data, args[i]);
+			str = ft_str_with_equal(args[i]);
+			if (!str)
+				return (1);
+			if (ft_strncmp(str, "?=", 2) == 1)
+			{
+				free(str);
+				continue ;
+			}
+			ft_unset_main(data, str);
+			free(str);
 		}
 	}
 	return (status);
@@ -103,8 +109,9 @@ int	ft_unset(t_struct *data, char **args)
 
 int	ft_unset_pipe(t_struct *data, t_args **arg, char **args, char **path)
 {
-	int	i;
-	int	status;
+	int		i;
+	int		status;
+	char	*str;
 
 	i = 0;
 	status = 0;
@@ -112,7 +119,16 @@ int	ft_unset_pipe(t_struct *data, t_args **arg, char **args, char **path)
 	{
 		while (args[++i])
 		{
-			ft_unset_main(data, args[i]);
+			str = ft_str_with_equal(args[i]);
+			if (!str)
+				return (1);
+			if (ft_strcmp(str, "?=") == 0)
+			{
+				free(str);
+				continue ;
+			}
+			ft_unset_main(data, str);
+			free(str);
 		}
 	}
 	ft_free_child(args, data, arg, path);

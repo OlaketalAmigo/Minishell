@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 17:08:06 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/28 13:34:04 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/12/13 14:55:39 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,12 @@ char	*ft_get_from_env(t_struct *data, char *s)
 	{
 		if (ft_strncmp(data->env[i], s, ft_strlen(s)) == 1)
 		{
-			while (data->env[i][k] != 61)
+			while (data->env[i][k] != 61 && data->env[i][k])
 				k++;
-			new = malloc ((ft_strlen(data->env[i]) - k) * 1);
+			new = malloc ((ft_strlen(data->env[i]) - k + 1) * 1);
 			if (!new)
 				return (s);
-			while (++j != -4 && data->env[i][++k])
+			while (++j != -4 && data->env[i][k] && data->env[i][++k])
 				new[j] = data->env[i][k];
 			new[j] = '\0';
 		}

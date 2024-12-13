@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   algo_exec_utilis.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moo <moo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 20:21:36 by hehe              #+#    #+#             */
-/*   Updated: 2024/11/04 16:31:41 by moo              ###   ########.fr       */
+/*   Updated: 2024/12/13 14:12:41 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,13 @@ int	algo_heredoc(t_struct *data, t_args **arg, int i, int cmd_count)
 int	algo_built(t_struct *data, char **args, char **true_path, t_args **arg)
 {
 	data->status = ft_check_function(data, args, true_path, arg);
-	if (data->status != 0)
+	if (data->status == -2)
+	{
+		printf("Problem with either args or fork\n");
+		ft_free_child(args, data, arg, data->path);
+		return (-1);
+	}
+	else if (data->status == -1)
 	{
 		printf("Command %s not found\n", arg[data->i]->cmd);
 		ft_free_child(args, data, arg, data->path);

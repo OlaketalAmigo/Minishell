@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   return_status.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 12:58:06 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/29 14:45:42 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/12/13 14:54:37 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	ft_export_update(t_struct *data, char *args)
 		tab[2] = NULL;
 		ft_unset_export(data, tab);
 		ft_export_add(data, args);
-		free(tab[1]);
 		free(tab);
 	}
 }
@@ -82,15 +81,23 @@ char	*ft_itoa(int n)
 int	ft_update_return_status(t_struct *data, int j)
 {
 	char	*status;
+	char	*tmp2;
 	char	*tmp;
 
 	tmp = ft_itoa(j);
 	if (!tmp)
 		return (0);
-	status = ft_strjoin("?=", tmp);
+	tmp2 = malloc (3);
+	if (!tmp2)
+		return (free(tmp), 0);
+	tmp2[0] = '?';
+	tmp2[1] = '=';
+	tmp2[2] = '\0';
+	status = ft_strjoin_gnl(tmp2, tmp);
 	if (!status)
 	{
 		free(tmp);
+		free(tmp2);
 		return (0);
 	}
 	ft_export_update(data, status);

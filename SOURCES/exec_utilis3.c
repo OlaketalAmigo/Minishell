@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utilis3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:36:49 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/30 15:30:51 by hehe             ###   ########.fr       */
+/*   Updated: 2024/12/13 13:22:40 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	ft_execve(char **path, char **args, t_struct *data, t_args **arg)
 	{
 		printf("Command %s not found\n", arg[data->i]->cmd);
 		ft_free_child(args, data, arg, path);
-		return (-1);
+		return (127);
 	}
 	result = execve(path[0], args, data->env);
 	perror("execve errror");
@@ -60,19 +60,19 @@ int	ft_function_pipe(t_struct *d, char **args, char **path, t_args **arg)
 {
 	if (!args)
 		return (-1);
-	if (ft_strncmp(args[0], "echo", 4) == 1)
+	if (ft_strcmp(args[0], "echo") == 0)
 		return (ft_echo_pipe(d, arg, args, path));
-	else if (ft_strncmp(args[0], "export", 6) == 1)
+	else if (ft_strcmp(args[0], "export") == 0)
 		return (ft_export_pipe(d, arg, args, path));
-	else if (ft_strncmp(args[0], "unset", 5) == 1)
+	else if (ft_strcmp(args[0], "unset") == 0)
 		return (ft_unset_pipe(d, arg, args, path));
-	else if (ft_strncmp(args[0], "pwd", 3) == 1)
+	else if (ft_strcmp(args[0], "pwd") == 0)
 		return (ft_pwd_pipe(d, arg, args, path));
-	else if (ft_strncmp(args[0], "cd", 2) == 1)
+	else if (ft_strcmp(args[0], "cd") == 0)
 		return (ft_cd_pipe(d, arg, args, path));
-	else if (ft_strncmp(args[0], "env", 3) == 1)
+	else if (ft_strcmp(args[0], "env") == 0)
 		return (ft_env_pipe(d, arg, args, path));
-	else if (ft_strncmp(args[0], "exit", 4) == 1)
+	else if (ft_strcmp(args[0], "exit") == 0)
 		return (ft_exit_pipe(d, arg, args, path));
 	return (ft_execve(path, args, d, arg));
 }
@@ -80,24 +80,24 @@ int	ft_function_pipe(t_struct *d, char **args, char **path, t_args **arg)
 int	ft_check_function(t_struct *d, char **args, char **path, t_args **arg)
 {
 	if (!args)
-		return (-1);
-	if (ft_strncmp(args[0], "echo", 4) == 1)
+		return (-2);
+	if (ft_strcmp(args[0], "echo") == 0)
 		return (ft_echo(args));
-	else if (ft_strncmp(args[0], "export", 6) == 1)
+	else if (ft_strcmp(args[0], "export") == 0)
 		return (ft_export(d, args));
-	else if (ft_strncmp(args[0], "unset", 5) == 1)
+	else if (ft_strcmp(args[0], "unset") == 0)
 		return (ft_unset(d, args));
-	else if (ft_strncmp(args[0], "pwd", 3) == 1)
+	else if (ft_strcmp(args[0], "pwd") == 0)
 		return (ft_pwd(args));
-	else if (ft_strncmp(args[0], "cd", 2) == 1)
+	else if (ft_strcmp(args[0], "cd") == 0)
 		return (ft_cd(d, args));
-	else if (ft_strncmp(args[0], "env", 3) == 1)
+	else if (ft_strcmp(args[0], "env") == 0)
 		return (ft_env(d));
-	else if (ft_strncmp(args[0], "exit", 4) == 1)
+	else if (ft_strcmp(args[0], "exit") == 0)
 		return (ft_exit(d, arg, args, path));
 	d->pid = fork();
 	if (d->pid == -1)
-		return (-1);
+		return (-2);
 	if (d->pid == 0)
 		return (ft_execve(path, args, d, arg));
 	waitpid(d->pid, NULL, 0);

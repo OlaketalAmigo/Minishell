@@ -1,1 +1,1 @@
-echo a | echo a | pwd | echo a | pwd | ls
+cd pog

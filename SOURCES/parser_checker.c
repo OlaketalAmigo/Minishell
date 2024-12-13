@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 13:09:20 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/14 16:05:08 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/12/13 13:38:58 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	ft_is_pipe_next(char *line, int i)
 {
 	while (line[i] && line[i] == 32)
 		i++;
-	if (line[i] && line[i] == 124)
+	if ((line[i] && line[i] == 124) || line[i] == '\0')
 		return (1);
 	else
 		return (-1);
