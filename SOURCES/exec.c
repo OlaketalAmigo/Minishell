@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 15:01:37 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/12/13 14:24:56 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/12/14 15:38:12 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	ft_pipe_exec(t_struct *data, char **args, char **path, t_args **arg)
 			close(data->out_fd);
 		}
 		data->status = ft_function_pipe(data, args, path, arg);
-		if (data->status == -1)
+		if (data->status == -1 || data->status == 127)
 		{
 			printf("Command %s not found\n", (*arg)[data->i].cmd);
 			ft_free_child(args, data, arg, path);
@@ -145,7 +145,6 @@ void	ft_exec(t_struct *data)
 		ft_algo_exec(data, &arg, data->i, cmd_count);
 		reset_pipe_exit(data, data->i, cmd_count);
 		data->i++;
-		printf("data->status = %d\n", data->status);
 		ft_update_return_status(data, data->status);
 	}
 	if (data->heredoc == 1 && cmd_count > 1)

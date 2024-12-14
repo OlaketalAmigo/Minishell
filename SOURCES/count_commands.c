@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   count_commands.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 13:47:27 by hehe              #+#    #+#             */
-/*   Updated: 2024/10/29 16:41:32 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/12/14 15:36:42 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	count_commands(char **arg, t_struct *data)
 	count = 0;
 	while (arg[i])
 	{
-		if (i == 0)
+		if (i == 0 || i)
 		{
 			count++;
 			i++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utilis3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:36:49 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/12/13 13:22:40 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/12/14 15:33:25 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,12 @@ int	ft_strncmp(char *s1, char *s2, int n)
 	return (1);
 }
 
-int	ft_execve(char **path, char **args, t_struct *data, t_args **arg)
+int	ft_execve(char **path, char **args, t_struct *data)
 {
 	int	result;
 
 	if (!path || !path[0])
-	{
-		printf("Command %s not found\n", arg[data->i]->cmd);
-		ft_free_child(args, data, arg, path);
 		return (127);
-	}
 	result = execve(path[0], args, data->env);
 	perror("execve errror");
 	return (result);
@@ -74,7 +70,7 @@ int	ft_function_pipe(t_struct *d, char **args, char **path, t_args **arg)
 		return (ft_env_pipe(d, arg, args, path));
 	else if (ft_strcmp(args[0], "exit") == 0)
 		return (ft_exit_pipe(d, arg, args, path));
-	return (ft_execve(path, args, d, arg));
+	return (ft_execve(path, args, d));
 }
 
 int	ft_check_function(t_struct *d, char **args, char **path, t_args **arg)
@@ -99,7 +95,7 @@ int	ft_check_function(t_struct *d, char **args, char **path, t_args **arg)
 	if (d->pid == -1)
 		return (-2);
 	if (d->pid == 0)
-		return (ft_execve(path, args, d, arg));
+		return (ft_execve(path, args, d));
 	waitpid(d->pid, NULL, 0);
 	return (0);
 }
