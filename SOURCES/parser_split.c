@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 15:28:07 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/07 12:32:11 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/10/29 14:22:43 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,16 @@ int	ft_countword(char const *s, char c)
 {
 	int (i) = 0;
 	int (j) = 0;
-	int (key1) = 1;
-	int (key2) = 1;
+	int (dq) = 1;
+	int (q) = 1;
 	while (s[i])
 	{
-		if (s[i] == 34)
-			key1 = -key1;
-		if (s[i] == 39)
-			key2 = -key2;
+		if (s[i] == 34 && q != -1)
+			dq = -dq;
+		if (s[i] == 39 && dq != -1)
+			q = -q;
 		if (s[i] != c && (s[i + 1] == c || s[i + 1] == '\0' )
-			&& key1 > 0 && key2 > 0)
+			&& dq > 0 && q > 0)
 			j = j + 2;
 		i++;
 	}
@@ -38,6 +38,8 @@ int	ft_strlen(char const *s)
 {
 	int	i;
 
+	if (!s)
+		return (0);
 	i = 0;
 	if (!s)
 		return (0);
@@ -69,18 +71,18 @@ char	**ft_mecanism(int length, char **tab, char *line, char c)
 	int (i) = -1;
 	int (j) = -1;
 	int (z) = 0;
-	int (key1) = 1;
-	int (key2) = 1;
+	int (dq) = 1;
+	int (q) = 1;
 	while (++i <= length)
 	{
-		if (line[i] == 34 && key2 != -1)
-			key1 = -key1;
-		if (line[i] == 39 && key1 != -1)
-			key2 = -key2;
+		if (line[i] == 34 && q != -1)
+			dq = -dq;
+		if (line[i] == 39 && dq != -1)
+			q = -q;
 		if (line[i] != '\0' && line[i] != c && j == -1)
 			j = i;
 		if (((line[i] == c || line[i] == '\0') && j >= 0)
-			&& key1 > 0 && key2 > 0)
+			&& dq > 0 && q > 0)
 		{
 			tab[z++] = ft_writeword(line, j, i);
 			if (line[i])

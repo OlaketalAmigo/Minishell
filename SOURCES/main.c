@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:52:11 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/07 12:32:07 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/12/13 14:17:18 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,18 +47,10 @@ int	main(void)
 {
 	t_struct	data;
 
-	data.launched_env = 0;
-	if (environ[0] == NULL)
-	{
-		ft_set_up_env(&data);
-		data.launched_env = 1;
-	}
-	else
-		data.env = environ;
+	ft_set_up_env(&data, environ);
 	ft_init_signals();
 	ft_set_up_history();
 	ft_main(g_sig_receiver, &data);
-	if (data.launched_env == 1)
-		ft_free(data.env);
+	ft_free(data.env);
 	return (0);
 }

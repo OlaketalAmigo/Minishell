@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 13:36:54 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/07 16:03:50 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/10/29 14:24:57 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "minishell.h"
+#include "minishell.h"
 
 int	ft_strchr_gnl(const char *s, int c)
 {
@@ -34,6 +34,10 @@ char	*ft_strjoin_gnl(char *s1, char *s2)
 	int		k;
 
 	k = -1;
+	if (!s1)
+		return (s2);
+	if (!s2)
+		return (s1);
 	string = malloc (ft_strlen(s1) + ft_strlen(s2) + 1);
 	if (!string)
 		return (NULL);
@@ -75,13 +79,32 @@ char	**ft_replace_tab(char **tab, char **new_tab, char *new)
 	return (new_tab);
 }
 
-void	ft_swap(char *s1, char *s2)
+char	**ft_swap(t_struct *data, int i, int j)
 {
-	char	*tmp;
+	char	**tab;
+	int		a;
+	int		b;
 
-	tmp = s1;
-	s1 = s2;
-	s2 = tmp;
+	a = -1;
+	tab = malloc ((ft_nb_arg(data->env) + 1) * 8);
+	while (++a < ft_nb_arg(data->env))
+	{
+		b = -1;
+		if (a == i)
+			tab[a] = ft_put_string_to_tab(data, tab, i, j);
+		else if (a == j)
+			tab[a] = ft_put_string_to_tab(data, tab, j, i);
+		else
+		{
+			tab[a] = malloc ((ft_strlen(data->env[a]) + 1) * 1);
+			while (++b < ft_strlen(data->env[a]))
+				tab[a][b] = data->env[a][b];
+			tab[a][b] = '\0';
+		}
+	}
+	tab[a] = NULL;
+	ft_free(data->env);
+	return (tab);
 }
 
 int	ft_strcmp(char *s1, char *s2)

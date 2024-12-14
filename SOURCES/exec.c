@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 15:01:37 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/23 20:29:12 by hehe             ###   ########.fr       */
+/*   Updated: 2024/12/13 14:24:56 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,42 +65,43 @@ int	handle_redirection(t_args *arg, t_struct *data)
 	return (1);
 }
 
-void	ft_pipe_exec(t_struct *data, char **args, char **path, t_args *arg)
+void	ft_pipe_exec(t_struct *data, char **args, char **path, t_args **arg)
 {
 	if (data->pid == 0)
 	{
-		if (handle_redirection(arg, data) == -1)
+		if (handle_redirection(&(*arg)[data->i], data) == -1)
 		{
 			ft_free_child(args, data, arg, path);
 			exit(EXIT_FAILURE);
 		}
-		if (data->in_fd != 0 && !arg->input)
+		if (data->in_fd != 0 && !(*arg)[data->i].input)
 		{
 			dup2(data->in_fd, 0);
 			close(data->in_fd);
 		}
-		if (data->out_fd != 1 && !arg->output)
+		if (data->out_fd != 1 && !(*arg)[data->i].output)
 		{
 			dup2(data->out_fd, 1);
 			close(data->out_fd);
 		}
-		if (ft_function_pipe(data, args, path, arg) == -1)
+		data->status = ft_function_pipe(data, args, path, arg);
+		if (data->status == -1)
 		{
-			printf("Command %s not found\n", arg->cmd);
+			printf("Command %s not found\n", (*arg)[data->i].cmd);
 			ft_free_child(args, data, arg, path);
 			exit(EXIT_FAILURE);
 		}
 	}
 }
 
-void	ft_algo_exec(t_struct *data, t_args *arg, int i, int cmd_count)
+void	ft_algo_exec(t_struct *data, t_args **arg, int i, int cmd_count)
 {
 	char	**args;
 	char	**true_path;
 
-	args = ft_fill_args(arg[i].cmd, arg[i].args);
-	true_path = ft_assign_path(data, arg[i].cmd);
-	if (handle_redirection(&arg[i], data) == -1)
+	args = ft_fill_args((*arg)[i].cmd, (*arg)[i].args);
+	true_path = ft_assign_path(data, (*arg)[i].cmd);
+	if (handle_redirection(&(*arg)[i], data) == -1)
 	{
 		post_algo_free(args, true_path);
 		return ;
@@ -110,40 +111,42 @@ void	ft_algo_exec(t_struct *data, t_args *arg, int i, int cmd_count)
 		post_algo_free(args, true_path);
 		return ;
 	}
-	if (ft_check_builtins(arg[i].cmd, &arg[i]) && !arg[i].output)
+	if (ft_check_builtins((*arg)[i].cmd, &(*arg)[i]) && i == cmd_count - 1)
 	{
-		if (algo_built(data, args, true_path, &arg[i]) == -1)
+		if (algo_built(data, args, true_path, arg) == -1)
 			return ;
 		if (i == cmd_count - 1)
-			reset_stds(data, &arg[i], i, cmd_count);
+			reset_stds(data, &(*arg)[i], i, cmd_count);
 		return ;
 	}
-	algo_fork(data, args, true_path, &arg[i]);
-	reset_stds(data, &arg[i], i, cmd_count);
+	algo_fork(data, args, true_path, arg);
+	reset_stds(data, &(*arg)[i], i, cmd_count);
 }
 
 void	ft_exec(t_struct *data)
 {
 	int		cmd_count;
-	int		i;
 	t_args	*arg;
 
-	i = 0;
+	data->i = 0;
 	cmd_count = 0;
 	arg = NULL;
 	ft_exec_init(data, &arg, &cmd_count);
-	while (i < cmd_count)
+	data->count = cmd_count;
+	while (data->i < cmd_count)
 	{
-		if (!arg[i].cmd)
+		if (!arg[data->i].cmd)
 		{
-			i++;
+			data->i++;
 			continue ;
 		}
-		if (pipe_check(data, i, cmd_count) == -1)
+		if (pipe_check(data, data->i, cmd_count) == -1)
 			exit(EXIT_FAILURE);
-		ft_algo_exec(data, arg, i, cmd_count);
-		reset_pipe_exit(data, i, cmd_count);
-		i++;
+		ft_algo_exec(data, &arg, data->i, cmd_count);
+		reset_pipe_exit(data, data->i, cmd_count);
+		data->i++;
+		printf("data->status = %d\n", data->status);
+		ft_update_return_status(data, data->status);
 	}
 	if (data->heredoc == 1 && cmd_count > 1)
 		final_reset(data);

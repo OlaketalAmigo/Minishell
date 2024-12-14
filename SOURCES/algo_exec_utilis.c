@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   algo_exec_utilis.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 20:21:36 by hehe              #+#    #+#             */
-/*   Updated: 2024/10/23 20:28:50 by hehe             ###   ########.fr       */
+/*   Updated: 2024/12/13 14:12:41 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,21 +43,21 @@ void	post_algo_free(char **args, char **true_path)
 		ft_free(true_path);
 }
 
-int	algo_heredoc(t_struct *data, t_args *arg, int i, int cmd_count)
+int	algo_heredoc(t_struct *data, t_args **arg, int i, int cmd_count)
 {
-	if (arg[i].delimiter)
+	if ((*arg)[i].delimiter)
 	{
-		if (arg[i].output)
+		if ((*arg)[i].output)
 		{
 			dup2(data->saved_stdout, 1);
 			close(data->saved_stdout);
 		}
-		if (ft_heredoc(&arg[i], data) == -1)
+		if (ft_heredoc(&(*arg)[i], data) == -1)
 			return (-1);
-		if (ft_strncmp(arg[i].cmd, "<<", 2) == 1)
+		if (ft_strncmp((*arg)[i].cmd, "<<", 2) == 1)
 		{
 			if (i == cmd_count - 1)
-				reset_stds(data, &arg[i], i, cmd_count);
+				reset_stds(data, &(*arg)[i], i, cmd_count);
 			return (-1);
 		}
 		if (i < cmd_count - 1)
@@ -66,11 +66,18 @@ int	algo_heredoc(t_struct *data, t_args *arg, int i, int cmd_count)
 	return (1);
 }
 
-int	algo_built(t_struct *data, char **args, char **true_path, t_args *arg)
+int	algo_built(t_struct *data, char **args, char **true_path, t_args **arg)
 {
-	if (ft_check_function(data, args, true_path, arg) == -1)
+	data->status = ft_check_function(data, args, true_path, arg);
+	if (data->status == -2)
 	{
-		printf("Command %s not found\n", arg->cmd);
+		printf("Problem with either args or fork\n");
+		ft_free_child(args, data, arg, data->path);
+		return (-1);
+	}
+	else if (data->status == -1)
+	{
+		printf("Command %s not found\n", arg[data->i]->cmd);
 		ft_free_child(args, data, arg, data->path);
 		return (-1);
 	}
@@ -78,7 +85,7 @@ int	algo_built(t_struct *data, char **args, char **true_path, t_args *arg)
 	return (1);
 }
 
-void	algo_fork(t_struct *data, char **args, char **true_path, t_args *arg)
+void	algo_fork(t_struct *data, char **args, char **true_path, t_args **arg)
 {
 	data->pid = fork();
 	if (data->pid == -1)
@@ -86,9 +93,13 @@ void	algo_fork(t_struct *data, char **args, char **true_path, t_args *arg)
 		perror("fork error");
 		exit(EXIT_FAILURE);
 	}
-	else if (data->pid == 0)
+	if (data->pid == 0)
+	{
 		ft_pipe_exec(data, args, true_path, arg);
+	}
 	else
-		waitpid(data->pid, NULL, 0);
+		waitpid(data->pid, &data->status, 0);
+	if (WIFEXITED(data->status))
+		data->status = WEXITSTATUS(data->status);
 	post_algo_free(args, true_path);
 }

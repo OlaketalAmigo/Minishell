@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 15:06:49 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/03 15:01:50 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/10/30 15:59:46 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_free_struct(t_args **arg, int cmd_count)
 	int	i;
 
 	i = 0;
-	if (cmd_count == 0 && *arg)
+	if (*arg && (*arg)[i].cmd == NULL)
 	{
 		free(*arg);
 		*arg = NULL;
@@ -33,8 +33,7 @@ void	ft_free_struct(t_args **arg, int cmd_count)
 	}
 	while (i < cmd_count)
 	{
-		if ((*arg)[i].cmd)
-			free((*arg)[i].cmd);
+		free((*arg)[i].cmd);
 		free((*arg)[i].input);
 		free((*arg)[i].output);
 		free((*arg)[i].delimiter);
@@ -44,13 +43,13 @@ void	ft_free_struct(t_args **arg, int cmd_count)
 	if (*arg)
 	{
 		free(*arg);
-		*arg = NULL;
 	}
 }
 
 void	ft_free_all(t_struct *data)
 {
-	ft_free(data->path);
+	if (data->path)
+		ft_free(data->path);
 	ft_free(data->arg);
 }
 

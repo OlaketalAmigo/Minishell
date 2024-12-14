@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   count_commands.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 13:47:27 by hehe              #+#    #+#             */
-/*   Updated: 2024/10/21 13:48:00 by hehe             ###   ########.fr       */
+/*   Updated: 2024/10/29 16:41:32 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,12 @@ int	count_commands(char **arg, t_struct *data)
 	count = 0;
 	while (arg[i])
 	{
+		if (i == 0)
+		{
+			count++;
+			i++;
+			continue ;
+		}
 		if (check_redirection_cmd(arg[i]) == 1)
 		{
 			count++;

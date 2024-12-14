@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:47:15 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/07 12:32:34 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/10/30 14:56:55 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,51 +14,43 @@
 
 int	ft_pwd(char **args)
 {
-	int		i;
 	char	*cwd;
+	int		status;
 
-	printf("started builtin pwd\n");
-	i = ft_nb_arg(args);
+	status = 0;
 	cwd = NULL;
-	if (i == 1)
+	if (args[1] && args[1][0] == 45)
+	{
+		printf("pwd: invalid option: %s\n", args[1]);
+		status = 2;
+	}
+	else
 	{
 		cwd = getcwd(cwd, 100);
 		printf("%s\n", cwd);
 		free(cwd);
 	}
-	else if (i != 1)
-	{
-		if (args[1][0] == 45)
-			printf("pwd: bad option: %s\n", args[1]);
-		else
-			printf("pwd: too many arguments\n");
-		return (-1);
-	}
-	return (0);
+	return (status);
 }
 
-int	ft_pwd_pipe(t_struct *data, t_args *arg, char **args, char **path)
+int	ft_pwd_pipe(t_struct *data, t_args **arg, char **args, char **path)
 {
-	int		i;
 	char	*cwd;
+	int		status;
 
-	printf("started builtin pwd\n");
-	i = ft_nb_arg(args);
+	status = 0;
 	cwd = NULL;
-	if (i == 1)
+	if (args[1] && args[1][0] == 45)
+	{
+		printf("pwd: invalid option: %s\n", args[1]);
+		status = 2;
+	}
+	else
 	{
 		cwd = getcwd(cwd, 100);
 		printf("%s\n", cwd);
 		free(cwd);
 	}
-	else if (i != 1)
-	{
-		if (args[1][0] == 45)
-			printf("pwd: bad option: %s\n", args[1]);
-		else
-			printf("pwd: too many arguments\n");
-		return (-1);
-	}
 	ft_free_child(args, data, arg, path);
-	exit(EXIT_SUCCESS);
+	exit(status);
 }

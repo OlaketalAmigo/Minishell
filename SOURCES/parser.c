@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:59:25 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/07 12:32:25 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/12/13 13:38:28 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	ft_printf_parsing(char **tab)
 	int	j;
 
 	i = 0;
-	printf("debut printf tab arg\n");
 	while (tab[i])
 	{
 		j = 0;
@@ -37,6 +36,7 @@ void	ft_set_up_struct(t_struct *data)
 	int	i;
 
 	data->tmp_arg = ft_split(data->line, '|');
+	free(data->line);
 	if (!data->tmp_arg)
 		return ;
 	i = 0;
@@ -62,5 +62,6 @@ int	ft_parser(t_struct *data)
 		return (-1);
 	}
 	ft_set_up_struct(data);
+	ft_expand(data);
 	return (1);
 }

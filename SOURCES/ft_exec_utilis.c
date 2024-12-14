@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec_utilis.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 16:05:50 by gprunet           #+#    #+#             */
-/*   Updated: 2024/10/23 20:26:11 by hehe             ###   ########.fr       */
+/*   Updated: 2024/10/29 16:26:05 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	**ft_fill_args(char *cmds, char **args)
 	char	**new_args;
 
 	i = 0;
-	while (args[i] && is_empty(args[i]) == 0)
+	while (args[i])
 		i++;
 	new_args = malloc(sizeof(char *) * (i + 2));
 	i = 0;
@@ -36,6 +36,7 @@ char	**ft_fill_args(char *cmds, char **args)
 
 void	ft_exec_init(t_struct *data, t_args **arg, int *cmd_count)
 {
+	data->count = 0;
 	data->path = ft_split(getenv("PATH"), ':');
 	data->in_fd = 0;
 	data->out_fd = 1;

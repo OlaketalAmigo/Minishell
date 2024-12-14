@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+         #
+#    By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/24 14:38:38 by tfauve-p          #+#    #+#              #
-#    Updated: 2024/10/23 20:30:32 by hehe             ###   ########.fr        #
+#    Updated: 2024/10/29 14:36:13 by gprunet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,42 +16,46 @@ SOURCES_DIR = SOURCES/
 INCLUDES_DIR = INCLUDES/
 OBJECTS_DIR = OBJECTS/
 
-SOURCES = 								\
-	$(SOURCES_DIR)main.c 				\
-	$(SOURCES_DIR)parser_checker.c 		\
-	$(SOURCES_DIR)parser_split.c 		\
-	$(SOURCES_DIR)parser_trim.c 		\
-	$(SOURCES_DIR)parser_utilis.c 		\
-	$(SOURCES_DIR)parser.c 				\
-	$(SOURCES_DIR)signals.c 			\
-	$(SOURCES_DIR)exec.c 				\
-	$(SOURCES_DIR)ft_exec_utilis.c 		\
-	$(SOURCES_DIR)algo_exec_utilis.c 	\
-	$(SOURCES_DIR)exec_utilis.c 		\
-	$(SOURCES_DIR)exec_utilis2.c 		\
-	$(SOURCES_DIR)exec_utilis3.c 		\
-	$(SOURCES_DIR)check_builtins.c 		\
-	$(SOURCES_DIR)free.c 				\
-	$(SOURCES_DIR)echo.c				\
-	$(SOURCES_DIR)pwd.c 				\
-	$(SOURCES_DIR)cd.c 					\
-	$(SOURCES_DIR)exit.c 				\
-	$(SOURCES_DIR)env.c 				\
-	$(SOURCES_DIR)unset.c 				\
-	$(SOURCES_DIR)export.c 				\
-	$(SOURCES_DIR)export_utilis.c 		\
-	$(SOURCES_DIR)split_args_utilis.c 	\
-	$(SOURCES_DIR)assign_args_utilis.c 	\
-	$(SOURCES_DIR)count_commands.c 		\
-	$(SOURCES_DIR)redirection.c 		\
-	$(SOURCES_DIR)redirection_utilis.c 	\
-	$(SOURCES_DIR)heredoc.c				\
-	$(SOURCES_DIR)set_up_env.c 			\
-	$(SOURCES_DIR)history.c 			\
-	$(SOURCES_DIR)history_utilis.c 		\
-	$(SOURCES_DIR)tools.c 				\
+SOURCES = \
+	$(SOURCES_DIR)main.c \
+	$(SOURCES_DIR)parser_checker.c \
+	$(SOURCES_DIR)parser_split.c \
+	$(SOURCES_DIR)parser_trim.c \
+	$(SOURCES_DIR)parser_utilis.c \
+	$(SOURCES_DIR)parser.c \
+	$(SOURCES_DIR)signals.c \
+	$(SOURCES_DIR)exec.c \
+	$(SOURCES_DIR)ft_exec_utilis.c \
+	$(SOURCES_DIR)exec_utilis.c \
+	$(SOURCES_DIR)exec_utilis2.c \
+	$(SOURCES_DIR)exec_utilis3.c \
+	$(SOURCES_DIR)free.c \
+	$(SOURCES_DIR)echo.c \
+	$(SOURCES_DIR)pwd.c \
+	$(SOURCES_DIR)cd.c \
+	$(SOURCES_DIR)exit.c \
+	$(SOURCES_DIR)env.c \
+	$(SOURCES_DIR)unset.c \
+	$(SOURCES_DIR)export.c \
+	$(SOURCES_DIR)export_utilis.c \
+	$(SOURCES_DIR)expand.c \
+	$(SOURCES_DIR)expand_utilis.c \
+	$(SOURCES_DIR)split_args_utilis.c \
+	$(SOURCES_DIR)assign_args_utilis.c \
+	$(SOURCES_DIR)set_up_env.c \
+	$(SOURCES_DIR)history.c \
+	$(SOURCES_DIR)history_utilis.c \
+	$(SOURCES_DIR)tools.c \
+	$(SOURCES_DIR)tools_2.c \
+	$(SOURCES_DIR)return_status.c	\
+	$(SOURCES_DIR)algo_exec_utilis.c	\
+	$(SOURCES_DIR)check_builtins.c	\
+	$(SOURCES_DIR)redirection.c	\
+	$(SOURCES_DIR)redirection_utilis.c	\
+	$(SOURCES_DIR)heredoc.c	\
+	$(SOURCES_DIR)count_commands.c	\
 	$(SOURCES_DIR)clear_to_function.c
-
+	
 
 OBJECTS = $(SOURCES:$(SOURCES_DIR)%.c=$(OBJECTS_DIR)%.o)
 CC = cc
