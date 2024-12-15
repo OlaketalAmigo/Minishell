@@ -6,7 +6,7 @@
 /*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 15:01:37 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/12/14 15:38:12 by hehe             ###   ########.fr       */
+/*   Updated: 2024/12/15 21:22:53 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	split_args(char **arg, t_args **new_args, t_struct *data)
 	char	**temp;
 
 	i = 0;
-	*new_args = malloc(sizeof(t_args) * (count_commands(arg, data) + 1));
+	*new_args = malloc(sizeof(t_args) * (count_commands(arg) + 1));
 	if (!*new_args)
 		return (0);
 	while (arg[i])
@@ -36,7 +36,7 @@ int	split_args(char **arg, t_args **new_args, t_struct *data)
 		ft_free(temp);
 		i++;
 	}
-	return (count_commands(arg, data));
+	return (count_commands(arg));
 }
 
 int	handle_redirection(t_args *arg, t_struct *data)

@@ -6,7 +6,7 @@
 /*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 13:08:46 by gprunet           #+#    #+#             */
-/*   Updated: 2024/12/14 15:35:02 by hehe             ###   ########.fr       */
+/*   Updated: 2024/12/15 21:21:30 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	ft_free_child(char **args, t_struct *data, t_args **arg, char **path)
 {
+	close(data->pipefd[0]);
+	close(data->pipefd[1]);
 	ft_free(data->path);
 	ft_free(path);
 	ft_free(args);

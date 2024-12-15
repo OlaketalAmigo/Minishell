@@ -6,7 +6,7 @@
 /*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 20:21:36 by hehe              #+#    #+#             */
-/*   Updated: 2024/12/14 15:36:32 by hehe             ###   ########.fr       */
+/*   Updated: 2024/12/15 21:23:16 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,11 @@ void	reset_stds(t_struct *data, t_args *arg, int i, int cmd_count)
 	{
 		close(data->out_fd);
 		data->out_fd = 1;
+	}
+	if (ft_check_builtins(arg->cmd, arg) == 1)
+	{
+		close(data->pipefd[0]);
+		close(data->pipefd[1]);
 	}
 }
 
