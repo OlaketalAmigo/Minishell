@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 12:53:48 by hehe              #+#    #+#             */
-/*   Updated: 2024/10/23 20:21:02 by hehe             ###   ########.fr       */
+/*   Updated: 2024/12/16 19:27:28 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,11 @@ int	check_fd(int fd, t_args *arg)
 	if (fd < 0)
 	{
 		perror(arg->input);
+		return (-1);
+	}
+	if (arg->cmd[0] == '>' && arg->cmd[1] != '>')
+	{
+		close(fd);
 		return (-1);
 	}
 	return (fd);
@@ -100,6 +105,53 @@ int	separate_command(char **temp, t_args *new_args, int *i, int *args)
 	return (1);
 }
 
+char	*get_cmd_output(char *temp)
+{
+	char	*res;
+	int		i;
+	int		j;
+
+	i = 0;
+	while (temp[i] != '>')
+		i++;
+	i++;
+	j = ft_strlen(temp);
+	res = malloc(j - i + 1);
+	j = 0;
+	while (i < ft_strlen(temp))
+		res[j++] = temp[i++];
+	res[j] = '\0';
+	return (res);
+}
+
+int	get_cmd(char **temp, int *i, t_args *args)
+{
+	int		j;
+	int		tab_len;
+
+	if (args->cmd)
+		return (0);
+	j = 1;
+	tab_len = ft_tablen(temp);
+	if (!temp[*i][j])
+	{
+		args->output = ft_strdup(temp[*i + 2]);
+		*i = *i + 4;
+	}
+	else
+	{
+		args->output = get_cmd_output(temp[*i]);
+		*i = *i + 2;
+	}
+	if (*i >= tab_len)
+		args->cmd = ft_strdup(">");
+	else
+		args->cmd = ft_strdup(temp[*i]);
+	args->append = 0;
+	*i = *i + 1;
+	return (1);
+}
+
 int	check_redirection(char **temp, t_args *new_args, int *i, int *j)
 {
 	if (temp[*i][0] == '<' && temp[*i][1] == '<')
@@ -121,6 +173,8 @@ int	check_redirection(char **temp, t_args *new_args, int *i, int *j)
 			(*new_args).append = 1;
 			return (1);
 		}
+		if (get_cmd(temp, &(*i), new_args) == 1)
+			return (1);
 		(*new_args).output = check_next(temp, &(*i), ">");
 		(*new_args).append = 0;
 		return (1);

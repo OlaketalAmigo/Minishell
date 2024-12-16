@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   algo_exec_utilis.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 20:21:36 by hehe              #+#    #+#             */
-/*   Updated: 2024/12/15 21:23:16 by hehe             ###   ########.fr       */
+/*   Updated: 2024/12/16 19:15:52 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	reset_stds(t_struct *data, t_args *arg, int i, int cmd_count)
 		close(data->out_fd);
 		data->out_fd = 1;
 	}
-	if (ft_check_builtins(arg->cmd, arg) == 1)
+	if (ft_check_builtins(arg->cmd, arg) == 1 && i < cmd_count - 1)
 	{
 		close(data->pipefd[0]);
 		close(data->pipefd[1]);
@@ -43,6 +43,10 @@ void	reset_stds(t_struct *data, t_args *arg, int i, int cmd_count)
 
 void	post_algo_free(char **args, char **true_path)
 {
+	if (args[0][0] == '>' && args[0][1] != '>')
+	{
+		
+	}
 	ft_free(args);
 	if (true_path)
 		ft_free(true_path);
