@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec_utilis.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 16:05:50 by gprunet           #+#    #+#             */
-/*   Updated: 2024/12/16 19:23:19 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/12/16 21:23:48 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ char	**ft_fill_args(char *cmds, char **args)
 void	ft_exec_init(t_struct *data, t_args **arg, int *cmd_count)
 {
 	data->count = 0;
+	data->status = 0;
 	data->input = 0;
 	data->output = 0;
 	data->path = ft_split(getenv("PATH"), ':');

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 12:53:48 by hehe              #+#    #+#             */
-/*   Updated: 2024/12/16 19:27:28 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/12/16 21:32:55 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,25 +129,25 @@ int	get_cmd(char **temp, int *i, t_args *args)
 	int		j;
 	int		tab_len;
 
-	if (args->cmd)
+	if ((*args).cmd)
 		return (0);
 	j = 1;
 	tab_len = ft_tablen(temp);
 	if (!temp[*i][j])
 	{
-		args->output = ft_strdup(temp[*i + 2]);
+		(*args).output = ft_strdup(temp[*i + 2]);
 		*i = *i + 4;
 	}
 	else
 	{
-		args->output = get_cmd_output(temp[*i]);
+		(*args).output = get_cmd_output(temp[*i]);
 		*i = *i + 2;
 	}
 	if (*i >= tab_len)
-		args->cmd = ft_strdup(">");
+		(*args).cmd = ft_strdup(">");
 	else
-		args->cmd = ft_strdup(temp[*i]);
-	args->append = 0;
+		(*args).cmd = ft_strdup(temp[*i]);
+	(*args).append = 0;
 	*i = *i + 1;
 	return (1);
 }
@@ -175,6 +175,8 @@ int	check_redirection(char **temp, t_args *new_args, int *i, int *j)
 		}
 		if (get_cmd(temp, &(*i), new_args) == 1)
 			return (1);
+		if ((*new_args).output)
+			free((*new_args).output);
 		(*new_args).output = check_next(temp, &(*i), ">");
 		(*new_args).append = 0;
 		return (1);

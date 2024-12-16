@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 15:01:37 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/12/16 19:26:21 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/12/16 21:23:45 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,6 @@ void	ft_exec(t_struct *data)
 
 	data->i = 0;
 	cmd_count = 0;
-	data->status = 0;
 	arg = NULL;
 	ft_exec_init(data, &arg, &cmd_count);
 	data->count = cmd_count;
