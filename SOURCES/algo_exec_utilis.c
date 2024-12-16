@@ -34,7 +34,7 @@ void	reset_stds(t_struct *data, t_args *arg, int i, int cmd_count)
 		close(data->out_fd);
 		data->out_fd = 1;
 	}
-	if (ft_check_builtins(arg->cmd, arg) == 1)
+	if (ft_check_builtins(arg->cmd, arg) == 1 && i < cmd_count - 1)
 	{
 		close(data->pipefd[0]);
 		close(data->pipefd[1]);
@@ -74,13 +74,13 @@ int	algo_heredoc(t_struct *data, t_args **arg, int i, int cmd_count)
 int	algo_built(t_struct *data, char **args, char **true_path, t_args **arg)
 {
 	data->status = ft_check_function(data, args, true_path, arg);
-	if (data->status == -2)
+	if (data->status == -1)
 	{
 		printf("Problem with either args or fork\n");
 		ft_free_child(args, data, arg, data->path);
 		return (-1);
 	}
-	else if (data->status == -1)
+	else if (data->status == 1)
 	{
 		printf("Command %s not found\n", arg[data->i]->cmd);
 		ft_free_child(args, data, arg, data->path);
@@ -92,6 +92,7 @@ int	algo_built(t_struct *data, char **args, char **true_path, t_args **arg)
 
 void	algo_fork(t_struct *data, char **args, char **true_path, t_args **arg)
 {
+	printf("data->status 0 = %d\n", data->status);
 	data->pid = fork();
 	if (data->pid == -1)
 	{
@@ -99,10 +100,14 @@ void	algo_fork(t_struct *data, char **args, char **true_path, t_args **arg)
 		exit(EXIT_FAILURE);
 	}
 	if (data->pid == 0)
+	{
 		ft_pipe_exec(data, args, true_path, arg);
+	}
 	else
 		waitpid(data->pid, &data->status, 0);
+	printf("data->status 2 = %d\n", data->status);
 	if (WIFEXITED(data->status))
 		data->status = WEXITSTATUS(data->status);
+	printf("data->status 3 = %d\n", data->status);
 	post_algo_free(args, true_path);
 }

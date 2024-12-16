@@ -79,11 +79,13 @@ int	ft_parser_check_pipe_and(t_struct *data)
 
 int	ft_parser_check(t_struct *data)
 {
+	if (ft_check_starting_pipe(data) == -1)
+		return (free(data->line), -1);
 	if (ft_parser_check_quotes(data) == -1)
 		return (free(data->line), -1);
 	if (ft_parser_check_pipe_and(data) == -1)
 		return (free(data->line), -1);
-	if (ft_full_space(data->line) == 1)
-		return (free(data->line), -1);
+	if (ft_full_space(data->line) == -1)
+		return (free(data->line), -2);
 	return (1);
 }

@@ -97,7 +97,6 @@ int	ft_exit_pipe(t_struct *data, t_args **arg, char **args, char **path)
 		else
 			printf("exit: %s: numeric argument required\n", args[1]);
 	}
-	printf("exit avec %d\n", i);
 	ft_free_child(args, data, arg, path);
 	exit(i);
 }

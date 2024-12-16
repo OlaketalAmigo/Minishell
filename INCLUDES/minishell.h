@@ -95,6 +95,7 @@ int		ft_parser(t_struct *data);
 
 void	ft_error_parsing(void);
 int		ft_nb_arg(char **tab);
+int		ft_check_starting_pipe(t_struct *data);
 
 // PARSER SPLIT //
 

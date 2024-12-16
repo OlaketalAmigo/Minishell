@@ -76,7 +76,7 @@ int	ft_function_pipe(t_struct *d, char **args, char **path, t_args **arg)
 int	ft_check_function(t_struct *d, char **args, char **path, t_args **arg)
 {
 	if (!args)
-		return (-2);
+		return (-1);
 	if (ft_strcmp(args[0], "echo") == 0)
 		return (ft_echo(args));
 	else if (ft_strcmp(args[0], "export") == 0)
@@ -93,9 +93,9 @@ int	ft_check_function(t_struct *d, char **args, char **path, t_args **arg)
 		return (ft_exit(d, arg, args, path));
 	d->pid = fork();
 	if (d->pid == -1)
-		return (-2);
+		return (-1);
 	if (d->pid == 0)
 		return (ft_execve(path, args, d));
-	waitpid(d->pid, NULL, 0);
+	waitpid(d->pid, &d->status, 0);
 	return (0);
 }
