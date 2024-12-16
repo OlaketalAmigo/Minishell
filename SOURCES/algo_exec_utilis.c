@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   algo_exec_utilis.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 20:21:36 by hehe              #+#    #+#             */
-/*   Updated: 2024/12/13 14:12:41 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/12/15 21:23:16 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,11 @@ void	reset_stds(t_struct *data, t_args *arg, int i, int cmd_count)
 	{
 		close(data->out_fd);
 		data->out_fd = 1;
+	}
+	if (ft_check_builtins(arg->cmd, arg) == 1)
+	{
+		close(data->pipefd[0]);
+		close(data->pipefd[1]);
 	}
 }
 
@@ -94,9 +99,7 @@ void	algo_fork(t_struct *data, char **args, char **true_path, t_args **arg)
 		exit(EXIT_FAILURE);
 	}
 	if (data->pid == 0)
-	{
 		ft_pipe_exec(data, args, true_path, arg);
-	}
 	else
 		waitpid(data->pid, &data->status, 0);
 	if (WIFEXITED(data->status))

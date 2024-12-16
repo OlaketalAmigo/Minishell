@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 15:01:37 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/12/13 14:24:56 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/12/15 21:22:53 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	split_args(char **arg, t_args **new_args, t_struct *data)
 	char	**temp;
 
 	i = 0;
-	*new_args = malloc(sizeof(t_args) * (count_commands(arg, data) + 1));
+	*new_args = malloc(sizeof(t_args) * (count_commands(arg) + 1));
 	if (!*new_args)
 		return (0);
 	while (arg[i])
@@ -36,7 +36,7 @@ int	split_args(char **arg, t_args **new_args, t_struct *data)
 		ft_free(temp);
 		i++;
 	}
-	return (count_commands(arg, data));
+	return (count_commands(arg));
 }
 
 int	handle_redirection(t_args *arg, t_struct *data)
@@ -85,7 +85,7 @@ void	ft_pipe_exec(t_struct *data, char **args, char **path, t_args **arg)
 			close(data->out_fd);
 		}
 		data->status = ft_function_pipe(data, args, path, arg);
-		if (data->status == -1)
+		if (data->status == -1 || data->status == 127)
 		{
 			printf("Command %s not found\n", (*arg)[data->i].cmd);
 			ft_free_child(args, data, arg, path);
@@ -145,7 +145,6 @@ void	ft_exec(t_struct *data)
 		ft_algo_exec(data, &arg, data->i, cmd_count);
 		reset_pipe_exit(data, data->i, cmd_count);
 		data->i++;
-		printf("data->status = %d\n", data->status);
 		ft_update_return_status(data, data->status);
 	}
 	if (data->heredoc == 1 && cmd_count > 1)

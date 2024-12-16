@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/12/13 14:52:39 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/12/15 20:45:35 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,7 +186,6 @@ int		ft_check_builtins_init(char *arg);
 // SPLIT ARGS UTILIS //
 
 int		c_args(char **temp, t_struct *data);
-int		count_commands(char **arg, t_struct *data);
 t_args	ft_assign_args(t_args *new_args, char **temp, t_struct *data);
 char	*ft_strstr(char *str, char *find);
 int		ft_check_hard_path(t_struct *data, char *arg);
@@ -218,8 +217,7 @@ int		ft_tablen(char **tab);
 
 // COUNT COMMANDS //
 
-void	count_commands_utils(char **arg, t_struct *data, int i, int *count);
-int		count_commands(char **arg, t_struct *data);
+int		count_commands(char **arg);
 
 // FREE //
 

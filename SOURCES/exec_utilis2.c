@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utilis2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 13:08:46 by gprunet           #+#    #+#             */
-/*   Updated: 2024/10/30 15:56:13 by hehe             ###   ########.fr       */
+/*   Updated: 2024/12/16 15:20:43 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 
 void	ft_free_child(char **args, t_struct *data, t_args **arg, char **path)
 {
+	if (data->count > 1)
+	{
+		close(data->pipefd[0]);
+		close(data->pipefd[1]);
+	}
 	ft_free(data->path);
 	ft_free(path);
 	ft_free(args);
