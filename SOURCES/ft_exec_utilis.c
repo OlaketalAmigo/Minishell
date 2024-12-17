@@ -37,6 +37,9 @@ char	**ft_fill_args(char *cmds, char **args)
 void	ft_exec_init(t_struct *data, t_args **arg, int *cmd_count)
 {
 	data->count = 0;
+	data->status = 0;
+	data->input = 0;
+	data->output = 0;
 	data->path = ft_split(getenv("PATH"), ':');
 	data->in_fd = 0;
 	data->out_fd = 1;

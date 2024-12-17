@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   set_up_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 12:44:32 by tfauve-p          #+#    #+#             */
 /*   Updated: 2024/10/23 13:52:25 by tfauve-p         ###   ########.fr       */

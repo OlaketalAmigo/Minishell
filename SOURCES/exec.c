@@ -6,7 +6,7 @@
 /*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 15:01:37 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/12/15 21:22:53 by hehe             ###   ########.fr       */
+/*   Updated: 2024/12/16 21:23:45 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,17 @@ int	handle_redirection(t_args *arg, t_struct *data)
 		data->saved_stdin = dup(0);
 		dup2(fd, 0);
 		close(fd);
+		data->input = 1;
 	}
 	if (arg->output)
 	{
 		fd = check_fd(fd, arg);
 		if (fd == -1)
-			exit(EXIT_FAILURE);
+			return (-1);
 		data->saved_stdout = dup(1);
 		dup2(fd, 1);
 		close(fd);
+		data->output = 1;
 	}
 	return (1);
 }
@@ -111,7 +113,7 @@ void	ft_algo_exec(t_struct *data, t_args **arg, int i, int cmd_count)
 		post_algo_free(args, true_path);
 		return ;
 	}
-	if (ft_check_builtins((*arg)[i].cmd, &(*arg)[i]) && i == cmd_count - 1)
+	if (ft_check_builtins((*arg)[i].cmd, &(*arg)[i]) && cmd_count == 1)
 	{
 		if (algo_built(data, args, true_path, arg) == -1)
 			return ;
