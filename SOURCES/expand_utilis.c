@@ -44,7 +44,7 @@ int	ft_countword_expand(char const *s, char c)
 			dq = -dq;
 		if (s[i] == 39 && dq != -1)
 			q = -q;
-		if ((s[i] == c || s[i] == 36 || s[i] == 39) && dq > 0)
+		if ((s[i] == c || s[i] == 36 || s[i] == 34) && q > 0) //ICI
 			j++;
 		if (s[i + 1] == '\0')
 			j++;
@@ -70,8 +70,8 @@ char	**ft_mecanism_expand(int length, char **tab, char *line, char c)
 			q = -q;
 		if (line[i] != '\0' && j == -1)
 			j = i;
-		if (((line[i] == 36 || line[i] == 39 || line[i] == c
-					|| line[i] == '\0') && j >= 0) && dq > 0)
+		if (((line[i] == 36 || line[i] == 34 || line[i] == c
+					|| line[i] == '\0') && j >= 0) && q > 0) //ICI
 		{
 			tab[z++] = ft_writeword(line, j, i);
 			j = i;

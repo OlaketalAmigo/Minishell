@@ -35,8 +35,8 @@ int	ft_is_everything_digit(char	*args)
 			return (-1);
 	}
 	if (minus > 1 || plus > 1)
-		return (printf("pog\n"), -1);
-	return (printf("super\n"), 1);
+		return (-1);
+	return (1);
 }
 
 int	ft_atoi(const char *nptr)
