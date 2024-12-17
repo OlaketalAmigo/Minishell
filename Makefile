@@ -76,10 +76,10 @@ BLUE = \033[0;34m
 RESET = \033[0;0m
 
 all: $(NAME)
-	@clear
-		@$(CC) $(CFLAGS) $(OBJECTS) -o $(NAME) -lreadline -lcurses
 
 $(NAME): $(OBJECTS)
+	$(CC) $(CFLAGS) $(OBJECTS) -o $(NAME) -lreadline -lcurses
+	@clear
 
 $(OBJECTS_DIR)%.o: $(SOURCES_DIR)%.c
 	@mkdir -p $(OBJECTS_DIR)
@@ -90,6 +90,7 @@ clean:
 
 fclean: clean
 	@rm -f $(NAME)
+	@clear
 
 re: fclean all
 

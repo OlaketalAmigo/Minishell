@@ -62,10 +62,14 @@ int	ft_parser(t_struct *data)
 	if (i == -1)
 	{
 		ft_error_parsing();
+		ft_update_return_status(data, 1);
 		return (-1);
 	}
 	else if (i == -2)
+	{
+		ft_update_return_status(data, 0);
 		return (-1);
+	}
 	ft_set_up_struct(data);
 	ft_expand(data);
 	return (1);
