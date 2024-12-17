@@ -62,7 +62,7 @@ int	ft_parser(t_struct *data)
 	if (i == -1)
 	{
 		ft_error_parsing();
-		ft_update_return_status(data, 1);
+		ft_update_return_status(data, 2);
 		return (-1);
 	}
 	else if (i == -2)

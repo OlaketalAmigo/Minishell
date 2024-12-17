@@ -67,6 +67,16 @@ int	ft_atoi(const char *nptr)
 	return (nb * sign);
 }
 
+int	ft_bf_exit(t_struct *data, t_args **arg, char **args, char **path)
+{
+	ft_free(data->env);
+	ft_free(data->arg);
+	ft_free(data->path);
+	ft_free(args);
+	ft_free(path);
+	ft_free_struct(arg, data->count);
+}
+
 int	ft_exit(t_struct *data, t_args **arg, char **args, char **path)
 {
 	int	i;
@@ -77,7 +87,7 @@ int	ft_exit(t_struct *data, t_args **arg, char **args, char **path)
 		printf("exit: too many arguments\n");
 		i = 1;
 	}
-	else 
+	else
 	{
 		if (args[1])
 		{
@@ -86,12 +96,7 @@ int	ft_exit(t_struct *data, t_args **arg, char **args, char **path)
 			else
 				printf("exit: %s: numeric argument required\n", args[1]);
 		}
-		ft_free(data->env);
-		ft_free(data->arg);
-		ft_free(data->path);
-		ft_free(args);
-		ft_free(path);
-		ft_free_struct(arg, data->count);
+		ft_free_before_exit(data, args, path, arg);
 		exit(i);
 	}
 	return (i);

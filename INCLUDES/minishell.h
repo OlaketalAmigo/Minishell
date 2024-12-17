@@ -277,6 +277,7 @@ int		ft_env(t_struct *data);
 
 // EXIT //
 
+int		ft_bf_exit(t_struct *data, t_args **arg, char **args, char **path);
 int		ft_exit(t_struct *data, t_args **arg, char **args, char **path);
 int		ft_exit_pipe(t_struct *data, t_args **arg, char **args, char **path);
 

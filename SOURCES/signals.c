@@ -24,7 +24,7 @@ void	ft_get_signal_int(int sig)
 {
 	(void)sig;
 	g_sig_receiver = 1;
-	ft_handle_signals();
+	// ft_handle_signals();
 }
 
 void	ft_get_signal_quit(int sig)

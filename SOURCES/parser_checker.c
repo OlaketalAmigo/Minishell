@@ -46,7 +46,8 @@ int	ft_is_pipe_next(char *line, int i)
 {
 	while (line[i] && line[i] == 32)
 		i++;
-	if (line[i] && ((line[i] >= 65 && line[i] <= 90) || (line[i] >= 97 && line[i] <= 122)))
+	if (line[i] && ((line[i] >= 65 && line[i] <= 90)
+			|| (line[i] >= 97 && line[i] <= 122)))
 		return (-1);
 	else
 		return (1);
