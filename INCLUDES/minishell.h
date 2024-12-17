@@ -49,6 +49,8 @@ typedef struct data
 {
 	char	**arg;
 	int		nb_arg;
+	int		*redir;
+	int		nb_redir;
 	char	**tmp_arg;
 	char	*line;
 	char	**tab;
@@ -291,8 +293,7 @@ int		ft_unset_pipe(t_struct *data, t_args **arg, char **args, char **path);
 
 // EXPORT //
 
-int		ft_ok_1(char *args);
-int		ft_ok_2(char *args);
+int		ft_ok(char *args);
 void	ft_export_printf_ordered(t_struct *data);
 int		ft_export(t_struct *data, char **args);
 int		ft_export_pipe(t_struct *data, t_args **arg, char **args, char **path);
@@ -346,6 +347,7 @@ int		ft_unset_export(t_struct *data, char **args);
 int		ft_export_add_or_update(t_struct *data, char **args, int i);
 int		ft_search_expand(char *str, char **tab);
 int		ft_isalpha(int c);
+int		ft_write_error(char *c);
 
 // RETURN STATUS //
 

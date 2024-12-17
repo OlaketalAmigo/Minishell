@@ -22,7 +22,7 @@ void	ft_main(int g_sig_receiver, t_struct *data)
 	{
 		g_sig_receiver = 0;
 		data->line = readline("MiniHell->");
-		if (g_sig_receiver == 1)
+		if (g_sig_receiver != 0)
 			continue ;
 		if (data->line && data->line[0] != '\0')
 		{
@@ -31,6 +31,7 @@ void	ft_main(int g_sig_receiver, t_struct *data)
 				continue ;
 			ft_exec(data);
 			ft_free_all(data);
+			free(data->redir);
 			continue ;
 		}
 		if (g_sig_receiver == 0)

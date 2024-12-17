@@ -60,3 +60,14 @@ int	ft_unset_export(t_struct *data, char **args)
 	}
 	return (0);
 }
+int	ft_write_error(char *c)
+{
+	int	i;
+
+	i = -1;
+	while (c[++i])
+	{
+		write(2, &c[i], 1);
+	}
+	return (0);
+}

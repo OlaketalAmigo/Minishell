@@ -115,7 +115,8 @@ void	ft_algo_exec(t_struct *data, t_args **arg, int i, int cmd_count)
 	}
 	if (ft_check_builtins((*arg)[i].cmd, &(*arg)[i]) && cmd_count == 1)
 	{
-		if (algo_built(data, args, true_path, arg) == -1)
+		data->status = algo_built(data, args, true_path, arg);
+		if (data->status == -1)
 			return ;
 		if (i == cmd_count - 1)
 			reset_stds(data, &(*arg)[i], i, cmd_count);

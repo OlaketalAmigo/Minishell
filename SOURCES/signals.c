@@ -22,21 +22,22 @@ void	ft_init_signals(void)
 
 void	ft_get_signal_int(int sig)
 {
-	(void)sig;
-	g_sig_receiver = 1;
-	// ft_handle_signals();
+	g_sig_receiver = sig;
+	ft_handle_signals();
 }
 
 void	ft_get_signal_quit(int sig)
 {
-	(void)sig;
-	write(2, "Quit (core dumped)\n", 19);
-	g_sig_receiver = 1;
+	g_sig_receiver = sig;
+	close(STDIN_FILENO);
+	// write(2, "Quit (core dumped)\n", 19);
+	write(STDOUT_FILENO, "\n", 1);
 }
 
 void	ft_handle_signals(void)
 {
-	ioctl(STDIN_FILENO, TIOCSTI, "\n");
-	rl_replace_line("", 0);
+	// ioctl(STDIN_FILENO, TIOCSTI, "\n");
+	// rl_replace_line("", 0);
 	rl_on_new_line();
+	rl_redisplay();
 }

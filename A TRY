@@ -1,0 +1,43 @@
+///////////////////////////////////////////////////////////////////////////////////
+
+echo |	=	Bash ecrit infini ctrl + C et return 130
+		On a invalid input et return 1
+		
+ctrl + \ ne devrait rien faire si la ligne n'est pas vide
+
+export "HI =hi"	Ne doit pas etre valide	(export: `HI =hi': not a valid identifier)
+	et du coup doit return 1 pas 0
+	
+unset LOL ROR	Invalid Free dans ft_unset
+
+cd a b c d	mauvais return, ca devrait etre 1 pas 0
+cd no_file	Pareil
+
+cd ~ 		Toujours pas fait
+
+echo ;;		Doit return 2 mais il return 1
+
+echo "\n \n \\n"	Toujours pas fait
+
+echo "\"		Doit ecrire a l'infini et force le ctrl + C du coup return 2 
+
+echo hudifg d | | hugdfihd	Doit return 2 pas 1
+
+export ; env	Passe pas mais je suppose que c'est normal de notre cote
+
+echo coucou | ;	Doit return 2 pas 1
+
+;	Pareil
+
+echo bonjour > $test w/ t	Bash renvoit 1 et $test: ambiguous redirect alors qu'on l'execute tout court
+
+$LESS$VAR	On a command not found et return 127, bash l'execute et return 0
+
+export var ="cat Makefile | grep >"	on l'execute est c casse alors que bash return 1 et 
+export: `=cat Makefile | grep >': not a valid identifier
+
+$bla		On l'exec, le trouve pas et return 127 le bash execute et return 0
+
+echo "bip | bip ; coyotte > < " "	Invalid input, bash le fait
+
+

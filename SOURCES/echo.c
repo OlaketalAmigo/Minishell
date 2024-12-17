@@ -93,7 +93,11 @@ int	ft_echo(char **args)
 			break ;
 	}
 	while (args[i])
-		printf("%s ", args[i++]);
+	{
+		printf("%s", args[i++]);
+		if (args[i])
+			printf(" ");
+	}
 	if (option == 0)
 		printf("\n");
 	return (0);
@@ -101,7 +105,6 @@ int	ft_echo(char **args)
 
 int	ft_echo_pipe(t_struct *data, t_args **arg, char **args, char **path)
 {
-	int		status;
 	int		option;
 	int		i;
 
@@ -122,7 +125,6 @@ int	ft_echo_pipe(t_struct *data, t_args **arg, char **args, char **path)
 		printf("%s ", args[i++]);
 	if (option == 0)
 		printf("\n");
-	status = 0;
 	ft_free_child(args, data, arg, path);
-	exit(status);
+	exit(0);
 }

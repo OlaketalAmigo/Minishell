@@ -85,7 +85,7 @@ int	ft_exit(t_struct *data, t_args **arg, char **args, char **path)
 	i = 0;
 	if (ft_nb_arg(args) >= 3)
 	{
-		printf("exit: too many arguments\n");
+		ft_write_error("exit: too many arguments\n");
 		i = 1;
 	}
 	else
@@ -95,7 +95,10 @@ int	ft_exit(t_struct *data, t_args **arg, char **args, char **path)
 			if (ft_is_everything_digit(args[1]) == 1)
 				i = ft_atoi(args[1]);
 			else
-				printf("exit: %s: numeric argument required\n", args[1]);
+			{
+				ft_write_error("exit: numeric argument required\n");
+				i = 2;
+			}
 		}
 		ft_bf_exit(data, arg, args, path);
 		exit(i);
@@ -108,9 +111,9 @@ int	ft_exit_pipe(t_struct *data, t_args **arg, char **args, char **path)
 	int	i;
 
 	i = 0;
-	if (ft_nb_arg(args) >= 3)
+	if (ft_nb_arg(args) > 3)
 	{
-		printf("exit: too many arguments\n");
+		ft_write_error("exit: too many arguments\n");
 		i = 1;
 	}
 	else if (args[1])
@@ -119,7 +122,7 @@ int	ft_exit_pipe(t_struct *data, t_args **arg, char **args, char **path)
 			i = ft_atoi(args[1]);
 		else
 		{
-			printf("exit: %s: numeric argument required\n", args[1]);
+			ft_write_error("exit: numeric argument required\n");
 			i = 2;
 		}
 	}

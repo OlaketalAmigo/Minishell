@@ -12,37 +12,18 @@
 
 #include "minishell.h"
 
-int	ft_ok_1(char *args)
-{
-	int	i;
-	int	q;
-	int	dq;
-
-	q = 1;
-	dq = 1;
-	i = -1;
-	while (args[++i])
-	{
-		if (args[i] == 34 && q != -1)
-			dq = -dq;
-		if (args[i] == 39 && dq != -1)
-			q = -q;
-		if (args[i] == 61 && q == 1 && dq == 1)
-			return (1);
-	}
-	return (-1);
-}
-
-int	ft_ok_2(char *args)
+int	ft_ok(char *args)
 {
 	int	i;
 
 	i = 0;
-	while (args[i] && ft_isalpha(args[i]) == 1)
+	while (args[i] && args[i] == 32)
+	{
 		i++;
-	if (i == 0)
-		return (-1);
-	return (1);
+	}
+	if (ft_isalpha(args[i]) != 1 || args[i] == 61)
+		return (0);
+	return (1);	
 }
 
 void	ft_export_printf_ordered(t_struct *data)
@@ -79,14 +60,12 @@ int	ft_export(t_struct *data, char **args)
 	{
 		while (args[++i])
 		{
-			if (ft_ok_1(args[i]) == 1 && ft_ok_2(args[i]) == 1)
-			{
+			if (ft_ok(args[i]) == 1)
 				ft_export_add_or_update(data, args, i);
-			}
 			else
 			{
 				status = 1;
-				printf("export: `%s': not a valid identifier\n", args[i]);
+				printf("export: not a valid identifier");
 			}
 		}
 	}
@@ -106,7 +85,7 @@ int	ft_export_pipe(t_struct *data, t_args **arg, char **args, char **path)
 	{
 		while (args[++i])
 		{
-			if (ft_ok_1(args[i]) == 1 && ft_ok_2(args[i]) == 1)
+			if (ft_ok(args[i]) == 1)
 				ft_export_add_or_update(data, args, i);
 			else
 			{

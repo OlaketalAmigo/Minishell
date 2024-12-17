@@ -72,7 +72,7 @@ int	ft_parser_check_pipe_and(t_struct *data)
 			return (-1);
 		if (data->line[i] == 124 && quote == 1 && dquote == 1
 			&& ft_is_pipe_next(data->line, i + 1) == 1)
-			return (-1);
+				return (-1);
 		i++;
 	}
 	return (1);

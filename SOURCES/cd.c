@@ -59,21 +59,21 @@ int	ft_cd_main(t_struct *data, char **args, int i, char *path)
 		if (path)
 			chdir(path);
 		else
-			return (printf("HOME not set\n"), -1);
+			return (ft_write_error("HOME not set\n"), -1);
 		return (free(path), 1);
 	}
 	else if (i == 2)
 	{
 		path = args[1];
 		if (chdir(path) == 0)
-			return (1);
-		printf("cd: %s: No such file or directory\n", args[1]);
-		return (-1);
+			return (0);
+		ft_write_error("cd: No such file or directory");
+		return (1);
 	}
 	else
 	{
-		printf("cd: string not in pwd: %s\n", args[1]);
-		return (-1);
+		ft_write_error("cd: string not in pwd:\n");
+		return (1);
 	}
 }
 
@@ -86,15 +86,13 @@ int	ft_cd(t_struct *data, char **args)
 	i = ft_nb_arg(args);
 	if (i > 2)
 	{
-		printf("cd: too many arguments\n");
+		ft_write_error(" too many arguments\n");
 		status = 1;
 		return (status);
 	}
 	cd = NULL;
-	if (ft_cd_main(data, args, i, cd) == 1)
-		status = 0;
-	else
-		status = 2;
+	status = ft_cd_main(data, args, i, cd);
+	//printf("status = %d\n", status);
 	return (status);
 }
 
@@ -107,16 +105,13 @@ int	ft_cd_pipe(t_struct *data, t_args **arg, char **args, char **path)
 	i = ft_nb_arg(args);
 	if (i > 2)
 	{
-		printf("cd: too many arguments\n");
+		ft_write_error(" too many arguments\n");
 		status = 1;
 		ft_free_child(args, data, arg, path);
 		exit(status);
 	}
 	cd = NULL;
-	if (ft_cd_main(data, args, i, cd) == 1)
-		status = 0;
-	else
-		status = 2;
+	status = ft_cd_main(data, args, i, cd);
 	ft_free_child(args, data, arg, path);
 	exit(status);
 }

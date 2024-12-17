@@ -73,14 +73,18 @@ int	algo_heredoc(t_struct *data, t_args **arg, int i, int cmd_count)
 
 int	algo_built(t_struct *data, char **args, char **true_path, t_args **arg)
 {
-	if (ft_check_function(data, args, true_path, arg) == -1)
+	int	i;
+
+	i = ft_check_function(data, args, true_path, arg);
+	// printf("status = %d\n", i);
+	if (i == -1)
 	{
 		printf("Command %s not found\n", arg[data->i]->cmd);
 		ft_free_child(args, data, arg, data->path);
 		return (-1);
 	}
 	post_algo_free(args, true_path);
-	return (1);
+	return (i);
 }
 
 void	algo_fork(t_struct *data, char **args, char **true_path, t_args **arg)
