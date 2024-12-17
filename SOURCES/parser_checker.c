@@ -92,5 +92,5 @@ int	ft_parser_check(t_struct *data)
 		return (free(data->line), -1);
 	if (ft_full_space(data->line) == -1)
 		return (free(data->line), -2);
-	return (1);
+	return (0);
 }

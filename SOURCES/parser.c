@@ -116,8 +116,14 @@ int	ft_parser(t_struct *data)
 		ft_update_return_status(data, 0);
 		return (-1);
 	}
+	//printf("data->line = %s\n", data->line);
 	ft_set_up_redirection(data);
+	//printf("Data->Redir = ");
+	//while (i < data->nb_redir)
+	//	printf("%d ", data->redir[i++]);
+	//printf("\n");
 	ft_set_up_struct(data);
 	ft_expand(data);
+	//ft_printf_parsing(data->arg);
 	return (1);
 }
