@@ -46,10 +46,10 @@ int	ft_is_pipe_next(char *line, int i)
 {
 	while (line[i] && line[i] == 32)
 		i++;
-	if ((line[i] && line[i] == 124) || line[i] == '\0')
-		return (1);
-	else
+	if (line[i] && ((line[i] >= 65 && line[i] <= 90) || (line[i] >= 97 && line[i] <= 122)))
 		return (-1);
+	else
+		return (1);
 }
 
 int	ft_parser_check_pipe_and(t_struct *data)
@@ -79,11 +79,17 @@ int	ft_parser_check_pipe_and(t_struct *data)
 
 int	ft_parser_check(t_struct *data)
 {
+	if (ft_check_semicolon(data) == -1)
+		return (free(data->line), -1);
+	if (ft_check_backslash(data) == -1)
+		return (free(data->line), -1);
+	if (ft_check_starting_pipe(data) == -1)
+		return (free(data->line), -1);
 	if (ft_parser_check_quotes(data) == -1)
 		return (free(data->line), -1);
 	if (ft_parser_check_pipe_and(data) == -1)
 		return (free(data->line), -1);
-	if (ft_full_space(data->line) == 1)
-		return (free(data->line), -1);
+	if (ft_full_space(data->line) == -1)
+		return (free(data->line), -2);
 	return (1);
 }

@@ -19,9 +19,9 @@ int	ft_full_space(char *str)
 	i = 0;
 	while (str[i] && (str[i] == 32 || str[i] == 9 || str[i] == 10))
 		i++;
-	if (str[i])
-		return (0);
-	return (1);
+	if (!str[i])
+		return (-1);
+	return (0);
 }
 
 int	ft_check(char const c, char const *set)

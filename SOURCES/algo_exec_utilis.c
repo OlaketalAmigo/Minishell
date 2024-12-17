@@ -73,14 +73,7 @@ int	algo_heredoc(t_struct *data, t_args **arg, int i, int cmd_count)
 
 int	algo_built(t_struct *data, char **args, char **true_path, t_args **arg)
 {
-	data->status = ft_check_function(data, args, true_path, arg);
-	if (data->status == -2)
-	{
-		printf("Problem with either args or fork\n");
-		ft_free_child(args, data, arg, data->path);
-		return (-1);
-	}
-	else if (data->status == -1)
+	if (ft_check_function(data, args, true_path, arg) == -1)
 	{
 		printf("Command %s not found\n", arg[data->i]->cmd);
 		ft_free_child(args, data, arg, data->path);
@@ -98,7 +91,7 @@ void	algo_fork(t_struct *data, char **args, char **true_path, t_args **arg)
 		perror("fork error");
 		exit(EXIT_FAILURE);
 	}
-	if (data->pid == 0)
+	else if (data->pid == 0)
 		ft_pipe_exec(data, args, true_path, arg);
 	else
 		waitpid(data->pid, &data->status, 0);

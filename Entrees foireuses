@@ -7,6 +7,8 @@ truc mega chelou avec Algo built si tu prints data->status un peu partout la var
 
 Faut que je regle 1 trucs sur export et env (cacher la variable de retour)
 
+<<<<<<< HEAD
+=======
 > a ls > b < Makefile
 
 	Le fichier b est bien creer mais ne contient pas a seulement le ls
@@ -44,6 +46,7 @@ echo bonjour > $test w/t = $test: ambiguous redirect	mais je le fais quand meme
 
 
 DERNIER TEST:	/bin/echo bonjour
+>>>>>>> GEORGES
 FAIT:
 
 	Si on tape de la merde il ne se passe rien
@@ -52,4 +55,8 @@ FAIT:
 	gW
 	CDFR
 	echofox
+<<<<<<< HEAD
 	pogpogpogita
+=======
+	pogpogpogita
+>>>>>>> GEORGES

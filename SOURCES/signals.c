@@ -30,7 +30,7 @@ void	ft_get_signal_int(int sig)
 void	ft_get_signal_quit(int sig)
 {
 	(void)sig;
-	write(2, "Exit\n", 5);
+	write(2, "Quit (core dumped)\n", 19);
 	g_sig_receiver = 1;
 }
 

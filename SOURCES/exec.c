@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 15:01:37 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/12/16 21:23:45 by hehe             ###   ########.fr       */
+/*   Updated: 2024/12/17 14:30:31 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,11 @@ void	ft_pipe_exec(t_struct *data, char **args, char **path, t_args **arg)
 		data->status = ft_function_pipe(data, args, path, arg);
 		if (data->status == -1 || data->status == 127)
 		{
+			if (data->i < data->count - 1)
+				perror("Command not found");
 			printf("Command %s not found\n", (*arg)[data->i].cmd);
 			ft_free_child(args, data, arg, path);
-			exit(EXIT_FAILURE);
+			exit(data->status);
 		}
 	}
 }

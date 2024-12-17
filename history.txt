@@ -1,1 +1,1 @@
-/bin/echo bonjour
+lsa | ls

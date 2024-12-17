@@ -84,11 +84,17 @@ int	ft_cd(t_struct *data, char **args)
 	int		status;
 
 	i = ft_nb_arg(args);
+	if (i > 2)
+	{
+		printf("cd: too many arguments\n");
+		status = 1;
+		return (status);
+	}
 	cd = NULL;
 	if (ft_cd_main(data, args, i, cd) == 1)
 		status = 0;
 	else
-		status = 1;
+		status = 2;
 	return (status);
 }
 
@@ -99,11 +105,18 @@ int	ft_cd_pipe(t_struct *data, t_args **arg, char **args, char **path)
 	char	*cd;
 
 	i = ft_nb_arg(args);
+	if (i > 2)
+	{
+		printf("cd: too many arguments\n");
+		status = 1;
+		ft_free_child(args, data, arg, path);
+		exit(status);
+	}
 	cd = NULL;
 	if (ft_cd_main(data, args, i, cd) == 1)
 		status = 0;
 	else
-		status = 1;
+		status = 2;
 	ft_free_child(args, data, arg, path);
 	exit(status);
 }
