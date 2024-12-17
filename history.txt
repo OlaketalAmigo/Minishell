@@ -1,1 +1,1 @@
-bash --posix
+ls | sleep 5 | ls

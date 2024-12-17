@@ -89,7 +89,6 @@ void	ft_pipe_exec(t_struct *data, char **args, char **path, t_args **arg)
 		{
 			printf("Command %s not found\n", (*arg)[data->i].cmd);
 			ft_free_child(args, data, arg, path);
-			printf("data->status 1 = %d\n", data->status);
 			exit(data->status);
 		}
 	}
