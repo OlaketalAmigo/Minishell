@@ -75,6 +75,7 @@ int	ft_bf_exit(t_struct *data, t_args **arg, char **args, char **path)
 	ft_free(args);
 	ft_free(path);
 	ft_free_struct(arg, data->count);
+	return (0);
 }
 
 int	ft_exit(t_struct *data, t_args **arg, char **args, char **path)
@@ -96,7 +97,7 @@ int	ft_exit(t_struct *data, t_args **arg, char **args, char **path)
 			else
 				printf("exit: %s: numeric argument required\n", args[1]);
 		}
-		ft_free_before_exit(data, args, path, arg);
+		ft_bf_exit(data, arg, args, path);
 		exit(i);
 	}
 	return (i);
