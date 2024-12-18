@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utilis2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 13:08:46 by gprunet           #+#    #+#             */
-/*   Updated: 2024/12/18 11:55:46 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/12/18 16:35:44 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,10 @@ void	ft_free_child(char **args, t_struct *data, t_args **arg, char **path)
 		close(data->pipefd[0]);
 		close(data->pipefd[1]);
 	}
+	if (data->input)
+		close(data->saved_stdin);
+	if (data->output)
+		close(data->saved_stdout);
 	ft_free(data->path);
 	ft_free(path);
 	ft_free(args);
