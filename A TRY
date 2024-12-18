@@ -40,6 +40,8 @@ $bla		On l'exec, le trouve pas et return 127 le bash execute et return 0
 
 echo "bip | bip ; coyotte > < " "	Invalid input, bash le fait
 
-env | sort | grep -v SHLVL | grep -v ^_	Fonctionne mais residu de stds chelou dans les deux grep et le exit final
+env | sort | grep -v SHLVL | grep -v ^_	
+export GHOST=123 | env | grep GHOST
+	Toute fonction avec grep laisse un open en trop qui pose s'affiche au ctrl D final
 
 
