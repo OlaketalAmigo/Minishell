@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/12/18 02:47:51 by gprunet          ###   ########.fr       */
+/*   Created: 2024/09/19 16:46:12 by tfauve-p          #+#    #+#             */
+/*   Updated: 2024/12/18 11:57:08 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ int	ft_bf_exit(t_struct *data, t_args **arg, char **args, char **path)
 	ft_free(data->path);
 	ft_free(args);
 	ft_free(path);
+	if (data->path_to_home)
+		free(data->path_to_home);
 	ft_free_struct(arg, data->total);
 	return (0);
 }

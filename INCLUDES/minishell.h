@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/12/18 10:47:08 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/12/18 11:58:50 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct data
 	char	*line;
 	char	**tab;
 	char	**path;
+	char	*path_to_home;
 	int		pipefd[2];
 	int		in_fd;
 	int		out_fd;
@@ -237,6 +238,7 @@ int		count_commands(char **arg);
 void	ft_free_child_struct(t_struct *data, t_args **arg);
 void	ft_free_struct(t_args **arg, int cmd_count);
 void	ft_free_all(t_struct *data);
+void	ft_final_free(t_struct *data);
 void	ft_free(char **tab);
 void	ft_exec_cleanup(t_struct *data, t_args *arg, int cmd_count);
 void	ft_free_one_arg(t_args *arg);
@@ -278,6 +280,11 @@ int		ft_cd_main(t_struct *data, char **args, int i, char *path);
 int		ft_cd(t_struct *data, char **args);
 int		ft_cd_pipe(t_struct *data, t_args **arg, char **args, char **path);
 
+// CD UTILIS //
+
+int 	ft_straight_home(t_struct *data);
+void	ft_set_up_home(t_struct *data, char **env);
+
 // ENV //
 
 int		ft_env_pipe(t_struct *data, t_args **arg, char **args, char **path);
@@ -310,6 +317,7 @@ char	*ft_put_string_to_tab(t_struct *data, char **tab, int i, int j);
 char	*ft_str_until_equal(char *args);
 int		ft_search(char *str, char **tab);
 void	ft_export_add(t_struct *data, char *args);
+int		ft_ok_3(char *args);
 
 // EXPAND //
 

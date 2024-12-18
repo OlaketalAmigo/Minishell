@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:08:47 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/30 15:20:41 by hehe             ###   ########.fr       */
+/*   Updated: 2024/12/18 11:55:30 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,28 +53,31 @@ char	*ft_get_home(t_struct *data)
 
 int	ft_cd_main(t_struct *data, char **args, int i, char *path)
 {
+	if (args[1] && !args[2] && ft_strcmp(args[1], "~") == 0)
+	{
+		ft_straight_home(data);
+		return (0);
+	}
 	if (i == 1)
 	{
 		path = ft_get_home(data);
+		printf("path = %s\n", path);
 		if (path)
 			chdir(path);
 		else
-			return (ft_write_error("HOME not set\n"), -1);
-		return (free(path), 1);
+			return (ft_write_error("HOME not set\n"), 1);
+		return (free(path), 0);
 	}
 	else if (i == 2)
 	{
 		path = args[1];
 		if (chdir(path) == 0)
 			return (0);
-		ft_write_error("cd: No such file or directory");
+		ft_write_error("cd: No such file or directory\n");
 		return (1);
 	}
 	else
-	{
-		ft_write_error("cd: string not in pwd:\n");
-		return (1);
-	}
+		return (ft_write_error("cd: string not in pwd:\n"), 1);
 }
 
 int	ft_cd(t_struct *data, char **args)
@@ -92,7 +95,6 @@ int	ft_cd(t_struct *data, char **args)
 	}
 	cd = NULL;
 	status = ft_cd_main(data, args, i, cd);
-	//printf("status = %d\n", status);
 	return (status);
 }
 

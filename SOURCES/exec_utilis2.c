@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utilis2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 13:08:46 by gprunet           #+#    #+#             */
-/*   Updated: 2024/12/18 02:59:51 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/12/18 11:55:46 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	ft_free_child(char **args, t_struct *data, t_args **arg, char **path)
 	ft_free(args);
 	ft_free(data->arg);
 	ft_free(data->env);
+	if (data->path_to_home)
+		free(data->path_to_home);
 	free(data->redir);
 	ft_free_struct(arg, data->total);
 }
