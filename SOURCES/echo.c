@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:27:45 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/30 15:20:10 by hehe             ###   ########.fr       */
+/*   Updated: 2024/12/18 01:21:32 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,12 +81,12 @@ int	ft_echo(char **args)
 
 	option = 0;
 	i = 1;
-	printf("allgood\n");
+	// printf("allgood\n");
 	if (ft_count_good_flags(args) >= 1)
 		option = 1;
 	if (ft_count_good_flags(args) == -1)
 		return (-1);
-	printf("allgood\n");
+	// printf("allgood\n");
 	while (args[i])
 	{
 		if (ft_strncmp("-", args[i], 1) == 1)
@@ -96,7 +96,7 @@ int	ft_echo(char **args)
 	}
 	while (args[i])
 	{
-		printf("arg = %s\n", args[i]);
+		// printf("arg = %s\n", args[i]);
 		printf("%s", args[i++]);
 		if (args[i])
 			printf(" ");

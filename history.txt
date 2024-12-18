@@ -1,1 +1,1 @@
-echo | wc -l
+echo "<><><"
