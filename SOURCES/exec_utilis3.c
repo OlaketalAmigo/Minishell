@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:36:49 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/12/18 11:56:07 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/12/18 14:01:01 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ int	ft_execve(char **path, char **args, t_struct *data)
 	{
 		close(data->pipefd[0]);
 	}
-	close(data->temp_fd);
+	if (data->temp_fd != -1)
+		close(data->temp_fd);
 	if (data->input)
 		close(data->saved_stdin);
 	if (data->output)

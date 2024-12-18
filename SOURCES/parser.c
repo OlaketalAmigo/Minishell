@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:59:25 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/12/18 08:33:44 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/12/18 13:35:50 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,18 +112,11 @@ int	ft_parser(t_struct *data)
 	}
 	else if (i == -2)
 	{
-		ft_error_parsing();
 		ft_update_return_status(data, 0);
 		return (-1);
 	}
-	//printf("data->line = %s\n", data->line);
 	ft_set_up_redirection(data);
-	//printf("Data->Redir = ");
-	//while (i < data->nb_redir)
-	//	printf("%d ", data->redir[i++]);
-	//printf("\n");
 	ft_set_up_struct(data);
 	ft_expand(data);
-	//ft_printf_parsing(data->arg);
 	return (1);
 }

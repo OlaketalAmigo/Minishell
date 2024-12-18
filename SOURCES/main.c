@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:52:11 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/12/18 11:37:43 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/12/18 14:53:17 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	main(void)
 	t_struct	data;
 
 	ft_set_up_env(&data, environ);
-	ft_set_up_home(&data, environ);
+	ft_set_up_home(&data);
 	ft_init_signals();
 	ft_set_up_history();
 	ft_main(g_sig_receiver, &data);

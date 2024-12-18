@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/12/18 11:58:50 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/12/18 14:53:27 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,7 +203,7 @@ int		ft_check_path(t_struct *data, char *arg);
 
 // REDIR UTILIS //
 
-int	q_redir(t_struct *data, char *temp, t_args *args);
+int		q_redir(t_struct *data, char *temp, t_args *args);
 
 // REDIRECTION //
 
@@ -282,8 +282,8 @@ int		ft_cd_pipe(t_struct *data, t_args **arg, char **args, char **path);
 
 // CD UTILIS //
 
-int 	ft_straight_home(t_struct *data);
-void	ft_set_up_home(t_struct *data, char **env);
+int		ft_straight_home(t_struct *data);
+void	ft_set_up_home(t_struct *data);
 
 // ENV //
 

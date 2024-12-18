@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 11:04:41 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/12/18 11:57:34 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/12/18 13:04:17 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,8 @@ int	ft_ok_1(char *args)
 {
 	if (ft_isalpha(args[0]) != 1)
 	{
-		// printf("pas bon\n");
 		return (0);
 	}
-	//printf("bon\n");
 	return (1);
 }
 
@@ -41,7 +39,7 @@ int	ft_ok_2(char *args)
 		}
 		i++;
 	}
-	return(1);
+	return (1);
 }
 
 void	ft_export_printf_ordered(t_struct *data)
@@ -69,10 +67,9 @@ void	ft_export_printf_ordered(t_struct *data)
 
 int	ft_export(t_struct *data, char **args)
 {
-	int	i;
 	int	status;
 
-	i = 0;
+	int (i) = 0;
 	status = 0;
 	if (args[1])
 	{
@@ -83,10 +80,13 @@ int	ft_export(t_struct *data, char **args)
 				if (ft_ok_3(args[i]) == 1)
 					ft_export_add_or_update(data, args, i);
 				else
-					continue;
+					continue ;
 			}
-			else if (++status != 4)
+			else
+			{
+				status = 1;
 				ft_write_error(" not a valid identifier\n");
+			}
 		}
 	}
 	else
@@ -110,7 +110,7 @@ int	ft_export_pipe(t_struct *data, t_args **arg, char **args, char **path)
 				if (ft_ok_3(args[i]) == 1)
 					ft_export_add_or_update(data, args, i);
 				else
-					continue;
+					continue ;
 			}
 			else if (++status != 4)
 				ft_write_error(" not a valid identifier\n");

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utilis.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 13:01:01 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/29 15:00:51 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/12/18 12:53:01 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,17 +65,18 @@ void	ft_export_add(t_struct *data, char *args)
 	ft_free(data->env);
 	data->env = tab;
 }
+
 int	ft_ok_3(char *args)
 {
 	int	i;
 
 	i = -1;
 	while (args[++i])
-	if (args[i] == 61)
 	{
-		//printf("bon\n");
-		return (1);
+		if (args[i] == 61)
+		{
+			return (1);
+		}
 	}
-	//printf("pas bon\n");
 	return (0);
 }
