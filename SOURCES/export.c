@@ -5,11 +5,10 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/12/18 15:14:46 by tfauve-p         ###   ########.fr       */
+/*   Created: 2024/12/18 15:46:09 by tfauve-p          #+#    #+#             */
+/*   Updated: 2024/12/18 15:46:11 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "minishell.h"
 
@@ -113,8 +112,6 @@ int	ft_export_pipe(t_struct *data, t_args **arg, char **args, char **path)
 				else
 					continue ;
 			}
-			else if (++status != 4)
-				ft_write_error(" not a valid identifier\n");
 			else if (++status != 4)
 				ft_write_error(" not a valid identifier\n");
 		}

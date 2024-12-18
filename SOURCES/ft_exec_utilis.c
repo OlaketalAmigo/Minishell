@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 16:05:50 by gprunet           #+#    #+#             */
-/*   Updated: 2024/12/18 15:11:45 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/12/18 16:20:23 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	ft_exec_init(t_struct *data, t_args **arg)
 {
 	data->last = 0;
 	data->count_redir = 0;
-	data->temp_fd = 0;
+	data->temp_fd = -1;
 	data->status = 0;
 	data->input = 0;
 	data->output = 0;

@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 17:15:55 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/12/18 15:00:57 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/12/18 15:42:19 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	ft_get_signal_int(int sig)
 void	ft_get_signal_quit(int sig)
 {
 	(void)sig;
-	// write(2, "Quit (core dumped)\n", 19);
 	g_sig_receiver = 1;
 }
 
