@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/12/16 18:00:14 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/12/18 10:47:08 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ typedef struct data
 {
 	char	**arg;
 	int		nb_arg;
+	int		*redir;
+	int		nb_redir;
 	char	**tmp_arg;
 	char	*line;
 	char	**tab;
@@ -65,7 +67,9 @@ typedef struct data
 	int		heredoc;
 	int		status;
 	int		i;
-	int		count;
+	int		temp_fd;
+	int		last;
+	int		total;
 	pid_t	pid;
 }	t_struct;
 
@@ -147,7 +151,7 @@ int		handle_redirection(t_args *arg, t_struct *data);
 // FT EXEC UTILIS //
 
 char	**ft_fill_args(char *cmds, char **args);
-void	ft_exec_init(t_struct *data, t_args **arg, int *cmd_count);
+void	ft_exec_init(t_struct *data, t_args **arg);
 void	final_reset(t_struct *data);
 int		pipe_check(t_struct *data, int i, int cmd_count);
 void	reset_pipe_exit(t_struct *data, int i, int cmd_count);
@@ -190,11 +194,15 @@ int		ft_check_builtins_init(char *arg);
 
 // SPLIT ARGS UTILIS //
 
-int		c_args(char **temp, t_struct *data);
+int		c_args(char **temp);
 t_args	ft_assign_args(t_args *new_args, char **temp, t_struct *data);
 char	*ft_strstr(char *str, char *find);
 int		ft_check_hard_path(t_struct *data, char *arg);
 int		ft_check_path(t_struct *data, char *arg);
+
+// REDIR UTILIS //
+
+int	q_redir(t_struct *data, char *temp, t_args *args);
 
 // REDIRECTION //
 
@@ -277,6 +285,7 @@ int		ft_env(t_struct *data);
 
 // EXIT //
 
+int		ft_bf_exit(t_struct *data, t_args **arg, char **args, char **path);
 int		ft_exit(t_struct *data, t_args **arg, char **args, char **path);
 int		ft_exit_pipe(t_struct *data, t_args **arg, char **args, char **path);
 
@@ -290,8 +299,7 @@ int		ft_unset_pipe(t_struct *data, t_args **arg, char **args, char **path);
 
 // EXPORT //
 
-int		ft_ok_1(char *args);
-int		ft_ok_2(char *args);
+int		ft_ok(char *args);
 void	ft_export_printf_ordered(t_struct *data);
 int		ft_export(t_struct *data, char **args);
 int		ft_export_pipe(t_struct *data, t_args **arg, char **args, char **path);
@@ -345,6 +353,7 @@ int		ft_unset_export(t_struct *data, char **args);
 int		ft_export_add_or_update(t_struct *data, char **args, int i);
 int		ft_search_expand(char *str, char **tab);
 int		ft_isalpha(int c);
+int		ft_write_error(char *c);
 
 // RETURN STATUS //
 

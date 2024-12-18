@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 15:01:37 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/12/17 14:30:31 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/12/18 10:19:32 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	split_args(char **arg, t_args **new_args, t_struct *data)
 	while (arg[i])
 	{
 		temp = ft_split_cleared(arg[i], ' ');
-		(*new_args)[i].args = malloc(sizeof(char *) * (c_args(temp, data) + 1));
+		(*new_args)[i].args = malloc(sizeof(char *) * (c_args(temp) + 1));
 		if (!(*new_args)[i].args)
 			return (0);
 		(*new_args)[i].cmd = NULL;
@@ -67,6 +67,14 @@ int	handle_redirection(t_args *arg, t_struct *data)
 	return (1);
 }
 
+void	print_error(t_struct *data, char *cmd)
+{
+	if (data->i < data->last - 1)
+		perror("Command not found");
+	else
+		printf("Command %s not found\n", cmd);
+}
+
 void	ft_pipe_exec(t_struct *data, char **args, char **path, t_args **arg)
 {
 	if (data->pid == 0)
@@ -89,16 +97,14 @@ void	ft_pipe_exec(t_struct *data, char **args, char **path, t_args **arg)
 		data->status = ft_function_pipe(data, args, path, arg);
 		if (data->status == -1 || data->status == 127)
 		{
-			if (data->i < data->count - 1)
-				perror("Command not found");
-			printf("Command %s not found\n", (*arg)[data->i].cmd);
+			print_error(data, (*arg)[data->i].cmd);
 			ft_free_child(args, data, arg, path);
 			exit(data->status);
 		}
 	}
 }
 
-void	ft_algo_exec(t_struct *data, t_args **arg, int i, int cmd_count)
+void	ft_algo_exec(t_struct *data, t_args **arg, int i, int total)
 {
 	char	**args;
 	char	**true_path;
@@ -110,48 +116,63 @@ void	ft_algo_exec(t_struct *data, t_args **arg, int i, int cmd_count)
 		post_algo_free(args, true_path);
 		return ;
 	}
-	if (algo_heredoc(data, arg, i, cmd_count) == -1)
+	if (algo_heredoc(data, arg, i, total) == -1)
 	{
 		post_algo_free(args, true_path);
 		return ;
 	}
-	if (ft_check_builtins((*arg)[i].cmd, &(*arg)[i]) && cmd_count == 1)
+	if (ft_check_builtins((*arg)[i].cmd, &(*arg)[i]) && total == 1)
 	{
 		if (algo_built(data, args, true_path, arg) == -1)
 			return ;
-		if (i == cmd_count - 1)
-			reset_stds(data, &(*arg)[i], i, cmd_count);
+		if (i == data->last)
+			reset_stds(data, &(*arg)[i], i, data->last);
 		return ;
 	}
 	algo_fork(data, args, true_path, arg);
-	reset_stds(data, &(*arg)[i], i, cmd_count);
+	reset_stds(data, &(*arg)[i], i, data->last);
+}
+
+int	get_count(t_args *arg, int cmd_count)
+{
+	int	i;
+	int	count;
+
+	i = 0;
+	count = 0;
+	while (i <= cmd_count)
+	{
+		if (arg[i].cmd)
+			count = i;
+		i = i + 2;
+	}
+	return (count);
 }
 
 void	ft_exec(t_struct *data)
 {
-	int		cmd_count;
 	t_args	*arg;
 
 	data->i = 0;
-	cmd_count = 0;
 	arg = NULL;
-	ft_exec_init(data, &arg, &cmd_count);
-	data->count = cmd_count;
-	while (data->i < cmd_count)
+	ft_exec_init(data, &arg);
+	data->last = get_count(arg, data->total);
+	while (data->i < data->total)
 	{
 		if (!arg[data->i].cmd)
 		{
 			data->i++;
 			continue ;
 		}
-		if (pipe_check(data, data->i, cmd_count) == -1)
+		if (pipe_check(data, data->i, data->last) == -1)
 			exit(EXIT_FAILURE);
-		ft_algo_exec(data, &arg, data->i, cmd_count);
-		reset_pipe_exit(data, data->i, cmd_count);
-		data->i++;
+		printf("%s in_fd %d	out_fd %d\n", arg[data->i].cmd, data->in_fd, data->out_fd);
+		ft_algo_exec(data, &arg, data->i, data->total);
+		reset_pipe_exit(data, data->i, data->last);
 		ft_update_return_status(data, data->status);
+		data->i++;
 	}
-	if (data->heredoc == 1 && cmd_count > 1)
+	if (data->heredoc == 1 && data->last > 1)
 		final_reset(data);
-	ft_exec_cleanup(data, arg, cmd_count);
+	ft_exec_cleanup(data, arg, data->total);
 }
