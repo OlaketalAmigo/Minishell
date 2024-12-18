@@ -6,7 +6,7 @@
 #    By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/24 14:38:38 by tfauve-p          #+#    #+#              #
-#    Updated: 2024/10/29 14:36:13 by gprunet          ###   ########.fr        #
+#    Updated: 2024/12/18 08:39:08 by gprunet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,6 +50,7 @@ SOURCES = \
 	$(SOURCES_DIR)return_status.c	\
 	$(SOURCES_DIR)algo_exec_utilis.c	\
 	$(SOURCES_DIR)check_builtins.c	\
+	$(SOURCES_DIR)redir_utilis.c	\
 	$(SOURCES_DIR)redirection.c	\
 	$(SOURCES_DIR)redirection_utilis.c	\
 	$(SOURCES_DIR)heredoc.c	\

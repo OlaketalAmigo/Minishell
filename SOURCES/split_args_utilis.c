@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:33:51 by gprunet           #+#    #+#             */
-/*   Updated: 2024/12/18 02:41:52 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/12/18 08:38:19 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,65 +76,6 @@ void	post_assign_args(t_args *new_args, int j, t_struct *data)
 		data->heredoc = 1;
 	if ((*new_args).args)
 		(*new_args).args[j] = NULL;
-}
-
-int	check_input(t_struct *data, char *temp, t_args *args)
-{
-	if ((*args).input)
-		return (0);
-	if (ft_strchr(temp, '<') == 1 && data->redir[0] == 1)
-		return (1);
-	return (0);
-}
-
-int	check_output(t_struct *data, char *temp, t_args *args)
-{
-	if ((*args).output)
-		return (0);
-	if (ft_strchr(temp, '>') == 1 && data->redir[0] == 1)
-		return (1);
-	return (0);
-}
-
-int	check_true_redir(t_struct *data)
-{
-	int	i;
-
-	i = 0;
-	while (i <= data->nb_redir)
-	{
-		if (data->redir[i] == 1)
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-int	q_redir(t_struct *data, char *temp, t_args *args)
-{
-	int	i;
-	int	count;
-
-	if (data->nb_redir == 0 || check_true_redir(data) == 0)
-		return (0);
-	i = 0;
-	count = 0;
-	if (check_input(data, temp, args) == 1)
-		return (1);
-	if (check_output(data, temp, args) == 1)
-		return (1);
-	if ((*args).output || (*args).input)
-	{
-		while (temp[i])
-		{
-			if (temp[i] == '>' || temp[i] == '<')
-				count++;
-			if (count > 1 && data->redir[count] == 1)
-				return (1);
-			i++;
-		}
-	}
-	return (0);
 }
 
 t_args	ft_assign_args(t_args *new_args, char **temp, t_struct *data)

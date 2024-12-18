@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/12/18 02:48:30 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/12/18 08:38:49 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,6 +198,10 @@ t_args	ft_assign_args(t_args *new_args, char **temp, t_struct *data);
 char	*ft_strstr(char *str, char *find);
 int		ft_check_hard_path(t_struct *data, char *arg);
 int		ft_check_path(t_struct *data, char *arg);
+
+// REDIR UTILIS //
+
+int	q_redir(t_struct *data, char *temp, t_args *args);
 
 // REDIRECTION //
 
