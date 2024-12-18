@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:59:25 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/12/18 02:59:32 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/12/18 08:33:44 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,15 @@ void	ft_set_up_struct(t_struct *data)
 	}
 }
 
-void ft_0_or_1(t_struct *data)
+void	ft_0_or_1(t_struct *data)
 {
 	int	q;
 	int	dq;
 
+	int (i) = -1;
+	int (k) = -1;
 	q = 1;
 	dq = 1;
-	int	(i) = -1;
-	int	(k) = -1;
 	while (data->line[++i])
 	{
 		if (data->line[i] == 39 && dq > 0)
@@ -71,7 +71,7 @@ void ft_0_or_1(t_struct *data)
 			dq = -dq;
 		if (data->line[i] == 60 || data->line[i] == 62)
 		{
-			if(q != -1 && dq != -1)
+			if (q != -1 && dq != -1)
 				data->redir[++k] = 1;
 			else
 				data->redir[++k] = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 11:04:41 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/30 15:20:24 by hehe             ###   ########.fr       */
+/*   Updated: 2024/12/18 08:34:46 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ft_ok(char *args)
 	}
 	if (ft_isalpha(args[i]) != 1 || args[i] == 61)
 		return (0);
-	return (1);	
+	return (1);
 }
 
 void	ft_export_printf_ordered(t_struct *data)

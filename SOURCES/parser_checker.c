@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_checker.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 13:09:20 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/12/13 13:38:58 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/12/18 08:34:32 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	ft_parser_check_pipe_and(t_struct *data)
 			return (-1);
 		if (data->line[i] == 124 && quote == 1 && dquote == 1
 			&& ft_is_pipe_next(data->line, i + 1) == 1)
-				return (-1);
+			return (-1);
 		i++;
 	}
 	return (1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 15:01:42 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/23 15:37:01 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/12/18 08:35:23 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ int	ft_unset_export(t_struct *data, char **args)
 	}
 	return (0);
 }
+
 int	ft_write_error(char *c)
 {
 	int	i;
