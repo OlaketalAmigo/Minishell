@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   algo_exec_utilis.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 20:21:36 by hehe              #+#    #+#             */
-/*   Updated: 2024/12/18 02:45:09 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/12/18 11:54:30 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,6 @@ void	reset_stds(t_struct *data, t_args *arg, int i, int last)
 		close(data->out_fd);
 		data->out_fd = 1;
 	}
-	// if (ft_check_builtins(arg->cmd, arg) == 1 && i < cmd_count - 1)
-	// {
-	// 	close(data->pipefd[0]);
-	// 	close(data->pipefd[1]);
-	// }
 }
 
 void	post_algo_free(char **args, char **true_path)

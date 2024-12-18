@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec_utilis.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 16:05:50 by gprunet           #+#    #+#             */
-/*   Updated: 2024/12/18 02:50:58 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/12/18 11:57:48 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ char	**ft_fill_args(char *cmds, char **args)
 void	ft_exec_init(t_struct *data, t_args **arg)
 {
 	data->last = 0;
+	data->temp_fd = 0;
 	data->status = 0;
 	data->input = 0;
 	data->output = 0;
@@ -72,7 +73,7 @@ int	pipe_check(t_struct *data, int i, int last)
 		data->out_fd = data->pipefd[1];
 	}
 	else
-		data->out_fd = STDOUT_FILENO;
+		data->out_fd = 1;
 	return (0);
 }
 
@@ -80,6 +81,9 @@ void	reset_pipe_exit(t_struct *data, int i, int last)
 {
 	if (i < last)
 	{
+		if (data->temp_fd != 0)
+			close(data->temp_fd);
+		data->temp_fd = data->pipefd[0];
 		close(data->pipefd[1]);
 		data->in_fd = data->pipefd[0];
 	}

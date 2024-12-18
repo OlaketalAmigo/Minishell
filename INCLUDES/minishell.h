@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/12/18 11:30:12 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/12/18 11:58:50 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ typedef struct data
 	int		heredoc;
 	int		status;
 	int		i;
+	int		temp_fd;
 	int		last;
 	int		total;
 	pid_t	pid;
@@ -305,8 +306,7 @@ int		ft_unset_pipe(t_struct *data, t_args **arg, char **args, char **path);
 
 // EXPORT //
 
-int		ft_ok_1(char *args);
-int		ft_ok_2(char *args);
+int		ft_ok(char *args);
 void	ft_export_printf_ordered(t_struct *data);
 int		ft_export(t_struct *data, char **args);
 int		ft_export_pipe(t_struct *data, t_args **arg, char **args, char **path);
