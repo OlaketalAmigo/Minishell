@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec_utilis.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 16:05:50 by gprunet           #+#    #+#             */
-/*   Updated: 2024/12/18 11:57:48 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/12/18 13:20:58 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ char	**ft_fill_args(char *cmds, char **args)
 void	ft_exec_init(t_struct *data, t_args **arg)
 {
 	data->last = 0;
+	data->count_redir = 0;
 	data->temp_fd = 0;
 	data->status = 0;
 	data->input = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/12/18 11:58:50 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/12/18 14:42:38 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ typedef struct data
 	int		heredoc;
 	int		status;
 	int		i;
+	int		count_redir;
 	int		temp_fd;
 	int		last;
 	int		total;
@@ -81,6 +82,7 @@ typedef struct s_cmd
 	char	*input;
 	char	*output;
 	char	*delimiter;
+	int		pos_redir;
 	int		append;
 }	t_args;
 
@@ -203,7 +205,7 @@ int		ft_check_path(t_struct *data, char *arg);
 
 // REDIR UTILIS //
 
-int	q_redir(t_struct *data, char *temp, t_args *args);
+int		q_redir(t_struct *data, char *temp, t_args *args);
 
 // REDIRECTION //
 
@@ -220,6 +222,14 @@ char	*ft_strstr(char *str, char *find);
 int		check_append(char *temp);
 void	command2_utilis(char **temp, t_args *new_args, int *i, int j);
 void	command1_utilis(char **temp, t_args *new_args, int *i, int j);
+
+// GET COMMAND //
+
+int		get_cmd(char **temp, int *i, t_args *args);
+char	*get_cmd_output(char *temp);
+int		sort_redir(char *temp, t_args *new_args, char c, int com);
+int		check_pos(char *temp, char c, t_args *args);
+void	else_command(t_args *args, char **temp, int *i);
 
 // ASSIGN ARGS UTILIS //
 
@@ -282,7 +292,7 @@ int		ft_cd_pipe(t_struct *data, t_args **arg, char **args, char **path);
 
 // CD UTILIS //
 
-int 	ft_straight_home(t_struct *data);
+int		ft_straight_home(t_struct *data);
 void	ft_set_up_home(t_struct *data, char **env);
 
 // ENV //

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+         #
+#    By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/24 14:38:38 by tfauve-p          #+#    #+#              #
-#    Updated: 2024/12/18 11:58:18 by tfauve-p         ###   ########.fr        #
+#    Updated: 2024/12/18 14:36:15 by gprunet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,6 +53,7 @@ SOURCES = \
 	$(SOURCES_DIR)check_builtins.c	\
 	$(SOURCES_DIR)redir_utilis.c	\
 	$(SOURCES_DIR)redirection.c	\
+	$(SOURCES_DIR)get_command.c	\
 	$(SOURCES_DIR)redirection_utilis.c	\
 	$(SOURCES_DIR)heredoc.c	\
 	$(SOURCES_DIR)count_commands.c	\

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   algo_exec_utilis.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 20:21:36 by hehe              #+#    #+#             */
-/*   Updated: 2024/12/18 11:54:30 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/12/18 14:33:53 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ int	algo_built(t_struct *data, char **args, char **true_path, t_args **arg)
 	int	i;
 
 	i = ft_check_function(data, args, true_path, arg);
-	// printf("status = %d\n", i);
 	data->status = i;
 	if (i == -1)
 	{
