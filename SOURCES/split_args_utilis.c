@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:33:51 by gprunet           #+#    #+#             */
-/*   Updated: 2024/12/18 01:20:12 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/12/18 02:30:38 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,12 +107,26 @@ int	check_output(t_struct *data, char *temp, t_args *args)
 	return (0);
 }
 
+int	check_true_redir(t_struct *data)
+{
+	int	i;
+
+	i = 0;
+	while (i <= data->nb_redir)
+	{
+		if (data->redir[i] == 1)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 int	q_redir(t_struct *data, char *temp, t_args *args)
 {
 	int	i;
 	int	count;
 
-	if (data->nb_redir == 0)
+	if (data->nb_redir == 0 || check_true_redir(data) == 0)
 		return (0);
 	i = 0;
 	count = 0;
