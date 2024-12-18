@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/12/16 18:00:14 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/12/18 11:30:12 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,13 @@ typedef struct data
 {
 	char	**arg;
 	int		nb_arg;
+	int		*redir;
+	int		nb_redir;
 	char	**tmp_arg;
 	char	*line;
 	char	**tab;
 	char	**path;
+	char	*path_to_home;
 	int		pipefd[2];
 	int		in_fd;
 	int		out_fd;
@@ -65,7 +68,8 @@ typedef struct data
 	int		heredoc;
 	int		status;
 	int		i;
-	int		count;
+	int		last;
+	int		total;
 	pid_t	pid;
 }	t_struct;
 
@@ -147,7 +151,7 @@ int		handle_redirection(t_args *arg, t_struct *data);
 // FT EXEC UTILIS //
 
 char	**ft_fill_args(char *cmds, char **args);
-void	ft_exec_init(t_struct *data, t_args **arg, int *cmd_count);
+void	ft_exec_init(t_struct *data, t_args **arg);
 void	final_reset(t_struct *data);
 int		pipe_check(t_struct *data, int i, int cmd_count);
 void	reset_pipe_exit(t_struct *data, int i, int cmd_count);
@@ -190,11 +194,15 @@ int		ft_check_builtins_init(char *arg);
 
 // SPLIT ARGS UTILIS //
 
-int		c_args(char **temp, t_struct *data);
+int		c_args(char **temp);
 t_args	ft_assign_args(t_args *new_args, char **temp, t_struct *data);
 char	*ft_strstr(char *str, char *find);
 int		ft_check_hard_path(t_struct *data, char *arg);
 int		ft_check_path(t_struct *data, char *arg);
+
+// REDIR UTILIS //
+
+int	q_redir(t_struct *data, char *temp, t_args *args);
 
 // REDIRECTION //
 
@@ -229,6 +237,7 @@ int		count_commands(char **arg);
 void	ft_free_child_struct(t_struct *data, t_args **arg);
 void	ft_free_struct(t_args **arg, int cmd_count);
 void	ft_free_all(t_struct *data);
+void	ft_final_free(t_struct *data);
 void	ft_free(char **tab);
 void	ft_exec_cleanup(t_struct *data, t_args *arg, int cmd_count);
 void	ft_free_one_arg(t_args *arg);
@@ -270,6 +279,11 @@ int		ft_cd_main(t_struct *data, char **args, int i, char *path);
 int		ft_cd(t_struct *data, char **args);
 int		ft_cd_pipe(t_struct *data, t_args **arg, char **args, char **path);
 
+// CD UTILIS //
+
+int 	ft_straight_home(t_struct *data);
+void	ft_set_up_home(t_struct *data, char **env);
+
 // ENV //
 
 int		ft_env_pipe(t_struct *data, t_args **arg, char **args, char **path);
@@ -277,6 +291,7 @@ int		ft_env(t_struct *data);
 
 // EXIT //
 
+int		ft_bf_exit(t_struct *data, t_args **arg, char **args, char **path);
 int		ft_exit(t_struct *data, t_args **arg, char **args, char **path);
 int		ft_exit_pipe(t_struct *data, t_args **arg, char **args, char **path);
 
@@ -302,6 +317,7 @@ char	*ft_put_string_to_tab(t_struct *data, char **tab, int i, int j);
 char	*ft_str_until_equal(char *args);
 int		ft_search(char *str, char **tab);
 void	ft_export_add(t_struct *data, char *args);
+int		ft_ok_3(char *args);
 
 // EXPAND //
 
@@ -345,6 +361,7 @@ int		ft_unset_export(t_struct *data, char **args);
 int		ft_export_add_or_update(t_struct *data, char **args, int i);
 int		ft_search_expand(char *str, char **tab);
 int		ft_isalpha(int c);
+int		ft_write_error(char *c);
 
 // RETURN STATUS //
 

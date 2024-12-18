@@ -65,3 +65,17 @@ void	ft_export_add(t_struct *data, char *args)
 	ft_free(data->env);
 	data->env = tab;
 }
+int	ft_ok_3(char *args)
+{
+	int	i;
+
+	i = -1;
+	while (args[++i])
+	if (args[i] == 61)
+	{
+		//printf("bon\n");
+		return (1);
+	}
+	//printf("pas bon\n");
+	return (0);
+}

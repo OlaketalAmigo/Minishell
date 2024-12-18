@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+         #
+#    By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/24 14:38:38 by tfauve-p          #+#    #+#              #
-#    Updated: 2024/10/29 14:36:13 by gprunet          ###   ########.fr        #
+#    Updated: 2024/12/18 11:07:24 by tfauve-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ SOURCES = \
 	$(SOURCES_DIR)echo.c \
 	$(SOURCES_DIR)pwd.c \
 	$(SOURCES_DIR)cd.c \
+	$(SOURCES_DIR)cd_utilis.c \
 	$(SOURCES_DIR)exit.c \
 	$(SOURCES_DIR)env.c \
 	$(SOURCES_DIR)unset.c \
@@ -50,6 +51,7 @@ SOURCES = \
 	$(SOURCES_DIR)return_status.c	\
 	$(SOURCES_DIR)algo_exec_utilis.c	\
 	$(SOURCES_DIR)check_builtins.c	\
+	$(SOURCES_DIR)redir_utilis.c	\
 	$(SOURCES_DIR)redirection.c	\
 	$(SOURCES_DIR)redirection_utilis.c	\
 	$(SOURCES_DIR)heredoc.c	\

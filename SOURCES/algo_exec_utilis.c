@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   algo_exec_utilis.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 20:21:36 by hehe              #+#    #+#             */
-/*   Updated: 2024/12/16 21:26:12 by hehe             ###   ########.fr       */
+/*   Updated: 2024/12/18 02:45:09 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	reset_stds(t_struct *data, t_args *arg, int i, int cmd_count)
+void	reset_stds(t_struct *data, t_args *arg, int i, int last)
 {
 	if (arg->input || arg->delimiter)
 	{
@@ -24,21 +24,21 @@ void	reset_stds(t_struct *data, t_args *arg, int i, int cmd_count)
 		dup2(data->saved_stdout, 1);
 		close(data->saved_stdout);
 	}
-	if (data->in_fd != 0 && i == cmd_count - 1)
+	if (data->in_fd != 0 && i == last)
 	{
 		close(data->in_fd);
 		data->in_fd = 0;
 	}
-	if (data->out_fd != 1 && i == cmd_count - 1)
+	if (data->out_fd != 1 && i == last)
 	{
 		close(data->out_fd);
 		data->out_fd = 1;
 	}
-	if (ft_check_builtins(arg->cmd, arg) == 1 && i < cmd_count - 1)
-	{
-		close(data->pipefd[0]);
-		close(data->pipefd[1]);
-	}
+	// if (ft_check_builtins(arg->cmd, arg) == 1 && i < cmd_count - 1)
+	// {
+	// 	close(data->pipefd[0]);
+	// 	close(data->pipefd[1]);
+	// }
 }
 
 void	post_algo_free(char **args, char **true_path)
@@ -73,14 +73,19 @@ int	algo_heredoc(t_struct *data, t_args **arg, int i, int cmd_count)
 
 int	algo_built(t_struct *data, char **args, char **true_path, t_args **arg)
 {
-	if (ft_check_function(data, args, true_path, arg) == -1)
+	int	i;
+
+	i = ft_check_function(data, args, true_path, arg);
+	// printf("status = %d\n", i);
+	data->status = i;
+	if (i == -1)
 	{
 		printf("Command %s not found\n", arg[data->i]->cmd);
 		ft_free_child(args, data, arg, data->path);
 		return (-1);
 	}
 	post_algo_free(args, true_path);
-	return (1);
+	return (i);
 }
 
 void	algo_fork(t_struct *data, char **args, char **true_path, t_args **arg)

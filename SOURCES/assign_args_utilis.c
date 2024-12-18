@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   assign_args_utilis.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:25:18 by gprunet           #+#    #+#             */
-/*   Updated: 2024/12/14 14:59:46 by hehe             ###   ########.fr       */
+/*   Updated: 2024/12/18 02:30:11 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ int	check_built(char *temp, t_args *new_args, int *i)
 int	check_string(char *temp, int *i)
 {
 	if (!temp)
+		return (0);
+	if (ft_strchr(temp, '|') == 1 && ft_strlen(temp) > 1)
 		return (0);
 	if (ft_strchr(temp, '|') == 1 || is_empty(temp) == 1)
 	{

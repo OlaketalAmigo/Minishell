@@ -27,6 +27,7 @@ int	ft_nb_arg(char **tab)
 		i++;
 	return (i);
 }
+
 int	ft_check_starting_pipe(t_struct *data)
 {
 	int	i;
@@ -38,6 +39,7 @@ int	ft_check_starting_pipe(t_struct *data)
 		return (-1);
 	return (0);
 }
+
 int	ft_check_semicolon(t_struct *data)
 {
 	int	i;

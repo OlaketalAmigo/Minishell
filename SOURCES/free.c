@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 15:06:49 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/12/16 21:33:26 by hehe             ###   ########.fr       */
+/*   Updated: 2024/12/18 11:30:33 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,11 @@ void	ft_free(char **tab)
 		i++;
 	}
 	free(tab);
+}
+
+void	ft_final_free(t_struct *data)
+{
+	ft_free(data->env);
+	if (data->path_to_home)
+		free(data->path_to_home);
 }
