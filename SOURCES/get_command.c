@@ -6,35 +6,18 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 14:34:40 by gprunet           #+#    #+#             */
-/*   Updated: 2024/12/18 14:41:39 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/12/18 16:48:07 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void    else_command(t_args *args, char **temp, int *i)
+void	else_command(t_args *args, char **temp, int *i)
 {
-    if ((*args).output)
-        free((*args).output);
-    (*args).output = check_next(temp, &(*i), ">");
-    (*args).append = 0;
-}
-
-int	check_pos(char *temp, char c, t_args *args)
-{
-	int	i;
-
-	i = 0;
-	while (temp[i])
-	{
-		if (temp[i] == c && i == args->pos_redir)
-		{
-			args->pos_redir++;
-			return (1);
-		}
-		i++;
-	}
-	return (0);
+	if ((*args).output)
+		free((*args).output);
+	(*args).output = check_next(temp, &(*i), ">");
+	(*args).append = 0;
 }
 
 int	sort_redir(char *temp, t_args *new_args, char c, int com)
@@ -84,6 +67,23 @@ char	*get_cmd_output(char *temp)
 	return (res);
 }
 
+void	eos_case(t_args *args, char **temp, int *i)
+{
+	int	j;
+
+	j = 1;
+	if (temp[*i + 2][0] != '>')
+	{
+		(*args).output = ft_strdup(temp[*i + 2]);
+		*i = *i + 4;
+	}
+	else
+	{
+		(*args).output = ft_strdup(temp[*i + 4]);
+		*i = *i + 6;
+	}
+}
+
 int	get_cmd(char **temp, int *i, t_args *args)
 {
 	int		j;
@@ -94,18 +94,7 @@ int	get_cmd(char **temp, int *i, t_args *args)
 	j = 1;
 	tab_len = ft_tablen(temp);
 	if (!temp[*i][j])
-	{
-		if (temp[*i + 2][0] != '>')
-		{
-			(*args).output = ft_strdup(temp[*i + 2]);
-			*i = *i + 4;
-		}
-		else
-		{
-			(*args).output = ft_strdup(temp[*i + 4]);
-			*i = *i + 6;
-		}
-	}
+		eos_case(args, temp, &(*i));
 	else
 	{
 		(*args).output = get_cmd_output(temp[*i]);
