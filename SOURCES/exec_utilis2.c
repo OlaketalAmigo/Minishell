@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 13:08:46 by gprunet           #+#    #+#             */
-/*   Updated: 2024/12/18 02:44:04 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/12/18 02:59:51 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	ft_free_child(char **args, t_struct *data, t_args **arg, char **path)
 	ft_free(args);
 	ft_free(data->arg);
 	ft_free(data->env);
+	free(data->redir);
 	ft_free_struct(arg, data->total);
 }
 

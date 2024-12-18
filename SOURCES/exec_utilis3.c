@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:36:49 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/12/18 02:44:22 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/12/18 03:13:37 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ int	ft_execve(char **path, char **args, t_struct *data)
 	if (data->total > 1)
 	{
 		close(data->pipefd[0]);
-		close(data->pipefd[1]);
 	}
 	if (data->input)
 		close(data->saved_stdin);
