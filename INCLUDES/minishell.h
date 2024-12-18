@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/12/18 14:53:27 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/12/18 15:13:27 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ typedef struct data
 	int		heredoc;
 	int		status;
 	int		i;
+	int		count_redir;
 	int		temp_fd;
 	int		last;
 	int		total;
@@ -81,6 +82,7 @@ typedef struct s_cmd
 	char	*input;
 	char	*output;
 	char	*delimiter;
+	int		pos_redir;
 	int		append;
 }	t_args;
 
@@ -221,6 +223,14 @@ int		check_append(char *temp);
 void	command2_utilis(char **temp, t_args *new_args, int *i, int j);
 void	command1_utilis(char **temp, t_args *new_args, int *i, int j);
 
+// GET COMMAND //
+
+int		get_cmd(char **temp, int *i, t_args *args);
+char	*get_cmd_output(char *temp);
+int		sort_redir(char *temp, t_args *new_args, char c, int com);
+int		check_pos(char *temp, char c, t_args *args);
+void	else_command(t_args *args, char **temp, int *i);
+
 // ASSIGN ARGS UTILIS //
 
 int		check_built(char *temp, t_args *new_args, int *i);
@@ -231,6 +241,8 @@ int		ft_tablen(char **tab);
 
 // COUNT COMMANDS //
 
+void	print_error(t_struct *data, char *cmd);
+int		get_count(t_args *arg, int cmd_count);
 int		count_commands(char **arg);
 
 // FREE //

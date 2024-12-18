@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 15:01:37 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/12/18 11:56:34 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/12/18 15:07:46 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int	split_args(char **arg, t_args **new_args, t_struct *data)
 		(*new_args)[i].output = NULL;
 		(*new_args)[i].delimiter = NULL;
 		(*new_args)[i].append = 0;
+		(*new_args)[i].pos_redir = 0;
 		ft_assign_args(&(*new_args)[i], temp, data);
 		ft_free(temp);
 		i++;
@@ -65,14 +66,6 @@ int	handle_redirection(t_args *arg, t_struct *data)
 		data->output = 1;
 	}
 	return (1);
-}
-
-void	print_error(t_struct *data, char *cmd)
-{
-	if (data->i < data->last - 1)
-		perror("Command not found");
-	else
-		printf("Command %s not found\n", cmd);
 }
 
 void	ft_pipe_exec(t_struct *data, char **args, char **path, t_args **arg)
@@ -131,22 +124,6 @@ void	ft_algo_exec(t_struct *data, t_args **arg, int i, int total)
 	}
 	algo_fork(data, args, true_path, arg);
 	reset_stds(data, &(*arg)[i], i, data->last);
-}
-
-int	get_count(t_args *arg, int cmd_count)
-{
-	int	i;
-	int	count;
-
-	i = 0;
-	count = 0;
-	while (i <= cmd_count)
-	{
-		if (arg[i].cmd)
-			count = i;
-		i = i + 2;
-	}
-	return (count);
 }
 
 void	ft_exec(t_struct *data)
