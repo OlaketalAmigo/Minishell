@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/12/16 18:00:14 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/12/18 02:48:30 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ typedef struct data
 	int		heredoc;
 	int		status;
 	int		i;
-	int		count;
+	int		last;
+	int		total;
 	pid_t	pid;
 }	t_struct;
 
@@ -149,7 +150,7 @@ int		handle_redirection(t_args *arg, t_struct *data);
 // FT EXEC UTILIS //
 
 char	**ft_fill_args(char *cmds, char **args);
-void	ft_exec_init(t_struct *data, t_args **arg, int *cmd_count);
+void	ft_exec_init(t_struct *data, t_args **arg);
 void	final_reset(t_struct *data);
 int		pipe_check(t_struct *data, int i, int cmd_count);
 void	reset_pipe_exit(t_struct *data, int i, int cmd_count);
@@ -192,7 +193,7 @@ int		ft_check_builtins_init(char *arg);
 
 // SPLIT ARGS UTILIS //
 
-int		c_args(char **temp, t_struct *data);
+int		c_args(char **temp);
 t_args	ft_assign_args(t_args *new_args, char **temp, t_struct *data);
 char	*ft_strstr(char *str, char *find);
 int		ft_check_hard_path(t_struct *data, char *arg);

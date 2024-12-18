@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec_utilis.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 16:05:50 by gprunet           #+#    #+#             */
-/*   Updated: 2024/12/15 21:12:51 by hehe             ###   ########.fr       */
+/*   Updated: 2024/12/18 02:50:58 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ char	**ft_fill_args(char *cmds, char **args)
 	return (new_args);
 }
 
-void	ft_exec_init(t_struct *data, t_args **arg, int *cmd_count)
+void	ft_exec_init(t_struct *data, t_args **arg)
 {
-	data->count = 0;
+	data->last = 0;
 	data->status = 0;
 	data->input = 0;
 	data->output = 0;
@@ -47,7 +47,7 @@ void	ft_exec_init(t_struct *data, t_args **arg, int *cmd_count)
 	data->heredoc = 0;
 	data->saved_stdin = -1;
 	data->saved_stdout = -1;
-	*cmd_count = split_args(data->arg, arg, data);
+	data->total = split_args(data->arg, arg, data);
 }
 
 void	final_reset(t_struct *data)
@@ -60,9 +60,9 @@ void	final_reset(t_struct *data)
 	}
 }
 
-int	pipe_check(t_struct *data, int i, int cmd_count)
+int	pipe_check(t_struct *data, int i, int last)
 {
-	if (i < cmd_count - 1)
+	if (i < last && last > 1)
 	{
 		if (pipe(data->pipefd) == -1)
 		{
@@ -76,9 +76,9 @@ int	pipe_check(t_struct *data, int i, int cmd_count)
 	return (0);
 }
 
-void	reset_pipe_exit(t_struct *data, int i, int cmd_count)
+void	reset_pipe_exit(t_struct *data, int i, int last)
 {
-	if (i < cmd_count - 1)
+	if (i < last)
 	{
 		close(data->pipefd[1]);
 		data->in_fd = data->pipefd[0];
