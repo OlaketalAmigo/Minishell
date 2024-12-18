@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:27:45 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/12/18 12:56:36 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/12/18 16:53:49 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	ft_echo(char **args)
 	if (ft_count_good_flags(args) >= 1)
 		option = 1;
 	if (ft_count_good_flags(args) == -1)
-		return (-1);
+		return (1);
 	while (args[i])
 	{
 		if (ft_strncmp("-", args[i], 1) == 1)
@@ -113,7 +113,10 @@ int	ft_echo_pipe(t_struct *data, t_args **arg, char **args, char **path)
 	if (ft_count_good_flags(args) >= 1)
 		option = 1;
 	if (ft_count_good_flags(args) == -1)
-		return (-1);
+	{
+		ft_free_child(args, data, arg, path);
+		exit (1);
+	}
 	while (args[i])
 	{
 		if (ft_strncmp("-", args[i], 1) == 1)

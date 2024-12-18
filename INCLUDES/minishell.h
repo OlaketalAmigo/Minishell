@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/12/18 16:49:09 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/12/18 16:59:15 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -247,14 +247,11 @@ int		check_pos(char *temp, char c, t_args *args);
 
 // FREE //
 
-void	ft_free_child_struct(t_struct *data, t_args **arg);
 void	ft_free_struct(t_args **arg, int cmd_count);
 void	ft_free_all(t_struct *data);
 void	ft_final_free(t_struct *data);
 void	ft_free(char **tab);
 void	ft_exec_cleanup(t_struct *data, t_args *arg, int cmd_count);
-void	ft_free_one_arg(t_args *arg);
-void	ft_free_args(char ***args);
 
 // CLEAR TO FUNCTION	
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:08:47 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/12/18 11:55:30 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/12/18 16:52:13 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ int	ft_cd_main(t_struct *data, char **args, int i, char *path)
 	if (i == 1)
 	{
 		path = ft_get_home(data);
-		printf("path = %s\n", path);
 		if (path)
 			chdir(path);
 		else
