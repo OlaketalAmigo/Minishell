@@ -6,26 +6,29 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:03:53 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/12/18 11:45:30 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2024/12/18 15:07:27 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "minishell.h"
+#include "minishell.h"
 
-int ft_straight_home(t_struct *data)
+int	ft_straight_home(t_struct *data)
 {
-    char    *path;
-    
-    path = data->path_to_home;
+	char	*path;
+
+	path = data->path_to_home;
 	if (path)
 		chdir(path);
-    return (0);
+	return (0);
 }
 
-void ft_set_up_home(t_struct *data, char **env)
+void	ft_set_up_home(t_struct *data)
 {
-    if (env)
-    {
-        data->path_to_home = ft_get_home(data);
-    }
+	char	*tab[3];
+
+	tab[0] = "export";
+	tab[1] = "SHLVL=2";
+	tab[2] = NULL;
+	data->path_to_home = ft_get_home(data);
+	ft_export(data, tab);
 }

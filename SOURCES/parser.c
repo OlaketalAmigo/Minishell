@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:59:25 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/12/18 08:33:44 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/12/20 00:29:05 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	ft_set_up_redirection(t_struct *data)
 	while (data->line[++i])
 	{
 		if (data->line[i] == 62 || data->line[i] == 60)
-				data->nb_redir += 1;
+			data->nb_redir += 1;
 	}
 	data->redir = malloc (data->nb_redir * 4);
 	if (!data->redir)
@@ -112,18 +112,11 @@ int	ft_parser(t_struct *data)
 	}
 	else if (i == -2)
 	{
-		ft_error_parsing();
 		ft_update_return_status(data, 0);
 		return (-1);
 	}
-	//printf("data->line = %s\n", data->line);
 	ft_set_up_redirection(data);
-	//printf("Data->Redir = ");
-	//while (i < data->nb_redir)
-	//	printf("%d ", data->redir[i++]);
-	//printf("\n");
 	ft_set_up_struct(data);
 	ft_expand(data);
-	//ft_printf_parsing(data->arg);
 	return (1);
 }

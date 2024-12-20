@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_args_utilis.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:33:51 by gprunet           #+#    #+#             */
-/*   Updated: 2024/12/18 14:28:20 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/12/19 23:59:49 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ t_args	ft_assign_args(t_args *new_args, char **temp, t_struct *data)
 			if (check_redirection(temp, new_args, &i, &j) == 1)
 				continue ;
 		}
-		if (!(*new_args).cmd && check_built(temp[0], new_args, &i) == 1)
+		if (!(*new_args).cmd && check_built(temp[0], new_args, &i, temp))
 			continue ;
 		if (ft_check_cmd(new_args, i, NULL) == 1)
 			break ;

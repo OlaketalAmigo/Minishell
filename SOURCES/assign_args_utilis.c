@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   assign_args_utilis.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:25:18 by gprunet           #+#    #+#             */
-/*   Updated: 2024/12/18 14:21:43 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/12/20 00:21:22 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,14 @@ int	ft_check_cmd(t_args *new_args, int i, char *str)
 	return (0);
 }
 
-int	check_built(char *temp, t_args *new_args, int *i)
+int	check_built(char *temp, t_args *new_args, int *i, char **t)
 {
+	if ((*new_args).input && !(*new_args).cmd && *i + 1 < ft_tablen(t))
+	{
+		(*new_args).cmd = ft_strdup(t[*i + 1]);
+		*i = *i + 2;
+		return (1);
+	}
 	if (ft_check_builtins_init(temp) == 1 && (*new_args).cmd == NULL)
 	{
 		(*new_args).cmd = ft_strdup(temp);
@@ -62,7 +68,7 @@ int	check_string(char *temp, int *i)
 		return (0);
 	if (ft_strchr(temp, '|') == 1 && ft_strlen(temp) > 1)
 		return (0);
-	if (ft_strchr(temp, '|') == 1 || is_empty(temp) == 1)
+	if ((ft_strchr(temp, '|') == 1 && *i == 0) || is_empty(temp) == 1)
 	{
 		*i = *i + 1;
 		return (1);

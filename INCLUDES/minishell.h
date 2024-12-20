@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/12/18 14:42:38 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/12/20 00:54:46 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,9 @@ typedef struct s_cmd
 	char	*delimiter;
 	int		pos_redir;
 	int		append;
+	int		put;
+	int		b_input;
+	int		b_output;
 }	t_args;
 
 // SIGNALS //
@@ -212,7 +215,7 @@ int		q_redir(t_struct *data, char *temp, t_args *args);
 int		check_redirection(char **temp, t_args *new_args, int *i, int *j);
 int		separate_command(char **temp, t_args *new_args, int *i, int *args);
 int		separate_command2(char **temp, t_args *new_args, int *i);
-char	*check_next(char **temp, int *i, char *c);
+char	*check_next(char **temp, int *i, char *c, t_args *args);
 int		check_fd(int fd, t_args *arg);
 
 // REDIRECTION UTILIS //
@@ -228,12 +231,11 @@ void	command1_utilis(char **temp, t_args *new_args, int *i, int j);
 int		get_cmd(char **temp, int *i, t_args *args);
 char	*get_cmd_output(char *temp);
 int		sort_redir(char *temp, t_args *new_args, char c, int com);
-int		check_pos(char *temp, char c, t_args *args);
 void	else_command(t_args *args, char **temp, int *i);
 
 // ASSIGN ARGS UTILIS //
 
-int		check_built(char *temp, t_args *new_args, int *i);
+int		check_built(char *temp, t_args *new_args, int *i, char **t);
 int		check_string(char *temp, int *i);
 int		verif_command(t_struct *data, char **cmd, t_args *new_args);
 int		ft_check_cmd(t_args *new_args, int i, char *str);
@@ -241,18 +243,18 @@ int		ft_tablen(char **tab);
 
 // COUNT COMMANDS //
 
+void	print_error(t_struct *data, char *cmd);
+int		get_count(t_args *arg, int cmd_count);
 int		count_commands(char **arg);
+int		check_pos(char *temp, char c, t_args *args);
 
 // FREE //
 
-void	ft_free_child_struct(t_struct *data, t_args **arg);
 void	ft_free_struct(t_args **arg, int cmd_count);
 void	ft_free_all(t_struct *data);
 void	ft_final_free(t_struct *data);
 void	ft_free(char **tab);
 void	ft_exec_cleanup(t_struct *data, t_args *arg, int cmd_count);
-void	ft_free_one_arg(t_args *arg);
-void	ft_free_args(char ***args);
 
 // CLEAR TO FUNCTION	
 
@@ -293,7 +295,7 @@ int		ft_cd_pipe(t_struct *data, t_args **arg, char **args, char **path);
 // CD UTILIS //
 
 int		ft_straight_home(t_struct *data);
-void	ft_set_up_home(t_struct *data, char **env);
+void	ft_set_up_home(t_struct *data);
 
 // ENV //
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec_utilis.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 16:05:50 by gprunet           #+#    #+#             */
-/*   Updated: 2024/12/18 13:20:58 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/12/20 02:35:12 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	ft_exec_init(t_struct *data, t_args **arg)
 {
 	data->last = 0;
 	data->count_redir = 0;
-	data->temp_fd = 0;
+	data->temp_fd = -1;
 	data->status = 0;
 	data->input = 0;
 	data->output = 0;
@@ -82,7 +82,8 @@ void	reset_pipe_exit(t_struct *data, int i, int last)
 {
 	if (i < last)
 	{
-		if (data->temp_fd != 0)
+		perror("i");
+		if (data->temp_fd != 0 && data->temp_fd != -1)
 			close(data->temp_fd);
 		data->temp_fd = data->pipefd[0];
 		close(data->pipefd[1]);

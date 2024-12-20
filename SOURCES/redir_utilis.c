@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir_utilis.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 08:37:50 by gprunet           #+#    #+#             */
-/*   Updated: 2024/12/18 14:43:25 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/12/19 21:53:14 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ int	check_output(t_struct *data, char *temp, t_args *args)
 
 int	check_true_redir(t_struct *data, t_args *args, char	*temp)
 {
-	args->pos_redir = 0;
+	if ((*args).put == 0)
+		args->pos_redir = 0;
 	while (args->pos_redir < ft_strlen(temp))
 	{
 		if (temp[args->pos_redir] == '>' || temp[args->pos_redir] == '<')
@@ -47,10 +48,7 @@ int	check_true_redir(t_struct *data, t_args *args, char	*temp)
 			if (data->count_redir < data->nb_redir)
 			{
 				if (data->redir[data->count_redir] == 1)
-				{
-					data->count_redir++;
 					return (1);
-				}
 				data->count_redir++;
 			}
 		}

@@ -6,11 +6,28 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 13:47:27 by hehe              #+#    #+#             */
-/*   Updated: 2024/12/18 14:31:38 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/12/18 16:48:40 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	check_pos(char *temp, char c, t_args *args)
+{
+	int	i;
+
+	i = 0;
+	while (temp[i])
+	{
+		if (temp[i] == c && i == args->pos_redir)
+		{
+			args->pos_redir++;
+			return (1);
+		}
+		i++;
+	}
+	return (0);
+}
 
 void	print_error(t_struct *data, char *cmd)
 {

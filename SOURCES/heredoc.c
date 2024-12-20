@@ -6,7 +6,7 @@
 /*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 13:11:06 by hehe              #+#    #+#             */
-/*   Updated: 2024/10/21 13:25:15 by hehe             ###   ########.fr       */
+/*   Updated: 2024/12/20 02:04:16 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	heredoc_algo(int pipefd, t_args *arg)
 		line = readline("> ");
 		if (!line)
 		{
-			perror("readline error");
+			perror("readline");
 			return (-1);
 		}
 		if (ft_strcmp(line, arg->delimiter) == 0)
@@ -112,6 +112,7 @@ int	ft_heredoc(t_args *arg, t_struct *data)
 	}
 	if (heredoc_algo(data->pipefd[1], arg) == -1)
 	{
+		close(data->pipefd[0]);
 		close(data->pipefd[1]);
 		return (-1);
 	}
