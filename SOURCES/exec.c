@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 15:01:37 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/12/20 03:46:13 by hehe             ###   ########.fr       */
+/*   Updated: 2025/01/01 20:23:47 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,10 +206,9 @@ int	redir_cmd(t_args *arg, t_struct *data)
 			perror(arg->input);
 			data->status = 1;
 			ft_update_return_status(data, data->status);
-			free(arg->input);
-			free(arg->args);
 			return (1);
 		}
+		close(fd);
 	}
 	if (!arg->cmd)
 		return (1);

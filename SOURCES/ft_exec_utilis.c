@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec_utilis.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 16:05:50 by gprunet           #+#    #+#             */
-/*   Updated: 2024/12/20 02:35:12 by hehe             ###   ########.fr       */
+/*   Updated: 2025/01/01 20:24:40 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ void	reset_pipe_exit(t_struct *data, int i, int last)
 {
 	if (i < last)
 	{
-		perror("i");
 		if (data->temp_fd != 0 && data->temp_fd != -1)
 			close(data->temp_fd);
 		data->temp_fd = data->pipefd[0];

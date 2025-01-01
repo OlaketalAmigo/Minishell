@@ -1,1 +1,1 @@
-<< d
+lsa |ls | ls -l | wc -l

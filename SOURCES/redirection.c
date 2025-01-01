@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 12:53:48 by hehe              #+#    #+#             */
-/*   Updated: 2024/12/20 00:28:35 by hehe             ###   ########.fr       */
+/*   Updated: 2025/01/01 19:17:09 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,28 +43,28 @@ int	check_fd(int fd, t_args *arg)
 
 char	*check_next(char **temp, int *i, char *c, t_args *n_args)
 {
+	char	*ret;
 	char	*str;
-	int		len;
 
 	str = ft_strstr(temp[*i], c);
-	len = ft_strlen(str);
 	if (c[0] == '>' && c[1] == '>')
 		(*n_args).append = 1;
 	else if (c[0] == '>')
 		(*n_args).b_output = 1;
 	else if (c[0] == '<')
 		(*n_args).b_input = 1;
-	if (str[len - 1] == c[0] && *i + 2 < ft_tablen(temp))
+	if (str[ft_strlen(str) - 1] == c[0] && *i + 2 < ft_tablen(temp))
 	{
-		str = ft_strdup(temp[*i + 2]);
+		ret = ft_strdup(temp[*i + 2]);
 		*i = *i + 3;
-		return (str);
+		return (ret);
 	}
-	if (str[len - 1] != c[0])
+	if (str[ft_strlen(str) - 1] != c[0])
 	{
-		str = ft_strdup(&str[1]);
+		ret = ft_strdup(&str[1]);
+		free(str);
 		*i = *i + 1;
-		return (str);
+		return (ret);
 	}
 	return (NULL);
 }
