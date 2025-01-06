@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/12/20 00:54:46 by hehe             ###   ########.fr       */
+/*   Updated: 2025/01/06 13:40:42 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ typedef struct data
 	int		temp_fd;
 	int		last;
 	int		total;
+	int		stop;
 	pid_t	pid;
 }	t_struct;
 
@@ -152,6 +153,10 @@ void	ft_exec(t_struct *data);
 void	ft_algo_exec(t_struct *data, t_args **arg, int i, int cmd_count);
 void	ft_pipe_exec(t_struct *data, char **args, char **path, t_args **arg);
 int		split_args(char **arg, t_args **new_args, t_struct *data);
+
+// REDIR CMD //
+
+int		redir_cmd(t_args *arg, t_struct *data);
 int		handle_redirection(t_args *arg, t_struct *data);
 
 // FT EXEC UTILIS //
@@ -205,6 +210,10 @@ t_args	ft_assign_args(t_args *new_args, char **temp, t_struct *data);
 char	*ft_strstr(char *str, char *find);
 int		ft_check_hard_path(t_struct *data, char *arg);
 int		ft_check_path(t_struct *data, char *arg);
+
+// CHECK TEMP //
+
+int		temp_check(char **temp, t_struct *data);
 
 // REDIR UTILIS //
 

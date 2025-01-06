@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_command.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 14:34:40 by gprunet           #+#    #+#             */
-/*   Updated: 2024/12/20 02:12:25 by hehe             ###   ########.fr       */
+/*   Updated: 2025/01/06 13:26:24 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ int	sort_redir(char *temp, t_args *new_args, char c, int com)
 	{
 		while (temp[i])
 		{
-			if (temp[i] == c && i == new_args->pos_redir)
+			if (temp[i] == c && i == (*new_args).pos_redir)
 				break ;
-			new_args->args[0][i] = temp[i];
+			(*new_args).args[0][i] = temp[i];
 			i++;
 		}
-		new_args->args[0][i] = '\0';
+		(*new_args).args[0][i] = '\0';
 		return (i);
 	}
 	else
@@ -41,10 +41,10 @@ int	sort_redir(char *temp, t_args *new_args, char c, int com)
 		{
 			if (temp[i] == c && i == new_args->pos_redir)
 				break ;
-			new_args->cmd[i] = temp[i];
+			(*new_args).cmd[i] = temp[i];
 			i++;
 		}
-		new_args->cmd[i] = '\0';
+		(*new_args).cmd[i] = '\0';
 		return (i);
 	}
 }
@@ -74,6 +74,8 @@ void	eos_case(t_args *args, char **temp, int *i)
 		return ;
 	if (temp[*i + 2][0] != '>')
 	{
+		if ((*args).output)
+			free((*args).output);
 		(*args).output = ft_strdup(temp[*i + 2]);
 		*i = *i + 4;
 	}
@@ -81,6 +83,8 @@ void	eos_case(t_args *args, char **temp, int *i)
 	{
 		if (*i + 4 >= ft_tablen(temp))
 			return ;
+		if ((*args).output)
+			free((*args).output);
 		(*args).output = ft_strdup(temp[*i + 4]);
 		*i = *i + 6;
 	}

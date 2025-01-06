@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+         #
+#    By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/24 14:38:38 by tfauve-p          #+#    #+#              #
-#    Updated: 2024/12/18 15:12:24 by tfauve-p         ###   ########.fr        #
+#    Updated: 2025/01/06 13:40:19 by gprunet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SOURCES = \
 	$(SOURCES_DIR)signals.c \
 	$(SOURCES_DIR)exec.c \
 	$(SOURCES_DIR)ft_exec_utilis.c \
+	$(SOURCES_DIR)redir_cmd.c		\
 	$(SOURCES_DIR)exec_utilis.c \
 	$(SOURCES_DIR)exec_utilis2.c \
 	$(SOURCES_DIR)exec_utilis3.c \
@@ -42,6 +43,7 @@ SOURCES = \
 	$(SOURCES_DIR)expand.c \
 	$(SOURCES_DIR)expand_utilis.c \
 	$(SOURCES_DIR)split_args_utilis.c \
+	$(SOURCES_DIR)check_temp.c		\
 	$(SOURCES_DIR)assign_args_utilis.c \
 	$(SOURCES_DIR)set_up_env.c \
 	$(SOURCES_DIR)history.c \

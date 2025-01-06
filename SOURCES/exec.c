@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 15:01:37 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/01/01 20:23:47 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/06 12:58:13 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,56 +47,6 @@ int	split_args(char **arg, t_args **new_args, t_struct *data)
 		i++;
 	}
 	return (count_commands(arg));
-}
-
-void	post_check_fd(int put, t_struct *data, int fd)
-{
-	if (put == 0)
-	{
-		if (data->input)
-			close(data->saved_stdin);
-		data->saved_stdin = dup(0);
-		dup2(fd, 0);
-		close(fd);
-		data->input = 1;
-	}
-	else
-	{
-		if (data->output)
-			close(data->saved_stdout);
-		data->saved_stdout = dup(1);
-		dup2(fd, 1);
-		close(fd);
-		data->output = 1;
-	}
-}
-
-int	handle_redirection(t_args *arg, t_struct *data)
-{
-	int	fd;
-
-	fd = 0;
-	if (arg->input)
-	{
-		fd = check_fd(fd, arg);
-		if (fd == -1)
-		{
-			data->status = 1;
-			return (-1);
-		}
-		post_check_fd(0, data, fd);
-	}
-	if (arg->output)
-	{
-		fd = check_fd(fd, arg);
-		if (fd == -1)
-		{
-			data->status = 1;
-			return (-1);
-		}
-		post_check_fd(1, data, fd);
-	}
-	return (1);
 }
 
 void	ft_pipe_exec(t_struct *data, char **args, char **path, t_args **arg)
@@ -151,98 +101,22 @@ void	ft_algo_exec(t_struct *data, t_args **arg, int i, int total)
 	reset_stds(data, &(*arg)[i], i, data->last);
 }
 
-int	check_puts2(char *output, char *input, t_args *arg)
-{
-	if ((*arg).b_input)
-	{
-		if (!input || (input[0] == '<' && !input[1]) 
-			|| (input[0] == '>' && !input[1]))
-		{
-			printf("syntax error near unexpected token `newline'\n");
-			return (1);
-		}
-	}
-	if ((*arg).b_output)
-	{
-		if (!output || (output[0] == '>' && !output[1]))
-		{
-			printf("syntax error near unexpected token `newline'\n");
-			return (1);
-		}
-	}
-	return (0);
-}
-
-int	check_puts(char *output, char *input, char *cmd, t_args *arg)
-{
-	if (!input && cmd[0] == '<' && !cmd[1])
-	{
-		printf("syntax error near unexpected token `newline'\n");
-		return (1);
-	}
-	if (!output && (cmd[0] == '>' && !cmd[1]))
-	{
-		printf("syntax error near unexpected token `newline'\n");
-		return (1);
-	}
-	if ((*arg).put == 1)
-	{
-		if (check_puts2(output, input, arg))
-			return (1);
-	}
-	return (0);
-}
-
-int	redir_cmd(t_args *arg, t_struct *data)
-{
-	int	fd;
-
-	fd = 0;
-	if (arg->input && !arg->cmd)
-	{
-		fd = open(arg->input, O_RDONLY);
-		if (fd < 0)
-		{
-			perror(arg->input);
-			data->status = 1;
-			ft_update_return_status(data, data->status);
-			return (1);
-		}
-		close(fd);
-	}
-	if (!arg->cmd)
-		return (1);
-	if (check_puts(arg->output, arg->input, arg->cmd, arg))
-	{
-		data->status = 2;
-		ft_update_return_status(data, data->status);
-		return (1);
-	}
-	return (0);
-}
-
-void	reset_redir(int *in, int *out)
-{
-	*in = 0;
-	*out = 0;
-}
-
 void	ft_exec(t_struct *data)
 {
 	t_args	*arg;
 
 	data->i = 0;
+	data->stop = 0;
 	arg = NULL;
 	ft_exec_init(data, &arg);
 	data->last = get_count(arg, data->total);
-	while (data->i < data->total)
+	while (data->i < data->total && data->stop != 1)
 	{
 		if (redir_cmd(&arg[data->i], data) == 1)
 		{
 			data->i++;
 			continue ;
 		}
-		reset_redir(&data->input, &data->output);
 		if (pipe_check(data, data->i, data->last) == -1)
 			exit(EXIT_FAILURE);
 		ft_algo_exec(data, &arg, data->i, data->total);

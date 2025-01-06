@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 15:45:51 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/01/01 19:37:17 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/06 13:22:32 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 void	ft_exec_cleanup(t_struct *data, t_args *arg, int cmd_count)
 {
 	(void)data;
+	if (data->stop == 1)
+		printf("syntax error near unexpected token\n");
 	if (cmd_count == 0)
 		printf("No command to execute\n");
 	ft_free_struct(&arg, cmd_count);
@@ -25,12 +27,6 @@ void	ft_free_struct(t_args **arg, int cmd_count)
 	int	i;
 
 	i = 0;
-	// if (*arg && (*arg)[i].cmd == NULL)
-	// {
-	// 	free(*arg);
-	// 	*arg = NULL;
-	// 	return ;
-	// }
 	while (i < cmd_count)
 	{
 		free((*arg)[i].cmd);

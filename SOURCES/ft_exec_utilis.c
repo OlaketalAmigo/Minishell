@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 16:05:50 by gprunet           #+#    #+#             */
-/*   Updated: 2025/01/01 20:24:40 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/06 12:58:15 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ void	final_reset(t_struct *data)
 
 int	pipe_check(t_struct *data, int i, int last)
 {
+	data->input = 0;
+	data->output = 0;
 	if (i < last && last > 1)
 	{
 		if (pipe(data->pipefd) == -1)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir_utilis.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 08:37:50 by gprunet           #+#    #+#             */
-/*   Updated: 2024/12/19 21:53:14 by hehe             ###   ########.fr       */
+/*   Updated: 2025/01/06 13:39:20 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,24 @@ int	check_append(char *temp)
 	return (0);
 }
 
-int	check_input(t_struct *data, char *temp, t_args *args)
+int	check_outin(t_struct *data, char *temp, t_args *args, int put)
 {
-	if ((*args).input)
+	if (put == 1)
+	{
+		if ((*args).input)
+			return (0);
+		if (ft_strchr(temp, '<') == 1 && data->redir[0] == 1)
+			return (1);
 		return (0);
-	if (ft_strchr(temp, '<') == 1 && data->redir[0] == 1)
-		return (1);
-	return (0);
-}
-
-int	check_output(t_struct *data, char *temp, t_args *args)
-{
-	if ((*args).output)
+	}
+	else
+	{
+		if ((*args).output)
+			return (0);
+		if (ft_strchr(temp, '>') == 1 && data->redir[0] == 1)
+			return (1);
 		return (0);
-	if (ft_strchr(temp, '>') == 1 && data->redir[0] == 1)
-		return (1);
-	return (0);
+	}
 }
 
 int	check_true_redir(t_struct *data, t_args *args, char	*temp)
@@ -64,13 +66,13 @@ int	q_redir(t_struct *data, char *temp, t_args *args)
 
 	if (check_true_redir(data, args, temp) == 1)
 		return (1);
-	if (data->nb_redir == 0)
+	if (data->nb_redir == 0 || data->stop == 0)
 		return (0);
 	i = 0;
 	count = 0;
-	if (check_input(data, temp, args) == 1)
+	if (check_outin(data, temp, args, 1) == 1)
 		return (1);
-	if (check_output(data, temp, args) == 1)
+	if (check_outin(data, temp, args, 0) == 1)
 		return (1);
 	if ((*args).output || (*args).input)
 	{

@@ -1,1 +1,1 @@
-lsa |ls | ls -l | wc -l
+> <> <><>> <>>> <>>< hello a | grep a

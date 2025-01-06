@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   algo_exec_utilis.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sionow <sionow@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 20:21:36 by hehe              #+#    #+#             */
-/*   Updated: 2024/12/19 02:09:08 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2025/01/04 22:41:29 by sionow           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int	algo_heredoc(t_struct *data, t_args **arg, int i, int cmd_count)
 {
 	if ((*arg)[i].delimiter)
 	{
+		printf("cmd = %s\n", arg[i]->cmd);
 		if ((*arg)[i].output)
 		{
 			dup2(data->saved_stdout, 1);
@@ -56,7 +57,7 @@ int	algo_heredoc(t_struct *data, t_args **arg, int i, int cmd_count)
 			return (-1);
 		if (ft_strncmp((*arg)[i].cmd, "<<", 2) == 1)
 		{
-			if (i == cmd_count - 1)
+			if (i == cmd_count)
 				reset_stds(data, &(*arg)[i], i, cmd_count);
 			return (-1);
 		}

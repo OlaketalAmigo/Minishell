@@ -88,7 +88,7 @@ void	command1_utilis(char **temp, t_args *new_args, int *i, int j)
 {
 	if (check_append(temp[*i]) == 1)
 		(*new_args).append = 1;
-	if (j >= ft_strlen(temp[*i]))
+	if (j >= ft_strlen(temp[*i]) && *i < ft_tablen(temp))
 	{
 		if (temp[*i + 2][0] == '>' && temp[*i + 4])
 		{

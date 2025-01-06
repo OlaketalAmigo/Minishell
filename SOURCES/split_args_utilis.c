@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_args_utilis.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:33:51 by gprunet           #+#    #+#             */
-/*   Updated: 2024/12/19 23:59:49 by hehe             ###   ########.fr       */
+/*   Updated: 2025/01/06 13:30:09 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ t_args	ft_assign_args(t_args *new_args, char **temp, t_struct *data)
 {
 	int (i) = 0;
 	int (j) = 0;
-	while (i < ft_tablen(temp))
+	while (i < ft_tablen(temp) && temp_check(temp, data) == 0)
 	{
 		if (q_redir(data, temp[i], new_args) == 1)
 		{

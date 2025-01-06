@@ -1,1 +1,3 @@
-Leak fd sur ctrl D du heredoc
+Leak fd sur ctrl D de n'importe quel heredoc
+
+Leak fd dans le child sur heredoc avec commande		cat << ad
