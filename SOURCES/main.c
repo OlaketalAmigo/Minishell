@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:52:11 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/12/18 15:12:02 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2025/01/06 14:11:26 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,15 @@
 volatile int	g_sig_receiver = 0;
 
 extern char		**environ;
+
+void	heredoc_exit(t_struct *data)
+{
+	if (data->heredoc == 2)
+	{
+		close(data->pipefd[0]);
+		close(data->saved_stdin);
+	}
+}
 
 void	ft_main(int g_sig_receiver, t_struct *data)
 {
@@ -39,6 +48,7 @@ void	ft_main(int g_sig_receiver, t_struct *data)
 			if (data->line && data->line[0] == '\0')
 				continue ;
 			printf("exit\n");
+			heredoc_exit(data);
 			break ;
 		}
 	}

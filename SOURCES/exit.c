@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 16:46:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/12/18 11:57:08 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2025/01/06 14:08:55 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,12 @@ int	ft_bf_exit(t_struct *data, t_args **arg, char **args, char **path)
 	ft_free(data->path);
 	ft_free(args);
 	ft_free(path);
+	printf("data->heredoc = %d\n", data->heredoc);
+	if (data->heredoc == 2)
+	{
+		close(data->pipefd[0]);
+		close(data->pipefd[1]);
+	}
 	if (data->path_to_home)
 		free(data->path_to_home);
 	ft_free_struct(arg, data->total);
@@ -129,5 +135,11 @@ int	ft_exit_pipe(t_struct *data, t_args **arg, char **args, char **path)
 		}
 	}
 	ft_free_child(args, data, arg, path);
+	printf("data->heredoc = %d\n", data->heredoc);
+	if (data->heredoc == 2)
+	{
+		close(data->pipefd[0]);
+		close(data->pipefd[1]);
+	}
 	exit(i);
 }

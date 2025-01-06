@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 16:47:13 by gprunet           #+#    #+#             */
-/*   Updated: 2025/01/01 20:23:01 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/06 14:04:14 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,10 @@ int	ft_execve(char **path, char **args, t_struct *data)
 	if (!path || !path[0])
 		return (127);
 	if (data->total > 1 && data->i < data->last)
-	{
 		close(data->pipefd[0]);
-	}
 	if (data->temp_fd != -1)
 		close(data->temp_fd);
-	if (data->input)
+	if (data->input || data->heredoc)
 		close(data->saved_stdin);
 	if (data->output)
 		close(data->saved_stdout);

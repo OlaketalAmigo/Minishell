@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sionow <sionow@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 13:11:06 by hehe              #+#    #+#             */
-/*   Updated: 2025/01/04 21:35:47 by sionow           ###   ########.fr       */
+/*   Updated: 2025/01/06 14:06:38 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	check_heredoc(char **temp, t_args *arg, int *i)
 	return (0);
 }
 
-int	heredoc_algo(int pipefd, t_args *arg)
+int	heredoc_algo(int pipefd, t_args *arg, t_struct *data)
 {
 	char	*line;
 
@@ -65,6 +65,7 @@ int	heredoc_algo(int pipefd, t_args *arg)
 		if (!line)
 		{
 			perror("readline");
+			data->heredoc = 2;
 			return (-1);
 		}
 		if (ft_strcmp(line, arg->delimiter) == 0)
@@ -110,7 +111,7 @@ int	ft_heredoc(t_args *arg, t_struct *data)
 		perror("pipe error");
 		return (-1);
 	}
-	if (heredoc_algo(data->pipefd[1], arg) == -1)
+	if (heredoc_algo(data->pipefd[1], arg, data) == -1)
 	{
 		close(data->pipefd[1]);
 		return (-1);

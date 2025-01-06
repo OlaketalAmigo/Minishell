@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/01/06 13:40:42 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/06 14:06:25 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -276,7 +276,7 @@ char	**ft_clear_to_function(char **tab);
 
 int		ft_heredoc(t_args *arg, t_struct *data);
 int		ft_heredoc_pipe(t_args *arg, t_struct *data, char **args, char **path);
-int		heredoc_algo(int pipefd, t_args *arg);
+int		heredoc_algo(int pipefd, t_args *arg, t_struct *data);
 int		check_heredoc(char **temp, t_args *new_args, int *i);
 char	*assign_delimiter(char *temp, t_args *new_args);
 

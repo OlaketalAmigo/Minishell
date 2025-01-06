@@ -1,1 +1,1 @@
-> <> <><>> <>>> <>>< hello a | grep a
+cat << a
