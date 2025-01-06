@@ -1,0 +1,1 @@
+grep hi <./minishell_tester/test_files/infile_big <./minishell_tester/test_files/infile

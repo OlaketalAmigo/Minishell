@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 16:05:50 by gprunet           #+#    #+#             */
-/*   Updated: 2025/01/06 12:58:15 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/06 16:41:10 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,12 @@ void	final_reset(t_struct *data)
 	}
 }
 
-int	pipe_check(t_struct *data, int i, int last)
+int	pipe_check(t_struct *data, int i, int last, char *delimiter)
 {
 	data->input = 0;
 	data->output = 0;
+	if (delimiter)
+		data->heredoc = 1;
 	if (i < last && last > 1)
 	{
 		if (pipe(data->pipefd) == -1)
@@ -88,6 +90,12 @@ void	reset_pipe_exit(t_struct *data, int i, int last)
 			close(data->temp_fd);
 		data->temp_fd = data->pipefd[0];
 		close(data->pipefd[1]);
-		data->in_fd = data->pipefd[0];
+		if (data->n_heredoc != i + 2)
+		{
+			printf("i = %d	n_heredoc = %d", i, data->n_heredoc);
+			data->in_fd = data->pipefd[0];
+		}
+		if (data->heredoc == 1)
+			data->heredoc = 0;
 	}
 }

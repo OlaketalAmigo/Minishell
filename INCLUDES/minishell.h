@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/01/06 14:06:25 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/06 16:58:24 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ typedef struct data
 	int		input;
 	int		output;
 	int		heredoc;
+	int		n_heredoc;
 	int		status;
 	int		i;
 	int		count_redir;
@@ -164,7 +165,7 @@ int		handle_redirection(t_args *arg, t_struct *data);
 char	**ft_fill_args(char *cmds, char **args);
 void	ft_exec_init(t_struct *data, t_args **arg);
 void	final_reset(t_struct *data);
-int		pipe_check(t_struct *data, int i, int cmd_count);
+int		pipe_check(t_struct *data, int i, int cmd_count, char *delimiter);
 void	reset_pipe_exit(t_struct *data, int i, int cmd_count);
 
 // ALGO EXEC UTILIS //
@@ -213,7 +214,7 @@ int		ft_check_path(t_struct *data, char *arg);
 
 // CHECK TEMP //
 
-int		temp_check(char **temp, t_struct *data);
+int		temp_check(char **temp, t_struct *data, int time);
 
 // REDIR UTILIS //
 
@@ -253,7 +254,7 @@ int		ft_tablen(char **tab);
 // COUNT COMMANDS //
 
 void	print_error(t_struct *data, char *cmd);
-int		get_count(t_args *arg, int cmd_count);
+int		get_count(t_args *arg, int cmd_count, t_struct *data);
 int		count_commands(char **arg);
 int		check_pos(char *temp, char c, t_args *args);
 

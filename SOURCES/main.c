@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:52:11 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/01/06 14:11:26 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/06 15:18:56 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int	main(void)
 	ft_set_up_home(&data);
 	ft_init_signals();
 	ft_set_up_history();
+	data.heredoc = 0;
 	ft_main(g_sig_receiver, &data);
 	ft_final_free(&data);
 	return (0);

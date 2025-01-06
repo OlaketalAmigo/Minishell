@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 15:01:37 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/01/06 12:58:13 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/06 17:01:47 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,9 +107,10 @@ void	ft_exec(t_struct *data)
 
 	data->i = 0;
 	data->stop = 0;
+	data->heredoc = 0;
 	arg = NULL;
 	ft_exec_init(data, &arg);
-	data->last = get_count(arg, data->total);
+	data->last = get_count(arg, data->total, data);
 	while (data->i < data->total && data->stop != 1)
 	{
 		if (redir_cmd(&arg[data->i], data) == 1)
@@ -117,7 +118,11 @@ void	ft_exec(t_struct *data)
 			data->i++;
 			continue ;
 		}
-		if (pipe_check(data, data->i, data->last) == -1)
+		printf("cmd = %s\n", arg[data->i].cmd);
+		printf("args = %s\n", arg[data->i].args[0]);
+		printf("input = %s\n", arg[data->i].input);
+		printf("output = %s\n", arg[data->i].output);
+		if (pipe_check(data, data->i, data->last, arg[data->i].delimiter) == -1)
 			exit(EXIT_FAILURE);
 		ft_algo_exec(data, &arg, data->i, data->total);
 		reset_pipe_exit(data, data->i, data->last);

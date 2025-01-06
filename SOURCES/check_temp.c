@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 13:39:04 by gprunet           #+#    #+#             */
-/*   Updated: 2025/01/06 13:44:45 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/06 17:02:14 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,14 @@ int	single_check(char *temp, t_struct *data, int *r_nb, int *nb)
 	return (0);
 }
 
-int	temp_check(char **temp, t_struct *data)
+int	temp_check(char **temp, t_struct *data, int time)
 {
 	int	i;
 	int	nb;
 	int	r_nb;
 
+	if (time > 0)
+		return (0);
 	i = 0;
 	nb = 0;
 	r_nb = 0;

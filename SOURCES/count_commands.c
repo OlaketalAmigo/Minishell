@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 13:47:27 by hehe              #+#    #+#             */
-/*   Updated: 2024/12/18 16:48:40 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/06 16:38:23 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	print_error(t_struct *data, char *cmd)
 		printf("Command %s not found\n", cmd);
 }
 
-int	get_count(t_args *arg, int cmd_count)
+int	get_count(t_args *arg, int cmd_count, t_struct *data)
 {
 	int	i;
 	int	count;
@@ -46,6 +46,8 @@ int	get_count(t_args *arg, int cmd_count)
 	count = 0;
 	while (i <= cmd_count)
 	{
+		if (arg[i].delimiter)
+			data->n_heredoc = i;
 		if (arg[i].cmd)
 			count = i;
 		i = i + 2;
