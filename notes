@@ -1,3 +1,0 @@
-Leak fds sur ctrl D de n'importe quel heredoc car pipe pas ferme
-
-Leak fd dans le child sur heredoc avec commande		cat << ad
