@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utilis3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 16:47:13 by gprunet           #+#    #+#             */
-/*   Updated: 2025/01/07 13:45:22 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/07 23:05:50 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ int	ft_execve(char **path, char **args, t_struct *data)
 		close(data->saved_stdin);
 	if (data->output)
 		close(data->saved_stdout);
+	printf("in_fd = %d\n", data->in_fd);
+	printf("out_fd = %d\n", data->out_fd);
 	result = execve(path[0], args, data->env);
 	perror("execve errror");
 	return (result);

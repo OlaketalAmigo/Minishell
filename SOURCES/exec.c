@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 15:01:37 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/01/07 15:30:47 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/07 23:22:24 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int	get_max(char **temp, char c, int current)
 {
-	char 	*full;
-	int 	i;
-	int 	nb;
+	char	*full;
+	int		i;
+	int		nb;
 
 	full = ft_strdup("");
 	i = 0;
@@ -47,6 +47,7 @@ t_args	ft_args_init(t_args *new_args, t_struct *data, char **temp, int current)
 	(*new_args).pos_redir = 0;
 	(*new_args).c_in = 0;
 	(*new_args).c_out = 0;
+	(*new_args).stop = 0;
 	(*new_args).m_in = get_max(temp, '<', current);
 	(*new_args).m_out = get_max(temp, '>', current);
 	if (data->n_in == 0)
@@ -83,7 +84,7 @@ int	c_puts(char **temp, char c, t_struct *data)
 					real_redir++;
 				count++;
 			}
-			j++;	
+			j++;
 		}
 		i++;
 	}
@@ -107,8 +108,8 @@ int	split_args(char **arg, t_args **new_args, t_struct *data)
 		(*new_args)[i].args = malloc(sizeof(char *) * (c_args(temp) + 1));
 		if (!(*new_args)[i].args)
 			return (0);
-		(*new_args)[i].input = malloc(sizeof(char *) * (get_max(temp, '<', i) + 1));
-		(*new_args)[i].output = malloc(sizeof(char *) * (get_max(temp, '>', i) + 1));
+		(*new_args)[i].input = malloc(8 * (get_max(temp, '<', i) + 1));
+		(*new_args)[i].output = malloc(8 * (get_max(temp, '>', i) + 1));
 		(*new_args)[i] = ft_args_init(&(*new_args)[i], data, temp, i);
 		ft_assign_args(&(*new_args)[i], temp, data);
 		ft_free(temp);

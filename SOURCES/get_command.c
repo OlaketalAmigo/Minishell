@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_command.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 14:34:40 by gprunet           #+#    #+#             */
-/*   Updated: 2025/01/07 11:48:15 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/07 23:32:49 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	else_command(t_args *args, char **temp, int *i)
 {
 	if ((*args).output[(*args).c_out])
 		free((*args).output[(*args).c_out]);
-	(*args).output[(*args).c_out] = check_next(temp, &(*i), ">", &(*args));
+	(*args).output[(*args).c_out] = check_n(temp, &(*i), ">", &(*args));
 	(*args).append = 0;
 }
 

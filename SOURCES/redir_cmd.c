@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 12:56:15 by gprunet           #+#    #+#             */
-/*   Updated: 2025/01/07 15:57:27 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/07 23:23:24 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,19 +62,19 @@ int	handle_redirection(t_args *arg, t_struct *data)
 	return (1);
 }
 
-int	check_puts2(char **out, char **in, t_args *arg)
+int	check_puts2(char **out, char **in, t_args *a)
 {
-	if ((*arg).b_input && arg->c_in < arg->m_in)
+	if ((*a).b_input && a->c_in < a->m_in)
 	{
-		if (!in || (in[arg->c_in][0] == '<' && !in[arg->c_in][1]))
+		if (!in || (in[a->c_in][0] == '<' && !in[a->c_in][1]))
 		{
 			printf("syntax error near unexpected token `newline'\n");
 			return (1);
 		}
 	}
-	if ((*arg).b_output && arg->c_out < arg->m_out)
+	if ((*a).b_output && a->c_out < a->m_out)
 	{
-		if (!out[arg->c_out] || (out[arg->c_out][0] == '>' && !out[arg->c_out][1]))
+		if (!out[a->c_out] || (out[a->c_out][0] == '>' && !out[a->c_out][1]))
 		{
 			printf("syntax error near unexpected token `newline'\n");
 			return (1);
@@ -116,7 +116,7 @@ int	redir_cmd(t_args *arg, t_struct *data)
 	if (arg->c_in > 0 && arg->c_in < data->n_in && !arg->cmd)
 	{
 		fd = open(arg->input[arg->c_in], O_RDONLY);
-		if (fd < 0)
+		if (fd < 0 || arg->stop == 1)
 		{
 			perror(arg->input[arg->c_in]);
 			data->status = 1;

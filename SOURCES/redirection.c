@@ -3,37 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 12:53:48 by hehe              #+#    #+#             */
-/*   Updated: 2025/01/07 15:37:29 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/07 23:36:01 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	check_fd(int fd, t_args *arg)
+int	check_fd(int fd, t_args *a)
 {
-	if (arg->m_out > 0)
+	if (a->m_out > 0 && a->c_out < a->m_out)
 	{
-		if (arg->append)
-			fd = open(arg->output[arg->c_out], O_WRONLY | O_CREAT | O_APPEND, 0644);
+		if (a->append)
+			fd = open(a->output[a->c_out], O_WRONLY | O_CREAT | O_APPEND, 0644);
 		else
-			fd = open(arg->output[arg->c_out], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+			fd = open(a->output[a->c_out], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		if (fd < 0)
 		{
-			perror(arg->output[arg->c_out]);
+			perror(a->output[a->c_out]);
 			return (-1);
 		}
 	}
-	else if (arg->m_in > 0)
-		fd = open(arg->input[arg->c_in], O_RDONLY);
+	else if (a->m_in > 0 && a->c_in < a->m_in)
+		fd = open(a->input[a->c_in], O_RDONLY);
 	if (fd < 0)
 	{
-		perror(arg->input[arg->c_in]);
+		perror(a->input[a->c_in]);
 		return (-1);
 	}
-	if (arg->cmd[0] == '>' && arg->cmd[1] != '>')
+	if (a->cmd[0] == '>' && a->cmd[1] != '>')
 	{
 		close(fd);
 		return (-1);
@@ -41,7 +41,7 @@ int	check_fd(int fd, t_args *arg)
 	return (fd);
 }
 
-char	*check_next(char **temp, int *i, char *c, t_args *n_args)
+char	*check_n(char **temp, int *i, char *c, t_args *n_args)
 {
 	char	*ret;
 	char	*str;
@@ -62,7 +62,6 @@ char	*check_next(char **temp, int *i, char *c, t_args *n_args)
 	if (str[ft_strlen(str) - 1] != c[0])
 	{
 		ret = ft_strdup(&str[1]);
-		// free(str);
 		*i = *i + 1;
 		return (ret);
 	}
@@ -104,30 +103,30 @@ int	separate_command(char **temp, t_args *new_args, int *i, int *args)
 	return (1);
 }
 
-int	check_redirection(char **temp, t_args *n_args, int *i, int *j)
+int	check_redirection(char **temp, t_args *n_a, int *i, int *j)
 {
 	if (temp[*i][0] == '<' && temp[*i][1] == '<')
-		return (check_heredoc(temp, n_args, &(*i)));
-	(*n_args).put = 1;
+		return (check_heredoc(temp, n_a, &(*i)));
+	(*n_a).put = 1;
 	if (ft_strchr(temp[*i], '<') == 1 && temp[*i][0] != '<')
-		return (separate_command2(temp, n_args, &(*i)));
+		return (separate_command2(temp, n_a, &(*i)));
 	if (ft_strchr(temp[*i], '>') == 1 && temp[*i][0] != '>')
-		return (separate_command(temp, n_args, &(*i), &(*j)));
-	if (ft_strchr(temp[*i], '<') == 1 && check_pos(temp[*i], '<', n_args) == 1)
+		return (separate_command(temp, n_a, &(*i), &(*j)));
+	if (ft_strchr(temp[*i], '<') == 1 && check_pos(temp[*i], '<', n_a) == 1)
 	{
-		(*n_args).input[(*n_args).c_in] = check_next(temp, &(*i), "<", &(*n_args));
+		(*n_a).input[(*n_a).c_in] = check_n(temp, &(*i), "<", &(*n_a));
 		return (1);
 	}
-	if (ft_strchr(temp[*i], '>') == 1 && check_pos(temp[*i], '>', n_args) == 1)
+	if (ft_strchr(temp[*i], '>') == 1 && check_pos(temp[*i], '>', n_a) == 1)
 	{
-		(*n_args).b_output = 1;
+		(*n_a).b_output = 1;
 		if (check_append(temp[*i]) == 1)
 		{
-			(*n_args).output[(*n_args).c_out] = check_next(temp, &(*i), ">>", &(*n_args));
+			(*n_a).output[(*n_a).c_out] = check_n(temp, &(*i), ">>", &(*n_a));
 			return (1);
 		}
-		if (get_cmd(temp, &(*i), n_args) != 1)
-			else_command(n_args, temp, &(*i));
+		if (get_cmd(temp, &(*i), n_a) != 1)
+			else_command(n_a, temp, &(*i));
 		return (1);
 	}
 	return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/01/07 15:57:12 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/07 23:32:32 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ typedef struct s_cmd
 	int		c_out;
 	int		m_in;
 	int		m_out;
+	int		stop;
 	int		append;
 	int		put;
 	int		b_input;
@@ -234,7 +235,7 @@ int		q_redir(t_struct *data, char *temp, t_args *args, int i);
 int		check_redirection(char **temp, t_args *new_args, int *i, int *j);
 int		separate_command(char **temp, t_args *new_args, int *i, int *args);
 int		separate_command2(char **temp, t_args *new_args, int *i);
-char	*check_next(char **temp, int *i, char *c, t_args *args);
+char	*check_n(char **temp, int *i, char *c, t_args *args);
 int		check_fd(int fd, t_args *arg);
 
 // REDIRECTION UTILIS //

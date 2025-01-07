@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec_utilis.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 16:05:50 by gprunet           #+#    #+#             */
-/*   Updated: 2025/01/07 15:37:56 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/07 23:02:27 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,15 +86,15 @@ void	reset_pipe_exit(t_struct *data, int i, int last, t_args *arg)
 {
 	if (arg->m_in > 1)
 	{
-		if (arg[data->i].c_in < data->n_in && data->n_in > 1)
+		if (arg[data->i].c_in < arg[data->i].m_in)
 		{
 			arg[data->i].c_in++;
 			data->i--;
 		}
 	}
-	if (arg->m_out > 1)
+	else if (arg->m_out > 1)
 	{
-		if (arg[data->i].c_out < data->n_out && data->n_out > 1)
+		if (arg[data->i].c_out < arg[data->i].m_out)
 		{
 			arg[data->i].c_out++;
 			data->i--;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_temp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 13:39:04 by gprunet           #+#    #+#             */
-/*   Updated: 2025/01/07 16:02:50 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/07 23:34:47 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,11 @@ int	check_fds(t_args *arg, t_struct *data)
 			arg->c_out++;
 		else if (arg->c_in > 0 && arg->c_in < arg->m_in)
 			arg->c_in++;
+		printf("fd = %d\n", fd);
 		if (fd < 0)
 		{
 			data->status = 1;
-			data->stop = 1;
+			arg->stop = 1;
 			ft_update_return_status(data, 1);
 			return (1);
 		}
@@ -37,7 +38,6 @@ int	check_fds(t_args *arg, t_struct *data)
 		total--;
 	}
 	return (0);
-	
 }
 
 int	special_case(char *cmd, t_struct *data, char **args, t_args *arg)
@@ -50,7 +50,7 @@ int	special_case(char *cmd, t_struct *data, char **args, t_args *arg)
 	{
 		if (ft_strncmp(cmd, "cat", 3) == 1)
 		{
-			if (args[0] == NULL)
+			if (args[0] == NULL && arg->m_in == 0 && arg->m_out == 0)
 				return (1);
 		}
 		if (ft_strncmp(cmd, "grep", 4) == 1)
