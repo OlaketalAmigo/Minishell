@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 14:34:40 by gprunet           #+#    #+#             */
-/*   Updated: 2025/01/06 13:26:24 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/07 11:48:15 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	else_command(t_args *args, char **temp, int *i)
 {
-	if ((*args).output)
-		free((*args).output);
-	(*args).output = check_next(temp, &(*i), ">", &(*args));
+	if ((*args).output[(*args).c_out])
+		free((*args).output[(*args).c_out]);
+	(*args).output[(*args).c_out] = check_next(temp, &(*i), ">", &(*args));
 	(*args).append = 0;
 }
 
@@ -74,18 +74,18 @@ void	eos_case(t_args *args, char **temp, int *i)
 		return ;
 	if (temp[*i + 2][0] != '>')
 	{
-		if ((*args).output)
-			free((*args).output);
-		(*args).output = ft_strdup(temp[*i + 2]);
+		if ((*args).output[(*args).c_out])
+			free((*args).output[(*args).c_out]);
+		(*args).output[(*args).c_out] = ft_strdup(temp[*i + 2]);
 		*i = *i + 4;
 	}
 	else
 	{
 		if (*i + 4 >= ft_tablen(temp))
 			return ;
-		if ((*args).output)
-			free((*args).output);
-		(*args).output = ft_strdup(temp[*i + 4]);
+		if ((*args).output[(*args).c_out])
+			free((*args).output[(*args).c_out]);
+		(*args).output[(*args).c_out] = ft_strdup(temp[*i + 4]);
 		*i = *i + 6;
 	}
 }
@@ -103,7 +103,7 @@ int	get_cmd(char **temp, int *i, t_args *args)
 		eos_case(args, temp, &(*i));
 	else
 	{
-		(*args).output = get_cmd_output(temp[*i]);
+		(*args).output[(*args).c_out] = get_cmd_output(temp[*i]);
 		*i = *i + 2;
 	}
 	if (*i >= tab_len)

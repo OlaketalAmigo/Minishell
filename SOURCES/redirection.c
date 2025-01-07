@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 12:53:48 by hehe              #+#    #+#             */
-/*   Updated: 2025/01/06 13:26:18 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/07 15:37:29 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,23 @@
 
 int	check_fd(int fd, t_args *arg)
 {
-	if (arg->output)
+	if (arg->m_out > 0)
 	{
 		if (arg->append)
-			fd = open(arg->output, O_WRONLY | O_CREAT | O_APPEND, 0644);
+			fd = open(arg->output[arg->c_out], O_WRONLY | O_CREAT | O_APPEND, 0644);
 		else
-			fd = open(arg->output, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+			fd = open(arg->output[arg->c_out], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		if (fd < 0)
 		{
-			perror(arg->output);
+			perror(arg->output[arg->c_out]);
 			return (-1);
 		}
 	}
-	else
-		fd = open(arg->input, O_RDONLY);
+	else if (arg->m_in > 0)
+		fd = open(arg->input[arg->c_in], O_RDONLY);
 	if (fd < 0)
 	{
-		perror(arg->input);
+		perror(arg->input[arg->c_in]);
 		return (-1);
 	}
 	if (arg->cmd[0] == '>' && arg->cmd[1] != '>')
@@ -62,7 +62,7 @@ char	*check_next(char **temp, int *i, char *c, t_args *n_args)
 	if (str[ft_strlen(str) - 1] != c[0])
 	{
 		ret = ft_strdup(&str[1]);
-		free(str);
+		// free(str);
 		*i = *i + 1;
 		return (ret);
 	}
@@ -115,7 +115,7 @@ int	check_redirection(char **temp, t_args *n_args, int *i, int *j)
 		return (separate_command(temp, n_args, &(*i), &(*j)));
 	if (ft_strchr(temp[*i], '<') == 1 && check_pos(temp[*i], '<', n_args) == 1)
 	{
-		(*n_args).input = check_next(temp, &(*i), "<", &(*n_args));
+		(*n_args).input[(*n_args).c_in] = check_next(temp, &(*i), "<", &(*n_args));
 		return (1);
 	}
 	if (ft_strchr(temp[*i], '>') == 1 && check_pos(temp[*i], '>', n_args) == 1)
@@ -123,7 +123,7 @@ int	check_redirection(char **temp, t_args *n_args, int *i, int *j)
 		(*n_args).b_output = 1;
 		if (check_append(temp[*i]) == 1)
 		{
-			(*n_args).output = check_next(temp, &(*i), ">>", &(*n_args));
+			(*n_args).output[(*n_args).c_out] = check_next(temp, &(*i), ">>", &(*n_args));
 			return (1);
 		}
 		if (get_cmd(temp, &(*i), n_args) != 1)

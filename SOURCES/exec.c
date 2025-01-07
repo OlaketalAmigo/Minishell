@@ -3,27 +3,91 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 15:01:37 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/01/06 23:28:44 by hehe             ###   ########.fr       */
+/*   Updated: 2025/01/07 15:30:47 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_args	ft_args_init(t_args *new_args)
+int	get_max(char **temp, char c, int current)
+{
+	char 	*full;
+	int 	i;
+	int 	nb;
+
+	full = ft_strdup("");
+	i = 0;
+	nb = 0;
+	while (current < ft_tablen(temp))
+	{
+		add_full(temp[current], &full);
+		current++;
+	}
+	while (full[i] && full[i] != '|')
+	{
+		if (full[i] == c)
+			nb++;
+		i++;
+	}
+	free(full);
+	return (nb);
+}
+
+t_args	ft_args_init(t_args *new_args, t_struct *data, char **temp, int current)
 {
 	(*new_args).cmd = NULL;
-	(*new_args).input = NULL;
-	(*new_args).output = NULL;
 	(*new_args).delimiter = NULL;
 	(*new_args).put = 0;
 	(*new_args).b_input = 0;
 	(*new_args).b_output = 0;
 	(*new_args).append = 0;
 	(*new_args).pos_redir = 0;
+	(*new_args).c_in = 0;
+	(*new_args).c_out = 0;
+	(*new_args).m_in = get_max(temp, '<', current);
+	(*new_args).m_out = get_max(temp, '>', current);
+	if (data->n_in == 0)
+	{
+		free((*new_args).input);
+		(*new_args).input = NULL;
+	}
+	if (data->n_out == 0)
+	{
+		free((*new_args).output);
+		(*new_args).output = NULL;
+	}
 	return (*new_args);
+}
+
+int	c_puts(char **temp, char c, t_struct *data)
+{
+	int	i;
+	int	j;
+	int	real_redir;
+	int	count;
+
+	i = 0;
+	count = 0;
+	real_redir = 0;
+	while (temp[i])
+	{
+		j = 0;
+		while (temp[i][j])
+		{
+			if (temp[i][j] == c)
+			{
+				if (data->redir[count] == 1)
+					real_redir++;
+				count++;
+			}
+			j++;	
+		}
+		i++;
+	}
+	return (real_redir);
 }
 
 int	split_args(char **arg, t_args **new_args, t_struct *data)
@@ -35,13 +99,17 @@ int	split_args(char **arg, t_args **new_args, t_struct *data)
 	*new_args = malloc(sizeof(t_args) * (count_commands(arg) + 1));
 	if (!*new_args)
 		return (0);
+	data->n_in = c_puts(arg, '<', data);
+	data->n_out = c_puts(arg, '>', data);
 	while (arg[i])
 	{
 		temp = ft_split_cleared(arg[i], ' ');
 		(*new_args)[i].args = malloc(sizeof(char *) * (c_args(temp) + 1));
 		if (!(*new_args)[i].args)
 			return (0);
-		(*new_args)[i] = ft_args_init(&(*new_args)[i]);
+		(*new_args)[i].input = malloc(sizeof(char *) * (get_max(temp, '<', i) + 1));
+		(*new_args)[i].output = malloc(sizeof(char *) * (get_max(temp, '>', i) + 1));
+		(*new_args)[i] = ft_args_init(&(*new_args)[i], data, temp, i);
 		ft_assign_args(&(*new_args)[i], temp, data);
 		ft_free(temp);
 		i++;
@@ -121,7 +189,7 @@ void	ft_exec(t_struct *data)
 		if (pipe_check(data, data->i, data->last, arg[data->i].delimiter) == -1)
 			exit(EXIT_FAILURE);
 		ft_algo_exec(data, &arg, data->i, data->total);
-		reset_pipe_exit(data, data->i, data->last);
+		reset_pipe_exit(data, data->i, data->last, &arg[data->i]);
 		ft_update_return_status(data, data->status);
 		data->i++;
 	}

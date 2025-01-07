@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   assign_args_utilis.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:25:18 by gprunet           #+#    #+#             */
-/*   Updated: 2024/12/20 00:21:22 by hehe             ###   ########.fr       */
+/*   Updated: 2025/01/07 14:29:39 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,13 @@ int	ft_check_cmd(t_args *new_args, int i, char *str)
 
 int	check_built(char *temp, t_args *new_args, int *i, char **t)
 {
-	if ((*new_args).input && !(*new_args).cmd && *i + 1 < ft_tablen(t))
-	{
-		(*new_args).cmd = ft_strdup(t[*i + 1]);
-		*i = *i + 2;
-		return (1);
-	}
+	(void)t;
+	// if ((*new_args).m_in > 0 && !(*new_args).cmd && *i + 1 < ft_tablen(t))
+	// {
+	// 	(*new_args).cmd = ft_strdup(t[*i + 1]);
+	// 	*i = *i + 2;
+	// 	return (1);
+	// }
 	if (ft_check_builtins_init(temp) == 1 && (*new_args).cmd == NULL)
 	{
 		(*new_args).cmd = ft_strdup(temp);

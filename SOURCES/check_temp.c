@@ -3,17 +3,49 @@
 /*                                                        :::      ::::::::   */
 /*   check_temp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 13:39:04 by gprunet           #+#    #+#             */
-/*   Updated: 2025/01/07 01:37:03 by hehe             ###   ########.fr       */
+/*   Updated: 2025/01/07 16:02:50 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	special_case(char *cmd, t_struct *data, char **args)
+int	check_fds(t_args *arg, t_struct *data)
 {
+	int	fd;
+	int	total;
+
+	fd = 0;
+	total = arg->m_in + arg->m_out;
+	while (total != 0)
+	{
+		fd = check_fd(fd, arg);
+		if (arg->c_out > 0 && arg->c_out < arg->m_out)
+			arg->c_out++;
+		else if (arg->c_in > 0 && arg->c_in < arg->m_in)
+			arg->c_in++;
+		if (fd < 0)
+		{
+			data->status = 1;
+			data->stop = 1;
+			ft_update_return_status(data, 1);
+			return (1);
+		}
+		close(fd);
+		total--;
+	}
+	return (0);
+	
+}
+
+int	special_case(char *cmd, t_struct *data, char **args, t_args *arg)
+{
+	if (check_fds(arg, data) == 1)
+		return (1);
+	arg->c_in = 0;
+	arg->c_out = 0;
 	if (data->last > 0 && data->i == 0)
 	{
 		if (ft_strncmp(cmd, "cat", 3) == 1)
@@ -50,7 +82,6 @@ int	count_puts(char *temp)
 		else
 			i++;
 	}
-	printf("nb = %d\n", nb);
 	return (nb);
 }
 
@@ -124,7 +155,6 @@ int	temp_check(char **temp, t_struct *data, int time)
 		add_full(temp[i], &full);
 		single_check(temp[i], data, &r_nb, &nb);
 	}
-	printf("r_nb = %d\n", r_nb);
 	if (count_puts(full) < r_nb || puts_pos(full))
 	{
 		free(full);

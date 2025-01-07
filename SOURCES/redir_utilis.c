@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 08:37:50 by gprunet           #+#    #+#             */
-/*   Updated: 2025/01/06 13:39:20 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/07 15:08:22 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	check_outin(t_struct *data, char *temp, t_args *args, int put)
 {
 	if (put == 1)
 	{
-		if ((*args).input)
+		if ((*args).input[(*args).c_in])
 			return (0);
 		if (ft_strchr(temp, '<') == 1 && data->redir[0] == 1)
 			return (1);
@@ -31,7 +31,7 @@ int	check_outin(t_struct *data, char *temp, t_args *args, int put)
 	}
 	else
 	{
-		if ((*args).output)
+		if ((*args).output[(*args).c_out])
 			return (0);
 		if (ft_strchr(temp, '>') == 1 && data->redir[0] == 1)
 			return (1);
@@ -39,10 +39,52 @@ int	check_outin(t_struct *data, char *temp, t_args *args, int put)
 	}
 }
 
-int	check_true_redir(t_struct *data, t_args *args, char	*temp)
+void	no_put_case(t_args *args, t_struct *data)
 {
-	if ((*args).put == 0)
-		args->pos_redir = 0;
+	if (data->n_in == 0)
+	{
+		(*args).input = NULL;
+	}
+	if (data->n_out == 0)
+	{
+		(*args).output = NULL;
+	}
+}
+
+void	init_tab_puts(t_args *args, t_struct *data, int loop)
+{
+	int	i;
+
+	i = 0;
+	if ((data->n_in == 0 || data->n_out == 0) && loop == 0)
+		no_put_case(args, data);
+	while (i < args->m_in && loop == 0)
+	{
+		(*args).input[i] = NULL;
+		i++;
+	}
+	i = 0;
+	while (i < args->m_out && loop == 0)
+	{
+		(*args).output[i] = NULL;
+		i++;
+	}
+	if (args->m_in > 0)
+	{
+		if ((*args).input[(*args).c_in])
+			(*args).c_in++;
+	}
+	if (args->m_out > 0)
+	{
+		if ((*args).output[(*args).c_out])
+			(*args).c_out++;
+	}
+}
+
+int	check_true_redir(t_struct *data, t_args *args, char	*temp, int i)
+{
+	init_tab_puts(args, data, i);
+	args->pos_redir = 0;
 	while (args->pos_redir < ft_strlen(temp))
 	{
 		if (temp[args->pos_redir] == '>' || temp[args->pos_redir] == '<')
@@ -59,12 +101,12 @@ int	check_true_redir(t_struct *data, t_args *args, char	*temp)
 	return (0);
 }
 
-int	q_redir(t_struct *data, char *temp, t_args *args)
+int	q_redir(t_struct *data, char *temp, t_args *args, int loop)
 {
 	int	i;
 	int	count;
 
-	if (check_true_redir(data, args, temp) == 1)
+	if (check_true_redir(data, args, temp, loop) == 1)
 		return (1);
 	if (data->nb_redir == 0 || data->stop == 0)
 		return (0);
@@ -74,7 +116,7 @@ int	q_redir(t_struct *data, char *temp, t_args *args)
 		return (1);
 	if (check_outin(data, temp, args, 0) == 1)
 		return (1);
-	if ((*args).output || (*args).input)
+	if ((*args).output[(*args).c_out] || (*args).input[(*args).c_in])
 	{
 		while (temp[i])
 		{

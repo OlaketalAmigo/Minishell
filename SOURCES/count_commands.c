@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 13:47:27 by hehe              #+#    #+#             */
-/*   Updated: 2025/01/06 16:38:23 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/07 11:37:13 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ int	get_count(t_args *arg, int cmd_count, t_struct *data)
 			count = i;
 		i = i + 2;
 	}
+	(*arg).c_in = 0;
+	(*arg).c_out = 0;
 	return (count);
 }
 

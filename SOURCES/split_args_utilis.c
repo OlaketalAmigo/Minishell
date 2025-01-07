@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:33:51 by gprunet           #+#    #+#             */
-/*   Updated: 2025/01/06 16:56:34 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/07 14:31:05 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ t_args	ft_assign_args(t_args *new_args, char **temp, t_struct *data)
 	int (j) = 0;
 	while (i < ft_tablen(temp) && temp_check(temp, data, i) == 0)
 	{
-		if (q_redir(data, temp[i], new_args) == 1)
+		if (q_redir(data, temp[i], new_args, i) == 1)
 		{
 			if (check_redirection(temp, new_args, &i, &j) == 1)
 				continue ;

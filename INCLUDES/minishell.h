@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/01/06 23:36:47 by hehe             ###   ########.fr       */
+/*   Updated: 2025/01/07 15:57:12 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ typedef struct data
 	int		saved_stdin;
 	int		input;
 	int		output;
+	int		n_in;
+	int		n_out;
 	int		heredoc;
 	int		n_heredoc;
 	int		status;
@@ -81,10 +83,14 @@ typedef struct s_cmd
 {
 	char	*cmd;
 	char	**args;
-	char	*input;
-	char	*output;
+	char	**input;
+	char	**output;
 	char	*delimiter;
 	int		pos_redir;
+	int		c_in;
+	int		c_out;
+	int		m_in;
+	int		m_out;
 	int		append;
 	int		put;
 	int		b_input;
@@ -166,7 +172,7 @@ char	**ft_fill_args(char *cmds, char **args);
 void	ft_exec_init(t_struct *data, t_args **arg);
 void	final_reset(t_struct *data);
 int		pipe_check(t_struct *data, int i, int cmd_count, char *delimiter);
-void	reset_pipe_exit(t_struct *data, int i, int cmd_count);
+void	reset_pipe_exit(t_struct *data, int i, int cmd_count, t_args *arg);
 
 // ALGO EXEC UTILIS //
 
@@ -216,11 +222,12 @@ int		ft_check_path(t_struct *data, char *arg);
 
 int		temp_check(char **temp, t_struct *data, int time);
 int		single_check(char *temp, t_struct *data, int *r_nb, int *nb);
-int		special_case(char *cmd, t_struct *data, char **args);
+int		special_case(char *cmd, t_struct *data, char **args, t_args *arg);
+void	add_full(char *line, char **full);
 
 // REDIR UTILIS //
 
-int		q_redir(t_struct *data, char *temp, t_args *args);
+int		q_redir(t_struct *data, char *temp, t_args *args, int i);
 
 // REDIRECTION //
 

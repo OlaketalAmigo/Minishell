@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection_utilis.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 12:53:15 by hehe              #+#    #+#             */
-/*   Updated: 2024/12/19 20:08:57 by hehe             ###   ########.fr       */
+/*   Updated: 2025/01/07 11:32:28 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,16 +53,16 @@ void	command2_utilis(char **temp, t_args *new_args, int *i, int j)
 
 	k = 0;
 	if (!temp[*i][j] && temp[*i + 2])
-		(*new_args).input = ft_strdup(temp[*i + 2]);
+		(*new_args).input[(*new_args).c_in] = ft_strdup(temp[*i + 2]);
 	else
 	{
-		(*new_args).input = malloc(sizeof(char) * ft_strlen(temp[*i]) + 1);
+		(*new_args).input[(*new_args).c_in] = malloc(sizeof(char) * ft_strlen(temp[*i]) + 1);
 		while (temp[*i][j + k])
 		{
-			(*new_args).input[k] = temp[*i][j + k];
+			(*new_args).input[(*new_args).c_in][k] = temp[*i][j + k];
 			k++;
 		}
-		(*new_args).input[k] = '\0';
+		(*new_args).input[(*new_args).c_in][k] = '\0';
 	}
 	*i = *i + 1;
 }
@@ -74,13 +74,13 @@ void	close_word(t_args *args, char **temp, int *i, int j)
 	k = 0;
 	if (!temp)
 		return ;
-	(*args).output = malloc(ft_strlen(temp[*i]) - j + 1);
+	(*args).output[(*args).c_out] = malloc(ft_strlen(temp[*i]) - j + 1);
 	while (temp[*i][j + k])
 	{
-		(*args).output[k] = temp[*i][j + k];
+		(*args).output[(*args).c_out][k] = temp[*i][j + k];
 		k++;
 	}
-	(*args).output[k] = '\0';
+	(*args).output[(*args).c_out][k] = '\0';
 	*i = *i + 1;
 }
 
@@ -92,12 +92,12 @@ void	command1_utilis(char **temp, t_args *new_args, int *i, int j)
 	{
 		if (temp[*i + 2][0] == '>' && temp[*i + 4])
 		{
-			(*new_args).output = ft_strdup(temp[*i + 4]);
+			(*new_args).output[(*new_args).c_out] = ft_strdup(temp[*i + 4]);
 			*i = *i + 5;
 		}
 		else if (temp[*i + 2])
 		{
-			(*new_args).output = ft_strdup(temp[*i + 2]);
+			(*new_args).output[(*new_args).c_out] = ft_strdup(temp[*i + 2]);
 			*i = *i + 3;
 		}
 	}

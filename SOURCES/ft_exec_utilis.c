@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec_utilis.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 16:05:50 by gprunet           #+#    #+#             */
-/*   Updated: 2025/01/06 23:29:54 by hehe             ###   ########.fr       */
+/*   Updated: 2025/01/07 15:37:56 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,24 @@ int	pipe_check(t_struct *data, int i, int last, char *delimiter)
 	return (0);
 }
 
-void	reset_pipe_exit(t_struct *data, int i, int last)
+void	reset_pipe_exit(t_struct *data, int i, int last, t_args *arg)
 {
+	if (arg->m_in > 1)
+	{
+		if (arg[data->i].c_in < data->n_in && data->n_in > 1)
+		{
+			arg[data->i].c_in++;
+			data->i--;
+		}
+	}
+	if (arg->m_out > 1)
+	{
+		if (arg[data->i].c_out < data->n_out && data->n_out > 1)
+		{
+			arg[data->i].c_out++;
+			data->i--;
+		}
+	}
 	if (i < last)
 	{
 		if (data->temp_fd != 0 && data->temp_fd != -1)

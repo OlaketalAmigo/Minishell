@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 12:56:15 by gprunet           #+#    #+#             */
-/*   Updated: 2025/01/06 23:36:02 by hehe             ###   ########.fr       */
+/*   Updated: 2025/01/07 15:57:27 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	handle_redirection(t_args *arg, t_struct *data)
 	int	fd;
 
 	fd = 0;
-	if (arg->input)
+	if (arg->c_in < arg->m_in)
 	{
 		fd = check_fd(fd, arg);
 		if (fd == -1)
@@ -49,7 +49,7 @@ int	handle_redirection(t_args *arg, t_struct *data)
 		}
 		post_check_fd(0, data, fd);
 	}
-	if (arg->output)
+	if (arg->c_out < arg->m_out)
 	{
 		fd = check_fd(fd, arg);
 		if (fd == -1)
@@ -62,19 +62,19 @@ int	handle_redirection(t_args *arg, t_struct *data)
 	return (1);
 }
 
-int	check_puts2(char *output, char *input, t_args *arg)
+int	check_puts2(char **out, char **in, t_args *arg)
 {
-	if ((*arg).b_input)
+	if ((*arg).b_input && arg->c_in < arg->m_in)
 	{
-		if (!input || (input[0] == '<' && !input[1]))
+		if (!in || (in[arg->c_in][0] == '<' && !in[arg->c_in][1]))
 		{
 			printf("syntax error near unexpected token `newline'\n");
 			return (1);
 		}
 	}
-	if ((*arg).b_output)
+	if ((*arg).b_output && arg->c_out < arg->m_out)
 	{
-		if (!output || (output[0] == '>' && !output[1]))
+		if (!out[arg->c_out] || (out[arg->c_out][0] == '>' && !out[arg->c_out][1]))
 		{
 			printf("syntax error near unexpected token `newline'\n");
 			return (1);
@@ -83,14 +83,14 @@ int	check_puts2(char *output, char *input, t_args *arg)
 	return (0);
 }
 
-int	check_puts(char *output, char *input, char *cmd, t_args *arg)
+int	check_puts(char *cmd, t_args *arg)
 {
-	if (!input && cmd[0] == '<' && !cmd[1])
+	if (arg->m_in > 0 && cmd[0] == '<' && !cmd[1])
 	{
 		printf("syntax error near unexpected token `newline'\n");
 		return (1);
 	}
-	if (!output && (cmd[0] == '>' && !cmd[1]))
+	if (arg->m_out > 0 && (cmd[0] == '>' && !cmd[1]))
 	{
 		printf("syntax error near unexpected token `newline'\n");
 		return (1);
@@ -102,7 +102,7 @@ int	check_puts(char *output, char *input, char *cmd, t_args *arg)
 	}
 	if ((*arg).put == 1)
 	{
-		if (check_puts2(output, input, arg))
+		if (check_puts2(arg->output, arg->input, arg))
 			return (1);
 	}
 	return (0);
@@ -113,21 +113,21 @@ int	redir_cmd(t_args *arg, t_struct *data)
 	int	fd;
 
 	fd = 0;
-	if (arg->input && !arg->cmd)
+	if (arg->c_in > 0 && arg->c_in < data->n_in && !arg->cmd)
 	{
-		fd = open(arg->input, O_RDONLY);
+		fd = open(arg->input[arg->c_in], O_RDONLY);
 		if (fd < 0)
 		{
-			perror(arg->input);
+			perror(arg->input[arg->c_in]);
 			data->status = 1;
 			ft_update_return_status(data, data->status);
 			return (1);
 		}
 		close(fd);
 	}
-	if (!arg->cmd || special_case(arg->cmd, data, arg->args))
+	if (!arg->cmd || special_case(arg->cmd, data, arg->args, arg))
 		return (1);
-	if (check_puts(arg->output, arg->input, arg->cmd, arg))
+	if (check_puts(arg->cmd, arg))
 	{
 		data->status = 2;
 		ft_update_return_status(data, data->status);
