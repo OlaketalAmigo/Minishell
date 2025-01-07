@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/12/18 08:38:49 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/07 12:42:42 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct data
 	char	*line;
 	char	**tab;
 	char	**path;
+	char	*path_to_home;
 	int		pipefd[2];
 	int		in_fd;
 	int		out_fd;
@@ -67,6 +68,8 @@ typedef struct data
 	int		heredoc;
 	int		status;
 	int		i;
+	int		count_redir;
+	int		temp_fd;
 	int		last;
 	int		total;
 	pid_t	pid;
@@ -79,8 +82,11 @@ typedef struct s_cmd
 	char	*input;
 	char	*output;
 	char	*delimiter;
+	int		pos_redir;
 	int		append;
 }	t_args;
+
+extern volatile sig_atomic_t	g_sig_receiver;
 
 // SIGNALS //
 
@@ -89,7 +95,7 @@ typedef struct s_cmd
 
 // MAIN //
 
-void	ft_main(int g_sig_receiver, t_struct *data);
+void	ft_main(t_struct *data);
 
 // PARSER //
 
@@ -129,7 +135,8 @@ int		ft_parser_check(t_struct *data);
 
 // SET UP ENV //
 
-int		ft_write_env(t_struct *data);
+char	**ft_write_starting_env(char **tab);
+void	ft_write_env(t_struct *data);
 void	ft_set_up_env(t_struct *data, char **environ);
 
 // SIGNALS //
@@ -201,7 +208,7 @@ int		ft_check_path(t_struct *data, char *arg);
 
 // REDIR UTILIS //
 
-int	q_redir(t_struct *data, char *temp, t_args *args);
+int		q_redir(t_struct *data, char *temp, t_args *args);
 
 // REDIRECTION //
 
@@ -219,6 +226,13 @@ int		check_append(char *temp);
 void	command2_utilis(char **temp, t_args *new_args, int *i, int j);
 void	command1_utilis(char **temp, t_args *new_args, int *i, int j);
 
+// GET COMMAND //
+
+int		get_cmd(char **temp, int *i, t_args *args);
+char	*get_cmd_output(char *temp);
+int		sort_redir(char *temp, t_args *new_args, char c, int com);
+void	else_command(t_args *args, char **temp, int *i);
+
 // ASSIGN ARGS UTILIS //
 
 int		check_built(char *temp, t_args *new_args, int *i);
@@ -229,17 +243,18 @@ int		ft_tablen(char **tab);
 
 // COUNT COMMANDS //
 
+void	print_error(t_struct *data, char *cmd);
+int		get_count(t_args *arg, int cmd_count);
 int		count_commands(char **arg);
+int		check_pos(char *temp, char c, t_args *args);
 
 // FREE //
 
-void	ft_free_child_struct(t_struct *data, t_args **arg);
 void	ft_free_struct(t_args **arg, int cmd_count);
 void	ft_free_all(t_struct *data);
+void	ft_final_free(t_struct *data);
 void	ft_free(char **tab);
 void	ft_exec_cleanup(t_struct *data, t_args *arg, int cmd_count);
-void	ft_free_one_arg(t_args *arg);
-void	ft_free_args(char ***args);
 
 // CLEAR TO FUNCTION	
 
@@ -258,9 +273,7 @@ char	*assign_delimiter(char *temp, t_args *new_args);
 
 // ECHO //
 
-int		ft_is_good_flag(char *s);
-int		ft_is_wrong_flag(char *s);
-int		ft_count_good_flags(char **tab);
+int		ft_is_first_n_flag(char *tab);
 int		ft_echo(char **args);
 int		ft_echo_pipe(t_struct *data, t_args **arg, char **args, char **paths);
 
@@ -276,6 +289,11 @@ char	*ft_get_home(t_struct *data);
 int		ft_cd_main(t_struct *data, char **args, int i, char *path);
 int		ft_cd(t_struct *data, char **args);
 int		ft_cd_pipe(t_struct *data, t_args **arg, char **args, char **path);
+
+// CD UTILIS //
+
+int		ft_straight_home(t_struct *data);
+void	ft_set_up_home(t_struct *data);
 
 // ENV //
 
@@ -309,6 +327,7 @@ char	*ft_put_string_to_tab(t_struct *data, char **tab, int i, int j);
 char	*ft_str_until_equal(char *args);
 int		ft_search(char *str, char **tab);
 void	ft_export_add(t_struct *data, char *args);
+int		ft_ok_3(char *args);
 
 // EXPAND //
 
@@ -353,6 +372,10 @@ int		ft_export_add_or_update(t_struct *data, char **args, int i);
 int		ft_search_expand(char *str, char **tab);
 int		ft_isalpha(int c);
 int		ft_write_error(char *c);
+
+// TOOLS 3 // 
+
+void	ft_set_up_data_path(t_struct *data);
 
 // RETURN STATUS //
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utilis3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/18 13:36:49 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/12/18 03:13:37 by gprunet          ###   ########.fr       */
+/*   Created: 2024/12/18 16:47:13 by gprunet           #+#    #+#             */
+/*   Updated: 2024/12/19 02:08:08 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,12 @@ int	ft_execve(char **path, char **args, t_struct *data)
 
 	if (!path || !path[0])
 		return (127);
-	if (data->total > 1)
+	if (data->total > 1 && data->i < data->last)
 	{
 		close(data->pipefd[0]);
 	}
+	if (data->temp_fd != -1)
+		close(data->temp_fd);
 	if (data->input)
 		close(data->saved_stdin);
 	if (data->output)

@@ -83,38 +83,9 @@ int	ft_unset_main(t_struct *data, char *str)
 int	ft_unset(t_struct *data, char **args)
 {
 	int		i;
-	int		status;
 	char	*str;
 
 	i = 0;
-	status = 0;
-	if (args[1])
-	{
-		while (args[++i])
-		{
-			str = ft_str_with_equal(args[i]);
-			if (!str)
-				return (1);
-			if (ft_strncmp(str, "?=", 2) == 1)
-			{
-				free(str);
-				continue ;
-			}
-			ft_unset_main(data, str);
-			free(str);
-		}
-	}
-	return (status);
-}
-
-int	ft_unset_pipe(t_struct *data, t_args **arg, char **args, char **path)
-{
-	int		i;
-	int		status;
-	char	*str;
-
-	i = 0;
-	status = 0;
 	if (args[1])
 	{
 		while (args[++i])
@@ -128,9 +99,34 @@ int	ft_unset_pipe(t_struct *data, t_args **arg, char **args, char **path)
 				continue ;
 			}
 			ft_unset_main(data, str);
+		}
+	}
+	return (0);
+}
+
+int	ft_unset_pipe(t_struct *data, t_args **arg, char **args, char **path)
+{
+	int		i;
+	char	*str;
+
+	i = 0;
+	if (args[1])
+	{
+		while (args[++i])
+		{
+			str = ft_str_with_equal(args[i]);
+			printf("str = %s\n", str);
+			if (!str)
+				return (1);
+			if (ft_strcmp(str, "?=") == 0)
+			{
+				free(str);
+				continue ;
+			}
+			ft_unset_main(data, str);
 			free(str);
 		}
 	}
 	ft_free_child(args, data, arg, path);
-	exit(status);
+	exit(0);
 }

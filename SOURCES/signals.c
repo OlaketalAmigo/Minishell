@@ -6,37 +6,56 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 17:15:55 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/08/07 16:50:27 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2025/01/07 16:48:07 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-extern int	g_sig_receiver;
+extern volatile sig_atomic_t	g_sig_receiver;
 
 void	ft_init_signals(void)
 {
-	signal(SIGINT, ft_get_signal_int);
-	signal(SIGQUIT, ft_get_signal_quit);
+	struct sigaction	sa_int;
+	struct sigaction	sa_quit;
+
+	memset(&sa_int, 0, sizeof(struct sigaction));
+	memset(&sa_quit, 0, sizeof(struct sigaction));
+	sa_int.sa_handler = ft_get_signal_int;
+	sa_int.sa_flags = SA_RESTART;
+	sigemptyset(&sa_int.sa_mask);
+	sigaction(SIGINT, &sa_int, NULL);
+	sa_quit.sa_handler = ft_get_signal_quit;
+	sa_quit.sa_flags = SA_RESTART;
+	sigemptyset(&sa_quit.sa_mask);
+	sigaction(SIGQUIT, &sa_quit, NULL);
 }
 
 void	ft_get_signal_int(int sig)
 {
-	(void)sig;
-	g_sig_receiver = 1;
-	ft_handle_signals();
+	g_sig_receiver = sig;
+	write(1, "\n", 1);
+	if (rl_done == 0)
+	{
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
+	}
 }
 
 void	ft_get_signal_quit(int sig)
 {
-	(void)sig;
-	write(2, "Quit (core dumped)\n", 19);
-	g_sig_receiver = 1;
+	g_sig_receiver = sig;
+	if (rl_done == 1)
+	{
+		printf("\033[2D\033[0K");
+		printf("Quit (core dumped)\n");
+		rl_replace_line("", 0);
+	}
 }
 
 void	ft_handle_signals(void)
 {
-	ioctl(STDIN_FILENO, TIOCSTI, "\n");
-	rl_replace_line("", 0);
 	rl_on_new_line();
+	rl_redisplay();
 }

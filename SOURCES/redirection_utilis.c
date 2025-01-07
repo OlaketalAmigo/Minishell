@@ -3,21 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   redirection_utilis.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 12:53:15 by hehe              #+#    #+#             */
-/*   Updated: 2024/10/21 13:08:22 by hehe             ###   ########.fr       */
+/*   Updated: 2024/12/19 02:19:05 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	check_append(char *temp)
-{
-	if (ft_strstr(temp, ">>") != NULL)
-		return (1);
-	return (0);
-}
 
 int	check_redirection_cmd(char *arg)
 {
@@ -59,7 +52,7 @@ void	command2_utilis(char **temp, t_args *new_args, int *i, int j)
 	int	k;
 
 	k = 0;
-	if (!temp[*i][j])
+	if (!temp[*i][j] && temp[*i + 2])
 		(*new_args).input = ft_strdup(temp[*i + 2]);
 	else
 	{
@@ -74,6 +67,23 @@ void	command2_utilis(char **temp, t_args *new_args, int *i, int j)
 	*i = *i + 1;
 }
 
+void	close_word(t_args *args, char **temp, int *i, int j)
+{
+	int	k;
+
+	k = 0;
+	if (!temp)
+		return ;
+	(*args).output = malloc(ft_strlen(temp[*i]) - j + 1);
+	while (temp[*i][j + k])
+	{
+		(*args).output[k] = temp[*i][j + k];
+		k++;
+	}
+	(*args).output[k] = '\0';
+	*i = *i + 1;
+}
+
 void	command1_utilis(char **temp, t_args *new_args, int *i, int j)
 {
 	int	k;
@@ -81,20 +91,19 @@ void	command1_utilis(char **temp, t_args *new_args, int *i, int j)
 	k = 0;
 	if (check_append(temp[*i]) == 1)
 		(*new_args).append = 1;
-	if (!temp[*i][j])
+	if (j >= ft_strlen(temp[*i]))
 	{
-		(*new_args).output = ft_strdup(temp[*i + 2]);
-		*i = *i + 3;
+		if (temp[*i + 2][0] == '>' && temp[*i + 4])
+		{
+			(*new_args).output = ft_strdup(temp[*i + 4]);
+			*i = *i + 5;
+		}
+		else if (temp[*i + 2])
+		{
+			(*new_args).output = ft_strdup(temp[*i + 2]);
+			*i = *i + 3;
+		}
 	}
 	else
-	{
-		(*new_args).output = malloc(sizeof(char) * ft_strlen(temp[*i]) + 1);
-		while (temp[*i][j + k])
-		{
-			(*new_args).output[k] = temp[*i][j + k];
-			k++;
-		}
-		(*new_args).output[k] = '\0';
-		*i = *i + 1;
-	}
+		close_word(new_args, temp, &(*i), j);
 }

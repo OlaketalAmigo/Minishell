@@ -6,11 +6,18 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 08:37:50 by gprunet           #+#    #+#             */
-/*   Updated: 2024/12/18 08:38:24 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/12/18 14:43:25 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	check_append(char *temp)
+{
+	if (ft_strstr(temp, ">>") != NULL)
+		return (1);
+	return (0);
+}
 
 int	check_input(t_struct *data, char *temp, t_args *args)
 {
@@ -30,16 +37,24 @@ int	check_output(t_struct *data, char *temp, t_args *args)
 	return (0);
 }
 
-int	check_true_redir(t_struct *data)
+int	check_true_redir(t_struct *data, t_args *args, char	*temp)
 {
-	int	i;
-
-	i = 0;
-	while (i <= data->nb_redir)
+	args->pos_redir = 0;
+	while (args->pos_redir < ft_strlen(temp))
 	{
-		if (data->redir[i] == 1)
-			return (1);
-		i++;
+		if (temp[args->pos_redir] == '>' || temp[args->pos_redir] == '<')
+		{
+			if (data->count_redir < data->nb_redir)
+			{
+				if (data->redir[data->count_redir] == 1)
+				{
+					data->count_redir++;
+					return (1);
+				}
+				data->count_redir++;
+			}
+		}
+		args->pos_redir++;
 	}
 	return (0);
 }
@@ -49,7 +64,9 @@ int	q_redir(t_struct *data, char *temp, t_args *args)
 	int	i;
 	int	count;
 
-	if (data->nb_redir == 0 || check_true_redir(data) == 0)
+	if (check_true_redir(data, args, temp) == 1)
+		return (1);
+	if (data->nb_redir == 0)
 		return (0);
 	i = 0;
 	count = 0;

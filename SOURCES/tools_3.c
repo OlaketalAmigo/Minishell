@@ -1,42 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   tools_3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/02 10:01:52 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/12/18 13:22:05 by tfauve-p         ###   ########.fr       */
+/*   Created: 2025/01/05 14:40:51 by tfauve-p          #+#    #+#             */
+/*   Updated: 2025/01/05 15:28:02 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_env(t_struct *data)
+void	ft_set_up_data_path(t_struct *data)
 {
+	char	*pog;
+	char	*pag;
 	int		i;
 
 	i = -1;
-	while (data->env[++i])
+	pog = malloc(5);
+	if (!pog)
 	{
-		if (ft_strncmp(data->env[i], "?=", 2) == 1)
-			continue ;
-		printf("%s\n", data->env[i]);
+		data->path = NULL;
+		return ;
 	}
-	return (0);
-}
-
-int	ft_env_pipe(t_struct *data, t_args **arg, char **args, char **path)
-{
-	int		i;
-
-	i = -1;
-	while (data->env[++i])
-	{
-		if (ft_strncmp(data->env[i], "?=", 2) == 1)
-			continue ;
-		printf("%s\n", data->env[i]);
-	}
-	ft_free_child(args, data, arg, path);
-	exit(0);
+	pog[0] = 80;
+	pog[1] = 65;
+	pog[2] = 84;
+	pog[3] = 72;
+	pog[4] = '\0';
+	pag = ft_get_from_env(data, pog);
+	data->path = ft_split(pag, ':');
+	if (pag)
+		free(pag);
 }

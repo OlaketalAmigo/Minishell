@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 12:53:48 by hehe              #+#    #+#             */
-/*   Updated: 2024/12/18 00:15:31 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/12/19 02:17:08 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,13 @@ char	*check_next(char **temp, int *i, char *c)
 
 	str = ft_strstr(temp[*i], c);
 	len = ft_strlen(str);
-	if (str[len - 1] == c[0])
+	if (str[len - 1] == c[0] && temp[*i + 2])
 	{
 		str = ft_strdup(temp[*i + 2]);
 		*i = *i + 3;
 		return (str);
 	}
-	if (str[len - 1] != c[0])
+	if (str[len - 1] != c[0] && temp[*i])
 	{
 		str = ft_strdup(&str[1]);
 		*i = *i + 1;
@@ -71,13 +71,7 @@ int	separate_command2(char **temp, t_args *new_args, int *i)
 		(*new_args).cmd = malloc(sizeof(char) * ft_strlen(temp[*i]) + 1);
 	if (!(*new_args).cmd)
 		return (0);
-	j = 0;
-	while (temp[*i][j] != '<')
-	{
-		new_args->cmd[j] = temp[*i][j];
-		j++;
-	}
-	new_args->cmd[j] = '\0';
+	j = sort_redir(temp[*i], new_args, '<', 2);
 	j++;
 	command2_utilis(temp, new_args, i, j);
 	return (1);
@@ -88,97 +82,44 @@ int	separate_command(char **temp, t_args *new_args, int *i, int *args)
 	int	j;
 
 	if (!(*new_args).cmd)
+	{
 		(*new_args).cmd = malloc(sizeof(char) * ft_strlen(temp[*i]) + 1);
+		(*new_args).cmd[0] = '\0';
+	}
 	(*new_args).args[0] = malloc(sizeof(char) * ft_strlen(temp[*i]) + 1);
 	if (!(*new_args).cmd)
 		return (0);
-	j = 0;
-	while (temp[*i][j] != '>')
-	{
-		new_args->args[0][j] = temp[*i][j];
-		j++;
-	}
-	new_args->args[0][j] = '\0';
+	j = sort_redir(temp[*i], new_args, '>', 1);
 	*args = *args + 1;
 	j++;
 	command1_utilis(temp, new_args, i, j);
 	return (1);
 }
 
-char	*get_cmd_output(char *temp)
-{
-	char	*res;
-	int		i;
-	int		j;
-
-	i = 0;
-	while (temp[i] != '>')
-		i++;
-	i++;
-	j = ft_strlen(temp);
-	res = malloc(j - i + 1);
-	j = 0;
-	while (i < ft_strlen(temp))
-		res[j++] = temp[i++];
-	res[j] = '\0';
-	return (res);
-}
-
-int	get_cmd(char **temp, int *i, t_args *args)
-{
-	int		j;
-	int		tab_len;
-
-	if ((*args).cmd)
-		return (0);
-	j = 1;
-	tab_len = ft_tablen(temp);
-	if (!temp[*i][j])
-	{
-		(*args).output = ft_strdup(temp[*i + 2]);
-		*i = *i + 4;
-	}
-	else
-	{
-		(*args).output = get_cmd_output(temp[*i]);
-		*i = *i + 2;
-	}
-	if (*i >= tab_len)
-		(*args).cmd = ft_strdup(">");
-	else
-		(*args).cmd = ft_strdup(temp[*i]);
-	(*args).append = 0;
-	*i = *i + 1;
-	return (1);
-}
-
-int	check_redirection(char **temp, t_args *new_args, int *i, int *j)
+int	check_redirection(char **temp, t_args *n_args, int *i, int *j)
 {
 	if (temp[*i][0] == '<' && temp[*i][1] == '<')
-		return (check_heredoc(temp, new_args, &(*i)));
+		return (check_heredoc(temp, n_args, &(*i)));
 	if (ft_strchr(temp[*i], '<') == 1 && temp[*i][0] != '<')
-		return (separate_command2(temp, new_args, &(*i)));
+		return (separate_command2(temp, n_args, &(*i)));
 	if (ft_strchr(temp[*i], '>') == 1 && temp[*i][0] != '>')
-		return (separate_command(temp, new_args, &(*i), &(*j)));
-	if (ft_strchr(temp[*i], '<') == 1)
+		return (separate_command(temp, n_args, &(*i), &(*j)));
+	if (ft_strchr(temp[*i], '<') == 1 && check_pos(temp[*i], '<', n_args) == 1)
 	{
-		(*new_args).input = check_next(temp, &(*i), "<");
+		(*n_args).input = check_next(temp, &(*i), "<");
 		return (1);
 	}
-	if (ft_strchr(temp[*i], '>') == 1)
+	if (ft_strchr(temp[*i], '>') == 1 && check_pos(temp[*i], '>', n_args) == 1)
 	{
 		if (check_append(temp[*i]) == 1)
 		{
-			(*new_args).output = check_next(temp, &(*i), ">>");
-			(*new_args).append = 1;
+			(*n_args).output = check_next(temp, &(*i), ">>");
+			(*n_args).append = 1;
 			return (1);
 		}
-		if (get_cmd(temp, &(*i), new_args) == 1)
+		if (get_cmd(temp, &(*i), n_args) == 1)
 			return (1);
-		if ((*new_args).output)
-			free((*new_args).output);
-		(*new_args).output = check_next(temp, &(*i), ">");
-		(*new_args).append = 0;
+		else_command(n_args, temp, &(*i));
 		return (1);
 	}
 	return (0);

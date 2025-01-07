@@ -3,75 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:27:45 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/12/18 01:21:32 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/06 10:15:17 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_is_good_flag(char *s)
-{
-	int	i;
-
-	if (!s)
-		return (-1);
-	i = 1;
-	if (s[0] == 45)
-	{
-		while (s[i])
-		{
-			if (s[i] != 'n')
-				return (-1);
-			else
-				i++;
-		}
-	}
-	else
-		return (-1);
-	return (1);
-}
-
-int	ft_is_wrong_flag(char *s)
-{
-	int	i;
-
-	if (!s)
-		return (-1);
-	i = 1;
-	if (s[0] == 45)
-	{
-		while (s[i])
-		{
-			if (s[i] != 'n')
-				return (1);
-			else
-				i++;
-		}
-	}
-	return (-1);
-}
-
-int	ft_count_good_flags(char **tab)
+int	ft_is_first_n_flag(char *tab)
 {
 	int	i;
 	int	j;
 
-	i = 1;
+	i = 0;
 	j = 0;
-	while (tab[i])
+	if (tab)
 	{
-		if (ft_is_good_flag(tab[i]) == 1)
-			j++;
-		if (ft_is_wrong_flag(tab[i]) == 1)
-			j++;
-		if (ft_is_wrong_flag(tab[i]) == 1)
-			return (-1);
-		i++;
+		if (tab[i] == 45)
+		{
+			i++;
+			while (tab[i] == 'n')
+			{
+				i++;
+			}
+			if (tab[i] == '\0' && i != 1)
+				return (1);
+		}
 	}
-	return (j);
+	return (0);
 }
 
 int	ft_echo(char **args)
@@ -80,23 +41,18 @@ int	ft_echo(char **args)
 	int		i;
 
 	option = 0;
-	i = 1;
-	// printf("allgood\n");
-	if (ft_count_good_flags(args) >= 1)
-		option = 1;
-	if (ft_count_good_flags(args) == -1)
-		return (-1);
-	// printf("allgood\n");
-	while (args[i])
+	i = 0;
+	while (args[++i])
 	{
-		if (ft_strncmp("-", args[i], 1) == 1)
-			i++;
+		if (ft_is_first_n_flag(args[i]) == 1)
+		{
+			option = 1;
+		}
 		else
 			break ;
 	}
 	while (args[i])
 	{
-		// printf("arg = %s\n", args[i]);
 		printf("%s", args[i++]);
 		if (args[i])
 			printf(" ");
@@ -113,14 +69,12 @@ int	ft_echo_pipe(t_struct *data, t_args **arg, char **args, char **path)
 
 	option = 0;
 	i = 1;
-	if (ft_count_good_flags(args) >= 1)
-		option = 1;
-	if (ft_count_good_flags(args) == -1)
-		return (-1);
-	while (args[i])
+	while (args[++i])
 	{
-		if (ft_strncmp("-", args[i], 1) == 1)
-			i++;
+		if (ft_is_first_n_flag(args[i]) == 1)
+		{
+			option = 1;
+		}
 		else
 			break ;
 	}

@@ -3,26 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/24 11:04:41 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/12/18 08:34:46 by gprunet          ###   ########.fr       */
+/*   Created: 2024/12/18 15:46:09 by tfauve-p          #+#    #+#             */
+/*   Updated: 2024/12/18 15:46:11 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_ok(char *args)
+int	ft_ok_1(char *args)
+{
+	if (ft_isalpha(args[0]) != 1)
+	{
+		return (0);
+	}
+	return (1);
+}
+
+int	ft_ok_2(char *args)
 {
 	int	i;
+	int	j;
 
 	i = 0;
-	while (args[i] && args[i] == 32)
+	j = 0;
+	while (args[i] && args[i] != 61)
 	{
+		if ((args[i] >= 0 && args[i] <= 47)
+			|| (args[i] >= 58 && args[i] <= 64)
+			|| (args[i] >= 91 && args[i] <= 96)
+			|| (args[i] == 126))
+		{
+			return (0);
+		}
 		i++;
 	}
-	if (ft_isalpha(args[i]) != 1 || args[i] == 61)
-		return (0);
 	return (1);
 }
 
@@ -51,21 +67,25 @@ void	ft_export_printf_ordered(t_struct *data)
 
 int	ft_export(t_struct *data, char **args)
 {
-	int	i;
 	int	status;
 
-	i = 0;
+	int (i) = 0;
 	status = 0;
 	if (args[1])
 	{
 		while (args[++i])
 		{
-			if (ft_ok(args[i]) == 1)
-				ft_export_add_or_update(data, args, i);
+			if (ft_ok_2(args[i]) == 1 && ft_ok_1(args[i]) == 1)
+			{
+				if (ft_ok_3(args[i]) == 1)
+					ft_export_add_or_update(data, args, i);
+				else
+					continue ;
+			}
 			else
 			{
 				status = 1;
-				printf("export: not a valid identifier");
+				ft_write_error(" not a valid identifier\n");
 			}
 		}
 	}
@@ -85,13 +105,15 @@ int	ft_export_pipe(t_struct *data, t_args **arg, char **args, char **path)
 	{
 		while (args[++i])
 		{
-			if (ft_ok(args[i]) == 1)
-				ft_export_add_or_update(data, args, i);
-			else
+			if (ft_ok_2(args[i]) == 1 && ft_ok_1(args[i]) == 1)
 			{
-				status = 1;
-				printf("export: `%s': not a valid identifier\n", args[i]);
+				if (ft_ok_3(args[i]) == 1)
+					ft_export_add_or_update(data, args, i);
+				else
+					continue ;
 			}
+			else if (++status != 4)
+				ft_write_error(" not a valid identifier\n");
 		}
 	}
 	else

@@ -3,38 +3,65 @@
 /*                                                        :::      ::::::::   */
 /*   set_up_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 12:44:32 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/10/23 13:52:25 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2025/01/06 11:34:58 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_write_env(t_struct *data)
+char	**ft_write_starting_env(char **tab)
 {
+	char	**new;
 	int		i;
 	int		j;
 
+	i = -1;
+	j = -1;
+	if (tab)
+	{
+		new = malloc (2 * 8);
+		new[0] = malloc (ft_strlen(tab[0]) + 1);
+		if (!new)
+			return (NULL);
+		while (++i < ft_strlen(tab[0]))
+		{
+			if (tab[0][i] == 34 || tab[0][i] == 10)
+				continue ;
+			else
+				new[0][++j] = tab[0][i];
+		}
+		new[0][j] = '\0';
+		new[1] = NULL;
+		return (new);
+	}
+	return (NULL);
+}
+
+void	ft_write_env(t_struct *data)
+{
+	int		i;
+	int		j;
+	char	**tab;
+
 	i = open("/etc/environment", O_RDONLY);
 	if (i == -1)
-	{
-		return (-1);
-	}
-	data->env = malloc (2 * 8);
-	data->env[0] = malloc (120 * 8);
-	j = read(i, data->env[0], 120);
+		return ;
+	tab = malloc (2 * 8);
+	tab[0] = malloc (120 * 8);
+	j = read(i, tab[0], 120);
 	if (j == -1)
 	{
 		close(i);
-		ft_free(data->env);
-		return (-1);
+		return (ft_free(tab));
 	}
-	data->env[0][j + 1] = '\0';
-	data->env[1] = NULL;
+	tab[0][j + 1] = '\0';
+	tab[1] = NULL;
+	data->env = ft_write_starting_env(tab);
+	i = -1;
 	close (i);
-	return (1);
 }
 
 void	ft_set_up_env(t_struct *data, char **environ)

@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:25:18 by gprunet           #+#    #+#             */
-/*   Updated: 2024/12/18 02:30:11 by gprunet          ###   ########.fr       */
+/*   Updated: 2024/12/18 17:43:28 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	check_string(char *temp, int *i)
 		return (0);
 	if (ft_strchr(temp, '|') == 1 && ft_strlen(temp) > 1)
 		return (0);
-	if (ft_strchr(temp, '|') == 1 || is_empty(temp) == 1)
+	if ((ft_strchr(temp, '|') == 1 && *i == 0) || is_empty(temp) == 1)
 	{
 		*i = *i + 1;
 		return (1);

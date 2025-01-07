@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utilis2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 13:08:46 by gprunet           #+#    #+#             */
-/*   Updated: 2024/12/18 02:59:51 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/05 14:52:37 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,17 @@ void	ft_free_child(char **args, t_struct *data, t_args **arg, char **path)
 		close(data->pipefd[0]);
 		close(data->pipefd[1]);
 	}
+	if (data->input)
+		close(data->saved_stdin);
+	if (data->output)
+		close(data->saved_stdout);
 	ft_free(data->path);
 	ft_free(path);
 	ft_free(args);
 	ft_free(data->arg);
 	ft_free(data->env);
+	if (data->path_to_home)
+		free(data->path_to_home);
 	free(data->redir);
 	ft_free_struct(arg, data->total);
 }
@@ -81,17 +87,20 @@ char	**ft_true_path(t_struct *data, char *cmd)
 
 	i = 0;
 	tab = NULL;
-	while (data->path[i] && cmd)
+	if (data->path)
 	{
-		tmp = ft_strjoin(data->path[i], cmd);
-		if (ft_strchr(tmp, ' ') == 1)
-			tab = check_access(tmp, 1);
-		else if (access(tmp, X_OK) == 0)
-			tab = check_access(tmp, 0);
-		free(tmp);
-		if (tab)
-			break ;
-		i++;
+		while (data->path[i] && cmd)
+		{
+			tmp = ft_strjoin(data->path[i], cmd);
+			if (ft_strchr(tmp, ' ') == 1)
+				tab = check_access(tmp, 1);
+			else if (access(tmp, X_OK) == 0)
+				tab = check_access(tmp, 0);
+			free(tmp);
+			if (tab)
+				break ;
+			i++;
+		}
 	}
 	return (tab);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec_utilis.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 16:05:50 by gprunet           #+#    #+#             */
-/*   Updated: 2024/12/18 02:50:58 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/06 11:35:20 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,12 @@ char	**ft_fill_args(char *cmds, char **args)
 void	ft_exec_init(t_struct *data, t_args **arg)
 {
 	data->last = 0;
+	data->count_redir = 0;
+	data->temp_fd = -1;
 	data->status = 0;
 	data->input = 0;
 	data->output = 0;
-	data->path = ft_split(getenv("PATH"), ':');
+	ft_set_up_data_path(data);
 	data->in_fd = 0;
 	data->out_fd = 1;
 	data->pid = 0;
@@ -72,7 +74,7 @@ int	pipe_check(t_struct *data, int i, int last)
 		data->out_fd = data->pipefd[1];
 	}
 	else
-		data->out_fd = STDOUT_FILENO;
+		data->out_fd = 1;
 	return (0);
 }
 
@@ -80,6 +82,9 @@ void	reset_pipe_exit(t_struct *data, int i, int last)
 {
 	if (i < last)
 	{
+		if (data->temp_fd != 0 && data->temp_fd != -1)
+			close(data->temp_fd);
+		data->temp_fd = data->pipefd[0];
 		close(data->pipefd[1]);
 		data->in_fd = data->pipefd[0];
 	}
