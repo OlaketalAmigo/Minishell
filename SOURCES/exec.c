@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 15:01:37 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/01/06 17:01:47 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/06 23:28:44 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,10 +118,6 @@ void	ft_exec(t_struct *data)
 			data->i++;
 			continue ;
 		}
-		printf("cmd = %s\n", arg[data->i].cmd);
-		printf("args = %s\n", arg[data->i].args[0]);
-		printf("input = %s\n", arg[data->i].input);
-		printf("output = %s\n", arg[data->i].output);
 		if (pipe_check(data, data->i, data->last, arg[data->i].delimiter) == -1)
 			exit(EXIT_FAILURE);
 		ft_algo_exec(data, &arg, data->i, data->total);

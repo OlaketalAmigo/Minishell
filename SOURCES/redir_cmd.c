@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 12:56:15 by gprunet           #+#    #+#             */
-/*   Updated: 2025/01/06 16:20:44 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/06 23:36:02 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ int	redir_cmd(t_args *arg, t_struct *data)
 		}
 		close(fd);
 	}
-	if (!arg->cmd)
+	if (!arg->cmd || special_case(arg->cmd, data, arg->args))
 		return (1);
 	if (check_puts(arg->output, arg->input, arg->cmd, arg))
 	{

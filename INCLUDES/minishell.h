@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/01/06 16:58:24 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/06 23:36:47 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,6 +215,8 @@ int		ft_check_path(t_struct *data, char *arg);
 // CHECK TEMP //
 
 int		temp_check(char **temp, t_struct *data, int time);
+int		single_check(char *temp, t_struct *data, int *r_nb, int *nb);
+int		special_case(char *cmd, t_struct *data, char **args);
 
 // REDIR UTILIS //
 

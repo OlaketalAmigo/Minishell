@@ -1,5 +1,3 @@
 double heredoc bug  << ad | << fa
 
 minishell tester redirs
-
-cat ou grep en 1st command = a skip
