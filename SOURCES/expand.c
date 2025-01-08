@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 17:08:06 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/01/05 16:19:47 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2025/01/08 18:32:10 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ char	*ft_expanded(t_struct *data, char *s)
 		new = ft_get_from_env(data, new);
 		return (free(s), new);
 	}
-	else
+	else if (ft_strcmp(s, "$") != 0)
 	{
 		free(new);
 		new = malloc (2);
@@ -94,6 +94,7 @@ char	*ft_expanded(t_struct *data, char *s)
 		new[1] = '\0';
 		return (free(s), new);
 	}
+	return (s);
 }
 
 char	**ft_expand_replace(t_struct *data, char **tab)
