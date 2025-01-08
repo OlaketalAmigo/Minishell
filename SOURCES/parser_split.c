@@ -99,6 +99,8 @@ char	**ft_split(char *s, char c)
 	char	**word_list;
 	int		length;
 
+	if (!s)
+		return (NULL);
 	length = ft_strlen(s);
 	word_list = malloc (sizeof(char *) * (ft_countword(s, c) + 1));
 	if (!word_list)

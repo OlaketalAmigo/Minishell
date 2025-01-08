@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 17:08:06 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/12/13 14:55:39 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2025/01/05 16:19:47 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,15 +73,12 @@ char	*ft_expanded(t_struct *data, char *s)
 	char	*new;
 	int		i;
 
-	i = -1;
+	i = 0;
 	new = malloc (ft_strlen(s) + 1);
 	if (!new)
 		return (NULL);
 	while (s[++i])
-	{
-		if (i != 0)
 			new[i - 1] = s[i];
-	}
 	new[i - 1] = 61;
 	new[++i - 1] = '\0';
 	if (ft_search_expand(new, data->env) == 1)
@@ -90,7 +87,13 @@ char	*ft_expanded(t_struct *data, char *s)
 		return (free(s), new);
 	}
 	else
-		return (free(new), s);
+	{
+		free(new);
+		new = malloc (2);
+		new[0] = 32;
+		new[1] = '\0';
+		return (free(s), new);
+	}
 }
 
 char	**ft_expand_replace(t_struct *data, char **tab)
@@ -117,14 +120,14 @@ char	**ft_expand_replace(t_struct *data, char **tab)
 
 void	ft_expand(t_struct *data)
 {
-	int		x;
 	int		i;
 	int		j;
+	int		k;
 	char	**new;
 	char	**tab;
 
-	x = ft_nb_arg(data->arg);
-	new = malloc ((x + 1) * 8);
+	k = -1;
+	new = malloc ((ft_nb_arg(data->arg) + 1) * 8);
 	i = -1;
 	if (!new)
 		return ;

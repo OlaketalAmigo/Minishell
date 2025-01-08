@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/12/18 16:59:15 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/08 17:52:36 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,14 +86,13 @@ typedef struct s_cmd
 	int		append;
 }	t_args;
 
-// SIGNALS //
+extern volatile sig_atomic_t	g_sig_receiver;
 
-# define SIG_INT = 1
-# define SIG_QUIT = 2
+// SIGNALS //
 
 // MAIN //
 
-void	ft_main(int g_sig_receiver, t_struct *data);
+void	ft_main(t_struct *data);
 
 // PARSER //
 
@@ -133,7 +132,8 @@ int		ft_parser_check(t_struct *data);
 
 // SET UP ENV //
 
-int		ft_write_env(t_struct *data);
+char	**ft_write_starting_env(char **tab);
+void	ft_write_env(t_struct *data);
 void	ft_set_up_env(t_struct *data, char **environ);
 
 // SIGNALS //
@@ -270,9 +270,7 @@ char	*assign_delimiter(char *temp, t_args *new_args);
 
 // ECHO //
 
-int		ft_is_good_flag(char *s);
-int		ft_is_wrong_flag(char *s);
-int		ft_count_good_flags(char **tab);
+int		ft_is_first_n_flag(char *tab);
 int		ft_echo(char **args);
 int		ft_echo_pipe(t_struct *data, t_args **arg, char **args, char **paths);
 
@@ -315,7 +313,8 @@ int		ft_unset_pipe(t_struct *data, t_args **arg, char **args, char **path);
 
 // EXPORT //
 
-int		ft_ok(char *args);
+int		ft_ok_1(char *args);
+int		ft_ok_2(char *args);
 void	ft_export_printf_ordered(t_struct *data);
 int		ft_export(t_struct *data, char **args);
 int		ft_export_pipe(t_struct *data, t_args **arg, char **args, char **path);
@@ -371,6 +370,10 @@ int		ft_export_add_or_update(t_struct *data, char **args, int i);
 int		ft_search_expand(char *str, char **tab);
 int		ft_isalpha(int c);
 int		ft_write_error(char *c);
+
+// TOOLS 3 // 
+
+void	ft_set_up_data_path(t_struct *data);
 
 // RETURN STATUS //
 

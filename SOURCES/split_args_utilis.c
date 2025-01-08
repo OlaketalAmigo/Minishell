@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:33:51 by gprunet           #+#    #+#             */
-/*   Updated: 2024/12/18 14:28:20 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/08 17:48:51 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,10 @@ t_args	ft_assign_args(t_args *new_args, char **temp, t_struct *data)
 		if (check_string(temp[i], &i) == 1)
 			continue ;
 		if (verif_command(data, &temp[i], new_args) == 1)
+		{
+			printf("%s\n", temp[i]);
 			(*new_args).cmd = ft_strdup(temp[i]);
+		}
 		else if ((*new_args).cmd)
 			(*new_args).args[j++] = ft_strdup(temp[i]);
 		else if (ft_check_cmd(new_args, i, "free") == 1)

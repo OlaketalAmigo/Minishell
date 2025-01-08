@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 12:53:48 by hehe              #+#    #+#             */
-/*   Updated: 2024/12/18 14:41:32 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/08 17:48:23 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,13 @@ char	*check_next(char **temp, int *i, char *c)
 
 	str = ft_strstr(temp[*i], c);
 	len = ft_strlen(str);
-	if (str[len - 1] == c[0])
+	if (str[len - 1] == c[0] && temp[*i + 2])
 	{
 		str = ft_strdup(temp[*i + 2]);
 		*i = *i + 3;
 		return (str);
 	}
-	if (str[len - 1] != c[0])
+	if (str[len - 1] != c[0] && temp[*i])
 	{
 		str = ft_strdup(&str[1]);
 		*i = *i + 1;
@@ -82,7 +82,10 @@ int	separate_command(char **temp, t_args *new_args, int *i, int *args)
 	int	j;
 
 	if (!(*new_args).cmd)
+	{
 		(*new_args).cmd = malloc(sizeof(char) * ft_strlen(temp[*i]) + 1);
+		(*new_args).cmd[0] = '\0';
+	}
 	(*new_args).args[0] = malloc(sizeof(char) * ft_strlen(temp[*i]) + 1);
 	if (!(*new_args).cmd)
 		return (0);

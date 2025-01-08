@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 13:09:20 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/12/18 08:34:32 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/08 17:47:51 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,7 @@ int	ft_is_pipe_next(char *line, int i)
 {
 	while (line[i] && line[i] == 32)
 		i++;
-	if (line[i] && ((line[i] >= 65 && line[i] <= 90)
-			|| (line[i] >= 97 && line[i] <= 122)))
+	if (line[i] && (line[i] != 124))
 		return (-1);
 	else
 		return (1);

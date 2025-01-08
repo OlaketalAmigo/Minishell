@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 16:05:50 by gprunet           #+#    #+#             */
-/*   Updated: 2024/12/18 16:41:38 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/08 17:46:14 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	ft_exec_init(t_struct *data, t_args **arg)
 	data->status = 0;
 	data->input = 0;
 	data->output = 0;
-	data->path = ft_split(getenv("PATH"), ':');
+	ft_set_up_data_path(data);
 	data->in_fd = 0;
 	data->out_fd = 1;
 	data->pid = 0;

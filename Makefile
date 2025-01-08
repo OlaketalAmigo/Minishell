@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+         #
+#    By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/24 14:38:38 by tfauve-p          #+#    #+#              #
-#    Updated: 2024/12/18 15:12:24 by tfauve-p         ###   ########.fr        #
+#    Updated: 2025/01/08 17:49:33 by gprunet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,6 +48,7 @@ SOURCES = \
 	$(SOURCES_DIR)history_utilis.c \
 	$(SOURCES_DIR)tools.c \
 	$(SOURCES_DIR)tools_2.c \
+	$(SOURCES_DIR)tools_3.c \
 	$(SOURCES_DIR)return_status.c	\
 	$(SOURCES_DIR)algo_exec_utilis.c	\
 	$(SOURCES_DIR)check_builtins.c	\

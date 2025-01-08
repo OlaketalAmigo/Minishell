@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 15:01:37 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/12/18 16:47:35 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/08 17:45:33 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ int	handle_redirection(t_args *arg, t_struct *data)
 	int	fd;
 
 	fd = 0;
+	if (data->input)
+		close(data->saved_stdin);
 	if (arg->input)
 	{
 		fd = check_fd(fd, arg);

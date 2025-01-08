@@ -3,35 +3,43 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:52:11 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/12/18 15:12:02 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2025/01/08 17:47:21 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-volatile int	g_sig_receiver = 0;
+volatile sig_atomic_t	g_sig_receiver = 0;
 
-extern char		**environ;
+extern char				**environ;
 
-void	ft_main(int g_sig_receiver, t_struct *data)
+void	ft_main_mecanism(t_struct *data)
+{
+	ft_update_history(data->line);
+	if (ft_parser(data) < 0)
+		return ;
+	ft_exec(data);
+	ft_free_all(data);
+}
+
+void	ft_main(t_struct *data)
 {
 	while (1)
 	{
-		g_sig_receiver = 0;
-		data->line = readline("MiniHell->");
-		if (g_sig_receiver != 0)
+		if (g_sig_receiver == 2 || g_sig_receiver == 3)
+		{
+			if (g_sig_receiver == 2)
+				ft_update_return_status(data, 130);
+			g_sig_receiver = 0;
 			continue ;
+		}
+		data->line = readline("MiniHell->");
 		if (data->line && data->line[0] != '\0')
 		{
-			ft_update_history(data->line);
-			if (ft_parser(data) < 0)
-				continue ;
-			ft_exec(data);
-			ft_free_all(data);
-			free(data->redir);
+			ft_main_mecanism(data);
 			continue ;
 		}
 		if (g_sig_receiver == 0)
@@ -52,7 +60,7 @@ int	main(void)
 	ft_set_up_home(&data);
 	ft_init_signals();
 	ft_set_up_history();
-	ft_main(g_sig_receiver, &data);
+	ft_main(&data);
 	ft_final_free(&data);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 14:34:40 by gprunet           #+#    #+#             */
-/*   Updated: 2024/12/18 16:48:07 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/08 17:46:56 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	sort_redir(char *temp, t_args *new_args, char c, int com)
 		while (temp[i])
 		{
 			if (temp[i] == c && i == new_args->pos_redir)
+				break ;
 			new_args->cmd[i] = temp[i];
 			i++;
 		}
@@ -72,6 +73,8 @@ void	eos_case(t_args *args, char **temp, int *i)
 	int	j;
 
 	j = 1;
+	if ((*i + 2) >= ft_tablen(temp))
+		return ;
 	if (temp[*i + 2][0] != '>')
 	{
 		(*args).output = ft_strdup(temp[*i + 2]);
@@ -79,6 +82,8 @@ void	eos_case(t_args *args, char **temp, int *i)
 	}
 	else
 	{
+		if (!temp[*i + 4])
+			return ;
 		(*args).output = ft_strdup(temp[*i + 4]);
 		*i = *i + 6;
 	}

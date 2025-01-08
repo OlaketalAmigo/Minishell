@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 13:08:46 by gprunet           #+#    #+#             */
-/*   Updated: 2024/12/18 16:35:44 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/08 17:45:21 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,17 +87,20 @@ char	**ft_true_path(t_struct *data, char *cmd)
 
 	i = 0;
 	tab = NULL;
-	while (data->path[i] && cmd)
+	if (data->path)
 	{
-		tmp = ft_strjoin(data->path[i], cmd);
-		if (ft_strchr(tmp, ' ') == 1)
-			tab = check_access(tmp, 1);
-		else if (access(tmp, X_OK) == 0)
-			tab = check_access(tmp, 0);
-		free(tmp);
-		if (tab)
-			break ;
-		i++;
+		while (data->path[i] && cmd)
+		{
+			tmp = ft_strjoin(data->path[i], cmd);
+			if (ft_strchr(tmp, ' ') == 1)
+				tab = check_access(tmp, 1);
+			else if (access(tmp, X_OK) == 0)
+				tab = check_access(tmp, 0);
+			free(tmp);
+			if (tab)
+				break ;
+			i++;
+		}
 	}
 	return (tab);
 }

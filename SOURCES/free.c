@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/18 15:45:51 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/12/18 15:45:53 by tfauve-p         ###   ########.fr       */
+/*   Created: 2024/08/07 15:06:49 by tfauve-p          #+#    #+#             */
+/*   Updated: 2025/01/08 17:46:09 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ void	ft_free_all(t_struct *data)
 	if (data->path)
 		ft_free(data->path);
 	ft_free(data->arg);
+	free(data->redir);
+	(void)data;
 }
 
 void	ft_free(char **tab)
