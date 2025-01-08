@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 12:53:15 by hehe              #+#    #+#             */
-/*   Updated: 2025/01/07 11:32:28 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/08 15:25:14 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,22 +47,22 @@ char	*ft_strstr(char *str, char *find)
 	return (NULL);
 }
 
-void	command2_utilis(char **temp, t_args *new_args, int *i, int j)
+void	command2_utilis(char **temp, t_args *a, int *i, int j)
 {
 	int	k;
 
 	k = 0;
 	if (!temp[*i][j] && temp[*i + 2])
-		(*new_args).input[(*new_args).c_in] = ft_strdup(temp[*i + 2]);
+		(*a).input[(*a).c_in] = ft_strdup(temp[*i + 2]);
 	else
 	{
-		(*new_args).input[(*new_args).c_in] = malloc(sizeof(char) * ft_strlen(temp[*i]) + 1);
+		(*a).input[(*a).c_in] = malloc(sizeof(char) * ft_strlen(temp[*i]) + 1);
 		while (temp[*i][j + k])
 		{
-			(*new_args).input[(*new_args).c_in][k] = temp[*i][j + k];
+			(*a).input[(*a).c_in][k] = temp[*i][j + k];
 			k++;
 		}
-		(*new_args).input[(*new_args).c_in][k] = '\0';
+		(*a).input[(*a).c_in][k] = '\0';
 	}
 	*i = *i + 1;
 }

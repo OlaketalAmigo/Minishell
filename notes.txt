@@ -1,9 +1,0 @@
-double heredoc bug  << ad | << fa
-
-minishell tester redirs
-
-test 18	cat < Makefile | grep hello
-	bloque au grep de maniere mystique
-	
-grep hi "<infile" <         ./minishell_tester/test_files/infile
-	Fonctionne mais a un bad address open qui fait tache

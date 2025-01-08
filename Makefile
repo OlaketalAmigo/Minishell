@@ -6,7 +6,7 @@
 #    By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/24 14:38:38 by tfauve-p          #+#    #+#              #
-#    Updated: 2025/01/06 13:40:19 by gprunet          ###   ########.fr        #
+#    Updated: 2025/01/08 16:10:19 by gprunet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SOURCES = \
 	$(SOURCES_DIR)signals.c \
 	$(SOURCES_DIR)exec.c \
 	$(SOURCES_DIR)ft_exec_utilis.c \
+	$(SOURCES_DIR)ft_exec_utilis2.c \
 	$(SOURCES_DIR)redir_cmd.c		\
 	$(SOURCES_DIR)exec_utilis.c \
 	$(SOURCES_DIR)exec_utilis2.c \
@@ -54,6 +55,7 @@ SOURCES = \
 	$(SOURCES_DIR)algo_exec_utilis.c	\
 	$(SOURCES_DIR)check_builtins.c	\
 	$(SOURCES_DIR)redir_utilis.c	\
+	$(SOURCES_DIR)redir_cmd_utilis.c	\
 	$(SOURCES_DIR)redirection.c	\
 	$(SOURCES_DIR)get_command.c	\
 	$(SOURCES_DIR)redirection_utilis.c	\

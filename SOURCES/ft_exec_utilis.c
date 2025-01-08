@@ -3,40 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec_utilis.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 16:05:50 by gprunet           #+#    #+#             */
-/*   Updated: 2025/01/07 23:02:27 by hehe             ###   ########.fr       */
+/*   Updated: 2025/01/08 16:07:11 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**ft_fill_args(char *cmds, char **args)
-{
-	int		i;
-	int		j;
-	char	**new_args;
-
-	i = 0;
-	while (args[i])
-		i++;
-	new_args = malloc(sizeof(char *) * (i + 2));
-	i = 0;
-	j = 1;
-	if (cmds)
-	{
-		new_args[i] = ft_strdup(cmds);
-		while (args[i])
-			new_args[j++] = ft_strdup(args[i++]);
-	}
-	new_args[j] = NULL;
-	return (new_args);
-}
-
 void	ft_exec_init(t_struct *data, t_args **arg)
 {
 	data->last = 0;
+	data->stop = 0;
 	data->count_redir = 0;
 	data->temp_fd = -1;
 	data->status = 0;
@@ -82,24 +61,31 @@ int	pipe_check(t_struct *data, int i, int last, char *delimiter)
 	return (0);
 }
 
+void	update_puts(t_args *arg, t_struct *data)
+{
+	if (arg->m_in >= 1)
+	{
+		if (arg->c_in < arg->m_in - 1 || arg->m_in == 1)
+		{
+			arg->c_in++;
+			if (arg->m_in > 1)
+				data->i--;
+		}
+	}
+	else if (arg->m_out >= 1)
+	{
+		if (arg->c_out < arg->m_out - 1 || arg->m_out == 1)
+		{
+			arg->c_out++;
+			if (arg->m_out > 1)
+				data->i--;
+		}
+	}
+}
+
 void	reset_pipe_exit(t_struct *data, int i, int last, t_args *arg)
 {
-	if (arg->m_in > 1)
-	{
-		if (arg[data->i].c_in < arg[data->i].m_in)
-		{
-			arg[data->i].c_in++;
-			data->i--;
-		}
-	}
-	else if (arg->m_out > 1)
-	{
-		if (arg[data->i].c_out < arg[data->i].m_out)
-		{
-			arg[data->i].c_out++;
-			data->i--;
-		}
-	}
+	update_puts(arg, data);
 	if (i < last)
 	{
 		if (data->temp_fd != 0 && data->temp_fd != -1)

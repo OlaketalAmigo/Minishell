@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 20:21:36 by hehe              #+#    #+#             */
-/*   Updated: 2025/01/06 16:16:56 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/08 15:21:22 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int	algo_heredoc(t_struct *data, t_args **arg, int i, int cmd_count)
 			dup2(data->saved_stdout, 1);
 			close(data->saved_stdout);
 		}
-		
 		if (ft_heredoc(&(*arg)[i], data) == -1)
 			return (-1);
 		if (ft_strncmp((*arg)[i].cmd, "<<", 2) == 1)

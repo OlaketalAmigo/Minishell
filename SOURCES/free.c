@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 15:45:51 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/01/07 16:01:05 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/08 16:58:26 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,26 @@
 
 void	ft_exec_cleanup(t_struct *data, t_args *arg, int cmd_count)
 {
-	(void)data;
-	data->i = data->i - 1;
+	if (data->i == data->total)
+		data->i--;
 	if (data->stop == 1 && (arg[data->i].m_in == 0 && arg[data->i].m_out == 0))
+		printf("syntax error near unexpected token\n");
+	if (data->stop == 1 && ((arg[data->i].m_in > 0 || arg[data->i].m_out > 0)))
+	{
+		if (arg[data->i].m_in == 1)
+			arg[data->i].m_in = 0;
+		if (arg[data->i].m_out == 1)
+			arg[data->i].m_out = 0;
+		ft_update_return_status(data, 2);
+		if (arg[data->i].cmd)
+		{
+			if (arg[data->i].cmd[0] == '>' || arg[data->i].cmd[0] == '<')
+				printf("syntax error near unexpected token\n");
+		}
+		else
+			printf("syntax error near unexpected token\n");
+	}
+	if (arg[data->i].m_in < 0 && data->heredoc == 1)
 		printf("syntax error near unexpected token\n");
 	if (cmd_count == 0)
 		printf("No command to execute\n");
@@ -33,14 +50,15 @@ void	ft_free_struct(t_args **arg, int cmd_count)
 	{
 		j = 0;
 		free((*arg)[i].cmd);
-		while (j < (*arg)[i].m_in)
-			free((*arg)[i].input[j++]);
-		j = 0;
-		while (j < (*arg)[i].m_out)
-			free((*arg)[i].output[j++]);
+		if ((*arg)[i].m_in > 0)
+			ft_free((*arg)[i].input);
+		else
+			free((*arg)[i].input);
+		if ((*arg)[i].m_out > 0)
+			ft_free((*arg)[i].output);
+		else
+			free((*arg)[i].output);
 		free((*arg)[i].delimiter);
-		free((*arg)[i].input);
-		free((*arg)[i].output);
 		ft_free((*arg)[i].args);
 		i++;
 	}

@@ -3,42 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 12:53:48 by hehe              #+#    #+#             */
-/*   Updated: 2025/01/07 23:36:01 by hehe             ###   ########.fr       */
+/*   Updated: 2025/01/08 16:06:15 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	check_fd(int fd, t_args *a)
+char	*assign_append(char **temp, t_args *n_a, char *str, int *i)
 {
-	if (a->m_out > 0 && a->c_out < a->m_out)
+	char	*ret;
+
+	(*n_a).append = 1;
+	(*n_a).b_output = 1;
+	ret = NULL;
+	if (str[ft_strlen(str) - 1] == '>' && *i + 2 < ft_tablen(temp))
 	{
-		if (a->append)
-			fd = open(a->output[a->c_out], O_WRONLY | O_CREAT | O_APPEND, 0644);
-		else
-			fd = open(a->output[a->c_out], O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		if (fd < 0)
-		{
-			perror(a->output[a->c_out]);
-			return (-1);
-		}
+		ret = ft_strdup(temp[*i + 1]);
+		*i = *i + 2;
 	}
-	else if (a->m_in > 0 && a->c_in < a->m_in)
-		fd = open(a->input[a->c_in], O_RDONLY);
-	if (fd < 0)
+	else if (str[ft_strlen(str) - 1] != '>')
 	{
-		perror(a->input[a->c_in]);
-		return (-1);
+		ret = ft_strdup(&str[2]);
+		*i = *i + 1;
 	}
-	if (a->cmd[0] == '>' && a->cmd[1] != '>')
-	{
-		close(fd);
-		return (-1);
-	}
-	return (fd);
+	return (ret);
 }
 
 char	*check_n(char **temp, int *i, char *c, t_args *n_args)
@@ -48,7 +39,7 @@ char	*check_n(char **temp, int *i, char *c, t_args *n_args)
 
 	str = ft_strstr(temp[*i], c);
 	if (c[0] == '>' && c[1] == '>')
-		(*n_args).append = 1;
+		return (assign_append(temp, n_args, str, &(*i)));
 	else if (c[0] == '>')
 		(*n_args).b_output = 1;
 	else if (c[0] == '<')

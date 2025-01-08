@@ -1,1 +1,1 @@
-grep hi "<infile" <         ./minishell_tester/test_files/infile
+echo $?

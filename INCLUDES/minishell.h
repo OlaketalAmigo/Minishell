@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/01/07 23:32:32 by hehe             ###   ########.fr       */
+/*   Updated: 2025/01/08 16:11:52 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,6 +175,14 @@ void	final_reset(t_struct *data);
 int		pipe_check(t_struct *data, int i, int cmd_count, char *delimiter);
 void	reset_pipe_exit(t_struct *data, int i, int cmd_count, t_args *arg);
 
+// FT EXEC UTILIS 2 //
+
+int		doc_count(char *f, char c, t_struct *data);
+void	init_puts(t_args *args);
+void	update_puts(t_args *arg, t_struct *data);
+int		c_puts(char **temp, char c, t_struct *data);
+int		get_max(char **temp, char c, int current, t_struct *data);
+
 // ALGO EXEC UTILIS //
 
 int		algo_heredoc(t_struct *data, t_args **arg, int i, int cmd_count);
@@ -223,8 +231,12 @@ int		ft_check_path(t_struct *data, char *arg);
 
 int		temp_check(char **temp, t_struct *data, int time);
 int		single_check(char *temp, t_struct *data, int *r_nb, int *nb);
-int		special_case(char *cmd, t_struct *data, char **args, t_args *arg);
 void	add_full(char *line, char **full);
+
+// REDIR CMD UTILIS //
+
+int		special_case(char *cmd, t_struct *data, char **args, t_args *arg);
+int		check_fd(int fd, t_args *a);
 
 // REDIR UTILIS //
 
@@ -236,7 +248,6 @@ int		check_redirection(char **temp, t_args *new_args, int *i, int *j);
 int		separate_command(char **temp, t_args *new_args, int *i, int *args);
 int		separate_command2(char **temp, t_args *new_args, int *i);
 char	*check_n(char **temp, int *i, char *c, t_args *args);
-int		check_fd(int fd, t_args *arg);
 
 // REDIRECTION UTILIS //
 
@@ -255,7 +266,7 @@ void	else_command(t_args *args, char **temp, int *i);
 
 // ASSIGN ARGS UTILIS //
 
-int		check_built(char *temp, t_args *new_args, int *i, char **t);
+int		check_built(char *temp, t_args *new_args, int *i);
 int		check_string(char *temp, int *i);
 int		verif_command(t_struct *data, char **cmd, t_args *new_args);
 int		ft_check_cmd(t_args *new_args, int i, char *str);

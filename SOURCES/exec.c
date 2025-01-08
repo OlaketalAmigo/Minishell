@@ -3,38 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 15:01:37 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/01/07 23:22:24 by hehe             ###   ########.fr       */
+/*   Updated: 2025/01/08 17:39:26 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	get_max(char **temp, char c, int current)
-{
-	char	*full;
-	int		i;
-	int		nb;
-
-	full = ft_strdup("");
-	i = 0;
-	nb = 0;
-	while (current < ft_tablen(temp))
-	{
-		add_full(temp[current], &full);
-		current++;
-	}
-	while (full[i] && full[i] != '|')
-	{
-		if (full[i] == c)
-			nb++;
-		i++;
-	}
-	free(full);
-	return (nb);
-}
 
 t_args	ft_args_init(t_args *new_args, t_struct *data, char **temp, int current)
 {
@@ -48,47 +24,16 @@ t_args	ft_args_init(t_args *new_args, t_struct *data, char **temp, int current)
 	(*new_args).c_in = 0;
 	(*new_args).c_out = 0;
 	(*new_args).stop = 0;
-	(*new_args).m_in = get_max(temp, '<', current);
-	(*new_args).m_out = get_max(temp, '>', current);
-	if (data->n_in == 0)
-	{
-		free((*new_args).input);
-		(*new_args).input = NULL;
-	}
-	if (data->n_out == 0)
-	{
-		free((*new_args).output);
-		(*new_args).output = NULL;
-	}
+	(*new_args).m_in = get_max(temp, '<', current, data);
+	if ((*new_args).m_in < 0)
+		(*new_args).m_in = 0;
+	(*new_args).m_out = get_max(temp, '>', current, data);
+	if ((*new_args).m_out < 0)
+		(*new_args).m_out = 0;
+	(*new_args).input = malloc(8 * ((*new_args).m_in + 1));
+	(*new_args).output = malloc(8 * ((*new_args).m_out + 1));
+	init_puts(new_args);
 	return (*new_args);
-}
-
-int	c_puts(char **temp, char c, t_struct *data)
-{
-	int	i;
-	int	j;
-	int	real_redir;
-	int	count;
-
-	i = 0;
-	count = 0;
-	real_redir = 0;
-	while (temp[i])
-	{
-		j = 0;
-		while (temp[i][j])
-		{
-			if (temp[i][j] == c)
-			{
-				if (data->redir[count] == 1)
-					real_redir++;
-				count++;
-			}
-			j++;
-		}
-		i++;
-	}
-	return (real_redir);
 }
 
 int	split_args(char **arg, t_args **new_args, t_struct *data)
@@ -108,9 +53,7 @@ int	split_args(char **arg, t_args **new_args, t_struct *data)
 		(*new_args)[i].args = malloc(sizeof(char *) * (c_args(temp) + 1));
 		if (!(*new_args)[i].args)
 			return (0);
-		(*new_args)[i].input = malloc(8 * (get_max(temp, '<', i) + 1));
-		(*new_args)[i].output = malloc(8 * (get_max(temp, '>', i) + 1));
-		(*new_args)[i] = ft_args_init(&(*new_args)[i], data, temp, i);
+		(*new_args)[i] = ft_args_init(&(*new_args)[i], data, arg, i);
 		ft_assign_args(&(*new_args)[i], temp, data);
 		ft_free(temp);
 		i++;
@@ -152,6 +95,12 @@ void	ft_algo_exec(t_struct *data, t_args **arg, int i, int total)
 	char	**args;
 	char	**true_path;
 
+	if (i > 0 && data->in_fd == 0 && ft_strcmp((*arg)[i].cmd, "cat") == 0
+		&& (*arg)[i].m_in == 0 && (*arg)[i].m_out == 0)
+	{
+		data->status = 0;
+		return ;
+	}
 	if (handle_redirection(&(*arg)[i], data) == -1)
 		return ;
 	if (algo_heredoc(data, arg, i, data->last) == -1)
@@ -170,31 +119,31 @@ void	ft_algo_exec(t_struct *data, t_args **arg, int i, int total)
 	reset_stds(data, &(*arg)[i], i, data->last);
 }
 
-void	ft_exec(t_struct *data)
+void	ft_exec(t_struct *dat)
 {
 	t_args	*arg;
 
-	data->i = 0;
-	data->stop = 0;
-	data->heredoc = 0;
+	dat->i = 0;
+	dat->stop = 0;
+	dat->heredoc = 0;
 	arg = NULL;
-	ft_exec_init(data, &arg);
-	data->last = get_count(arg, data->total, data);
-	while (data->i < data->total && data->stop != 1)
+	ft_exec_init(dat, &arg);
+	dat->last = get_count(arg, dat->total, dat);
+	while (dat->i < dat->total && dat->stop == 0)
 	{
-		if (redir_cmd(&arg[data->i], data) == 1)
+		if (redir_cmd(&arg[dat->i], dat) == 1)
 		{
-			data->i++;
+			dat->i++;
 			continue ;
 		}
-		if (pipe_check(data, data->i, data->last, arg[data->i].delimiter) == -1)
+		if (pipe_check(dat, dat->i, dat->last, arg[dat->i].delimiter) == -1)
 			exit(EXIT_FAILURE);
-		ft_algo_exec(data, &arg, data->i, data->total);
-		reset_pipe_exit(data, data->i, data->last, &arg[data->i]);
-		ft_update_return_status(data, data->status);
-		data->i++;
+		ft_algo_exec(dat, &arg, dat->i, dat->total);
+		reset_pipe_exit(dat, dat->i, dat->last, &arg[dat->i]);
+		ft_update_return_status(dat, dat->status);
+		dat->i++;
 	}
-	if (data->heredoc == 1 && data->last > 1)
-		final_reset(data);
-	ft_exec_cleanup(data, arg, data->total);
+	if (dat->heredoc == 1 && dat->last > 1)
+		final_reset(dat);
+	ft_exec_cleanup(dat, arg, dat->total);
 }

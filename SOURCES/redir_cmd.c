@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 12:56:15 by gprunet           #+#    #+#             */
-/*   Updated: 2025/01/07 23:23:24 by hehe             ###   ########.fr       */
+/*   Updated: 2025/01/08 17:38:08 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,6 @@ int	handle_redirection(t_args *arg, t_struct *data)
 	int	fd;
 
 	fd = 0;
-	if (arg->c_in < arg->m_in)
-	{
-		fd = check_fd(fd, arg);
-		if (fd == -1)
-		{
-			data->status = 1;
-			return (-1);
-		}
-		post_check_fd(0, data, fd);
-	}
 	if (arg->c_out < arg->m_out)
 	{
 		fd = check_fd(fd, arg);
@@ -58,6 +48,16 @@ int	handle_redirection(t_args *arg, t_struct *data)
 			return (-1);
 		}
 		post_check_fd(1, data, fd);
+	}
+	if (arg->c_in < arg->m_in)
+	{
+		fd = check_fd(fd, arg);
+		if (fd == -1)
+		{
+			data->status = 1;
+			return (-1);
+		}
+		post_check_fd(0, data, fd);
 	}
 	return (1);
 }
@@ -113,7 +113,7 @@ int	redir_cmd(t_args *arg, t_struct *data)
 	int	fd;
 
 	fd = 0;
-	if (arg->c_in > 0 && arg->c_in < data->n_in && !arg->cmd)
+	if (arg->c_in > 0 && arg->c_in < arg->m_in && !arg->cmd)
 	{
 		fd = open(arg->input[arg->c_in], O_RDONLY);
 		if (fd < 0 || arg->stop == 1)
@@ -125,7 +125,7 @@ int	redir_cmd(t_args *arg, t_struct *data)
 		}
 		close(fd);
 	}
-	if (!arg->cmd || special_case(arg->cmd, data, arg->args, arg))
+	if (special_case(arg->cmd, data, arg->args, arg) || !arg->cmd)
 		return (1);
 	if (check_puts(arg->cmd, arg))
 	{
