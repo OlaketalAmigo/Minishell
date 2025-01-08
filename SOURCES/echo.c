@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:27:45 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/01/08 17:57:10 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/08 19:39:53 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,46 +42,52 @@ int	ft_echo(char **args)
 
 	option = 0;
 	i = 0;
-	while (args[++i])
+	if (args && args[0])
 	{
-		if (ft_is_first_n_flag(args[i]) == 1)
+		while (args[++i])
 		{
-			option = 1;
+			if (ft_is_first_n_flag(args[i]) == 1)
+				option = 1;
+			else
+				break ;
 		}
-		else
-			break ;
+		while (args[i])
+		{
+			printf("%s", args[i++]);
+			if (args[i])
+				printf(" ");
+		}
+		if (option == 0)
+			printf("\n");
 	}
-	while (args[i])
-	{
-		printf("%s", args[i++]);
-		if (args[i])
-			printf(" ");
-	}
-	if (option == 0)
-		printf("\n");
 	return (0);
 }
 
 int	ft_echo_pipe(t_struct *data, t_args **arg, char **args, char **path)
 {
 	int		option;
-	int		i;
 
 	option = 0;
-	i = 1;
-	while (args[++i])
+	int (i) = 0;
+	if (args && args[0])
 	{
-		if (ft_is_first_n_flag(args[i]) == 1)
+		while (args[++i])
 		{
-			option = 1;
+			if (ft_is_first_n_flag(args[i]) == 1)
+				option = 1;
+			else
+				break ;
 		}
-		else
-			break ;
+		while (args[i])
+		{
+			printf("%s", args[i++]);
+			if (args[i])
+				printf(" ");
+		}
+		if (option == 0)
+			printf("\n");
+		ft_free_child(args, data, arg, path);
+		exit(0);
 	}
-	while (args[i])
-		printf("%s ", args[i++]);
-	if (option == 0)
-		printf("\n");
-	ft_free_child(args, data, arg, path);
-	exit(0);
+	return (0);
 }

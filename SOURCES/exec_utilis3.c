@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:36:49 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/01/08 17:57:40 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/08 19:45:05 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,21 +24,6 @@ char	**ft_split_cleared(char *s, char c)
 	word_list = ft_mecanism(length, word_list, s, c);
 	word_list = ft_clear_to_function(word_list);
 	return (word_list);
-}
-
-int	ft_strncmp(char *s1, char *s2, int n)
-{
-	int	i;
-
-	i = 0;
-	while (i < n)
-	{
-		if (s1[i] && s2[i] && s1[i] == s2[i])
-			i++;
-		else
-			return (-1);
-	}
-	return (1);
 }
 
 int	clean_fail(t_struct *data)

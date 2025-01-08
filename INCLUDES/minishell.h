@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/01/08 17:55:59 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/08 19:45:20 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -408,6 +408,9 @@ int		ft_write_error(char *c);
 // TOOLS 3 // 
 
 void	ft_set_up_data_path(t_struct *data);
+void	heredoc_exit(t_struct *data);
+void	ft_free_child2(char **args, t_struct *data, char **path);
+int		ft_strncmp(char *s1, char *s2, int n);
 
 // RETURN STATUS //
 

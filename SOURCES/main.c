@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:52:11 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/01/08 18:04:32 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/08 19:38:55 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,13 @@
 
 volatile sig_atomic_t	g_sig_receiver = 0;
 
-extern char		**environ;
-
-void	heredoc_exit(t_struct *data)
-{
-	if (data->heredoc == 2)
-	{
-		close(data->pipefd[0]);
-		close(data->saved_stdin);
-	}
-}
+extern char				**environ;
 
 void	ft_main_mecanism(t_struct *data)
 {
 	ft_update_history(data->line);
 	if (ft_parser(data) < 0)
 		return ;
-	ft_printf_parsing(data->arg);
 	ft_exec(data);
 	ft_free_all(data);
 }
