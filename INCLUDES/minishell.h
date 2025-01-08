@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/01/07 12:42:42 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2025/01/08 13:20:38 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,6 @@ typedef struct s_cmd
 extern volatile sig_atomic_t	g_sig_receiver;
 
 // SIGNALS //
-
-# define SIG_INT = 1
-# define SIG_QUIT = 2
 
 // MAIN //
 

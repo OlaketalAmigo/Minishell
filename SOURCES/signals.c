@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 17:15:55 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/01/07 16:48:07 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2025/01/08 14:25:29 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ void	ft_init_signals(void)
 	struct sigaction	sa_int;
 	struct sigaction	sa_quit;
 
-	memset(&sa_int, 0, sizeof(struct sigaction));
-	memset(&sa_quit, 0, sizeof(struct sigaction));
 	sa_int.sa_handler = ft_get_signal_int;
 	sa_int.sa_flags = SA_RESTART;
 	sigemptyset(&sa_int.sa_mask);
@@ -45,12 +43,26 @@ void	ft_get_signal_int(int sig)
 
 void	ft_get_signal_quit(int sig)
 {
+	char	*s;
+
 	g_sig_receiver = sig;
 	if (rl_done == 1)
 	{
 		printf("\033[2D\033[0K");
 		printf("Quit (core dumped)\n");
 		rl_replace_line("", 0);
+	}
+	else
+	{
+		s = ft_strdup(rl_line_buffer);
+		if (s)
+		{
+			printf("\033[2D\033[0K");
+			rl_replace_line(s, 0);
+			free(s);
+			rl_on_new_line();
+			rl_redisplay();
+		}
 	}
 }
 
