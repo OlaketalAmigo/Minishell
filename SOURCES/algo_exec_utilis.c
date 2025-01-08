@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 20:21:36 by hehe              #+#    #+#             */
-/*   Updated: 2025/01/08 17:43:23 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/08 17:56:07 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	algo_heredoc(t_struct *data, t_args **arg, int i, int cmd_count)
 			return (-1);
 		if (ft_strncmp((*arg)[i].cmd, "<<", 2) == 1)
 		{
-			if (i == cmd_count - 1)
+			if (i == cmd_count)
 				reset_stds(data, &(*arg)[i], i, cmd_count);
 			return (-1);
 		}

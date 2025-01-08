@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 16:46:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/01/08 17:46:03 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/08 17:58:04 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,5 +132,10 @@ int	ft_exit_pipe(t_struct *data, t_args **arg, char **args, char **path)
 		}
 	}
 	ft_free_child(args, data, arg, path);
+	if (data->heredoc == 2)
+	{
+		close(data->pipefd[0]);
+		close(data->pipefd[1]);
+	}
 	exit(i);
 }

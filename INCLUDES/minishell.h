@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/01/08 17:52:36 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/08 17:55:59 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,17 @@ typedef struct data
 	int		saved_stdin;
 	int		input;
 	int		output;
+	int		n_in;
+	int		n_out;
 	int		heredoc;
+	int		n_heredoc;
 	int		status;
 	int		i;
 	int		count_redir;
 	int		temp_fd;
 	int		last;
 	int		total;
+	int		stop;
 	pid_t	pid;
 }	t_struct;
 
@@ -79,11 +83,19 @@ typedef struct s_cmd
 {
 	char	*cmd;
 	char	**args;
-	char	*input;
-	char	*output;
+	char	**input;
+	char	**output;
 	char	*delimiter;
 	int		pos_redir;
+	int		c_in;
+	int		c_out;
+	int		m_in;
+	int		m_out;
+	int		stop;
 	int		append;
+	int		put;
+	int		b_input;
+	int		b_output;
 }	t_args;
 
 extern volatile sig_atomic_t	g_sig_receiver;
@@ -149,6 +161,10 @@ void	ft_exec(t_struct *data);
 void	ft_algo_exec(t_struct *data, t_args **arg, int i, int cmd_count);
 void	ft_pipe_exec(t_struct *data, char **args, char **path, t_args **arg);
 int		split_args(char **arg, t_args **new_args, t_struct *data);
+
+// REDIR CMD //
+
+int		redir_cmd(t_args *arg, t_struct *data);
 int		handle_redirection(t_args *arg, t_struct *data);
 
 // FT EXEC UTILIS //
@@ -156,8 +172,16 @@ int		handle_redirection(t_args *arg, t_struct *data);
 char	**ft_fill_args(char *cmds, char **args);
 void	ft_exec_init(t_struct *data, t_args **arg);
 void	final_reset(t_struct *data);
-int		pipe_check(t_struct *data, int i, int cmd_count);
-void	reset_pipe_exit(t_struct *data, int i, int cmd_count);
+int		pipe_check(t_struct *data, int i, int cmd_count, char *delimiter);
+void	reset_pipe_exit(t_struct *data, int i, int cmd_count, t_args *arg);
+
+// FT EXEC UTILIS 2 //
+
+int		doc_count(char *f, char c, t_struct *data);
+void	init_puts(t_args *args);
+void	update_puts(t_args *arg, t_struct *data);
+int		c_puts(char **temp, char c, t_struct *data);
+int		get_max(char **temp, char c, int current, t_struct *data);
 
 // ALGO EXEC UTILIS //
 
@@ -203,17 +227,27 @@ char	*ft_strstr(char *str, char *find);
 int		ft_check_hard_path(t_struct *data, char *arg);
 int		ft_check_path(t_struct *data, char *arg);
 
+// CHECK TEMP //
+
+int		temp_check(char **temp, t_struct *data, int time);
+int		single_check(char *temp, t_struct *data, int *r_nb, int *nb);
+void	add_full(char *line, char **full);
+
+// REDIR CMD UTILIS //
+
+int		special_case(char *cmd, t_struct *data, char **args, t_args *arg);
+int		check_fd(int fd, t_args *a);
+
 // REDIR UTILIS //
 
-int		q_redir(t_struct *data, char *temp, t_args *args);
+int		q_redir(t_struct *data, char *temp, t_args *args, int i);
 
 // REDIRECTION //
 
 int		check_redirection(char **temp, t_args *new_args, int *i, int *j);
 int		separate_command(char **temp, t_args *new_args, int *i, int *args);
 int		separate_command2(char **temp, t_args *new_args, int *i);
-char	*check_next(char **temp, int *i, char *c);
-int		check_fd(int fd, t_args *arg);
+char	*check_n(char **temp, int *i, char *c, t_args *args);
 
 // REDIRECTION UTILIS //
 
@@ -241,7 +275,7 @@ int		ft_tablen(char **tab);
 // COUNT COMMANDS //
 
 void	print_error(t_struct *data, char *cmd);
-int		get_count(t_args *arg, int cmd_count);
+int		get_count(t_args *arg, int cmd_count, t_struct *data);
 int		count_commands(char **arg);
 int		check_pos(char *temp, char c, t_args *args);
 
@@ -264,7 +298,7 @@ char	**ft_clear_to_function(char **tab);
 
 int		ft_heredoc(t_args *arg, t_struct *data);
 int		ft_heredoc_pipe(t_args *arg, t_struct *data, char **args, char **path);
-int		heredoc_algo(int pipefd, t_args *arg);
+int		heredoc_algo(int pipefd, t_args *arg, t_struct *data);
 int		check_heredoc(char **temp, t_args *new_args, int *i);
 char	*assign_delimiter(char *temp, t_args *new_args);
 

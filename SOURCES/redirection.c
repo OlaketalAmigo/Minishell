@@ -6,59 +6,55 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 12:53:48 by hehe              #+#    #+#             */
-/*   Updated: 2025/01/08 17:48:23 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/08 18:00:21 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	check_fd(int fd, t_args *arg)
+char	*assign_append(char **temp, t_args *n_a, char *str, int *i)
 {
-	if (arg->output)
+	char	*ret;
+
+	(*n_a).append = 1;
+	(*n_a).b_output = 1;
+	ret = NULL;
+	if (str[ft_strlen(str) - 1] == '>' && *i + 2 < ft_tablen(temp))
 	{
-		if (arg->append)
-			fd = open(arg->output, O_WRONLY | O_CREAT | O_APPEND, 0644);
-		else
-			fd = open(arg->output, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		if (fd < 0)
-		{
-			perror(arg->output);
-			return (-1);
-		}
+		ret = ft_strdup(temp[*i + 1]);
+		*i = *i + 2;
 	}
-	else
-		fd = open(arg->input, O_RDONLY);
-	if (fd < 0)
+	else if (str[ft_strlen(str) - 1] != '>')
 	{
-		perror(arg->input);
-		return (-1);
+		ret = ft_strdup(&str[2]);
+		*i = *i + 1;
 	}
-	if (arg->cmd[0] == '>' && arg->cmd[1] != '>')
-	{
-		close(fd);
-		return (-1);
-	}
-	return (fd);
+	return (ret);
 }
 
-char	*check_next(char **temp, int *i, char *c)
+char	*check_n(char **temp, int *i, char *c, t_args *n_args)
 {
+	char	*ret;
 	char	*str;
-	int		len;
 
 	str = ft_strstr(temp[*i], c);
-	len = ft_strlen(str);
-	if (str[len - 1] == c[0] && temp[*i + 2])
+	if (c[0] == '>' && c[1] == '>')
+		return (assign_append(temp, n_args, str, &(*i)));
+	else if (c[0] == '>')
+		(*n_args).b_output = 1;
+	else if (c[0] == '<')
+		(*n_args).b_input = 1;
+	if (str[ft_strlen(str) - 1] == c[0] && *i + 2 < ft_tablen(temp))
 	{
-		str = ft_strdup(temp[*i + 2]);
+		ret = ft_strdup(temp[*i + 2]);
 		*i = *i + 3;
-		return (str);
+		return (ret);
 	}
-	if (str[len - 1] != c[0] && temp[*i])
+	if (str[ft_strlen(str) - 1] != c[0])
 	{
-		str = ft_strdup(&str[1]);
+		ret = ft_strdup(&str[1]);
 		*i = *i + 1;
-		return (str);
+		return (ret);
 	}
 	return (NULL);
 }
@@ -74,6 +70,7 @@ int	separate_command2(char **temp, t_args *new_args, int *i)
 	j = sort_redir(temp[*i], new_args, '<', 2);
 	j++;
 	command2_utilis(temp, new_args, i, j);
+	(*new_args).b_input = 1;
 	return (1);
 }
 
@@ -93,33 +90,34 @@ int	separate_command(char **temp, t_args *new_args, int *i, int *args)
 	*args = *args + 1;
 	j++;
 	command1_utilis(temp, new_args, i, j);
+	(*new_args).b_output = 1;
 	return (1);
 }
 
-int	check_redirection(char **temp, t_args *n_args, int *i, int *j)
+int	check_redirection(char **temp, t_args *n_a, int *i, int *j)
 {
 	if (temp[*i][0] == '<' && temp[*i][1] == '<')
-		return (check_heredoc(temp, n_args, &(*i)));
+		return (check_heredoc(temp, n_a, &(*i)));
+	(*n_a).put = 1;
 	if (ft_strchr(temp[*i], '<') == 1 && temp[*i][0] != '<')
-		return (separate_command2(temp, n_args, &(*i)));
+		return (separate_command2(temp, n_a, &(*i)));
 	if (ft_strchr(temp[*i], '>') == 1 && temp[*i][0] != '>')
-		return (separate_command(temp, n_args, &(*i), &(*j)));
-	if (ft_strchr(temp[*i], '<') == 1 && check_pos(temp[*i], '<', n_args) == 1)
+		return (separate_command(temp, n_a, &(*i), &(*j)));
+	if (ft_strchr(temp[*i], '<') == 1 && check_pos(temp[*i], '<', n_a) == 1)
 	{
-		(*n_args).input = check_next(temp, &(*i), "<");
+		(*n_a).input[(*n_a).c_in] = check_n(temp, &(*i), "<", &(*n_a));
 		return (1);
 	}
-	if (ft_strchr(temp[*i], '>') == 1 && check_pos(temp[*i], '>', n_args) == 1)
+	if (ft_strchr(temp[*i], '>') == 1 && check_pos(temp[*i], '>', n_a) == 1)
 	{
+		(*n_a).b_output = 1;
 		if (check_append(temp[*i]) == 1)
 		{
-			(*n_args).output = check_next(temp, &(*i), ">>");
-			(*n_args).append = 1;
+			(*n_a).output[(*n_a).c_out] = check_n(temp, &(*i), ">>", &(*n_a));
 			return (1);
 		}
-		if (get_cmd(temp, &(*i), n_args) == 1)
-			return (1);
-		else_command(n_args, temp, &(*i));
+		if (get_cmd(temp, &(*i), n_a) != 1)
+			else_command(n_a, temp, &(*i));
 		return (1);
 	}
 	return (0);

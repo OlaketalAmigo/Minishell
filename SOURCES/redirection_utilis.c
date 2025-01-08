@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 12:53:15 by hehe              #+#    #+#             */
-/*   Updated: 2025/01/08 17:48:15 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/08 18:00:07 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,22 +47,22 @@ char	*ft_strstr(char *str, char *find)
 	return (NULL);
 }
 
-void	command2_utilis(char **temp, t_args *new_args, int *i, int j)
+void	command2_utilis(char **temp, t_args *a, int *i, int j)
 {
 	int	k;
 
 	k = 0;
 	if (!temp[*i][j] && temp[*i + 2])
-		(*new_args).input = ft_strdup(temp[*i + 2]);
+		(*a).input[(*a).c_in] = ft_strdup(temp[*i + 2]);
 	else
 	{
-		(*new_args).input = malloc(sizeof(char) * ft_strlen(temp[*i]) + 1);
+		(*a).input[(*a).c_in] = malloc(sizeof(char) * ft_strlen(temp[*i]) + 1);
 		while (temp[*i][j + k])
 		{
-			(*new_args).input[k] = temp[*i][j + k];
+			(*a).input[(*a).c_in][k] = temp[*i][j + k];
 			k++;
 		}
-		(*new_args).input[k] = '\0';
+		(*a).input[(*a).c_in][k] = '\0';
 	}
 	*i = *i + 1;
 }
@@ -74,33 +74,30 @@ void	close_word(t_args *args, char **temp, int *i, int j)
 	k = 0;
 	if (!temp)
 		return ;
-	(*args).output = malloc(ft_strlen(temp[*i]) - j + 1);
+	(*args).output[(*args).c_out] = malloc(ft_strlen(temp[*i]) - j + 1);
 	while (temp[*i][j + k])
 	{
-		(*args).output[k] = temp[*i][j + k];
+		(*args).output[(*args).c_out][k] = temp[*i][j + k];
 		k++;
 	}
-	(*args).output[k] = '\0';
+	(*args).output[(*args).c_out][k] = '\0';
 	*i = *i + 1;
 }
 
 void	command1_utilis(char **temp, t_args *new_args, int *i, int j)
 {
-	int	k;
-
-	k = 0;
 	if (check_append(temp[*i]) == 1)
 		(*new_args).append = 1;
-	if (j >= ft_strlen(temp[*i]))
+	if (j >= ft_strlen(temp[*i]) && *i < ft_tablen(temp))
 	{
 		if (temp[*i + 2][0] == '>' && temp[*i + 4])
 		{
-			(*new_args).output = ft_strdup(temp[*i + 4]);
+			(*new_args).output[(*new_args).c_out] = ft_strdup(temp[*i + 4]);
 			*i = *i + 5;
 		}
 		else if (temp[*i + 2])
 		{
-			(*new_args).output = ft_strdup(temp[*i + 2]);
+			(*new_args).output[(*new_args).c_out] = ft_strdup(temp[*i + 2]);
 			*i = *i + 3;
 		}
 	}

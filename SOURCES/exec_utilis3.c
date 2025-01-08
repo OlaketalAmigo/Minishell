@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:36:49 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/01/08 17:45:27 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/08 17:57:40 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,19 +41,29 @@ int	ft_strncmp(char *s1, char *s2, int n)
 	return (1);
 }
 
+int	clean_fail(t_struct *data)
+{
+	if (data->input || data->heredoc)
+		close(data->saved_stdin);
+	if (data->output)
+	{
+		close(data->pipefd[1]);
+		close(data->pipefd[0]);
+	}
+	return (127);
+}
+
 int	ft_execve(char **path, char **args, t_struct *data)
 {
 	int	result;
 
 	if (!path || !path[0])
-		return (127);
+		return (clean_fail(data));
 	if (data->total > 1 && data->i < data->last)
-	{
 		close(data->pipefd[0]);
-	}
 	if (data->temp_fd != -1)
 		close(data->temp_fd);
-	if (data->input)
+	if (data->input || data->heredoc)
 		close(data->saved_stdin);
 	if (data->output)
 		close(data->saved_stdout);

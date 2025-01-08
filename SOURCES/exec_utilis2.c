@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 13:08:46 by gprunet           #+#    #+#             */
-/*   Updated: 2025/01/08 17:45:21 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/08 17:57:27 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,16 @@ void	ft_free_child(char **args, t_struct *data, t_args **arg, char **path)
 {
 	if (data->total > 1)
 	{
-		close(data->pipefd[0]);
-		close(data->pipefd[1]);
+		if (arg[data->i]->m_in == 0 && arg[data->i]->m_out == 0)
+		{
+			close(data->pipefd[0]);
+			close(data->pipefd[1]);
+		}
 	}
+	if (arg[data->i]->m_in > 0 && data->i < data->last)
+		close(data->pipefd[1]);
+	if (arg[data->i]->m_out > 0 && data->i < data->last)
+		close(data->pipefd[0]);
 	if (data->input)
 		close(data->saved_stdin);
 	if (data->output)

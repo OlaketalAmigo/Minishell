@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:59:25 by tfauve-p          #+#    #+#             */
-/*   Updated: 2024/12/18 13:35:50 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2025/01/08 17:59:50 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	ft_set_up_redirection(t_struct *data)
 	while (data->line[++i])
 	{
 		if (data->line[i] == 62 || data->line[i] == 60)
-				data->nb_redir += 1;
+			data->nb_redir += 1;
 	}
 	data->redir = malloc (data->nb_redir * 4);
 	if (!data->redir)

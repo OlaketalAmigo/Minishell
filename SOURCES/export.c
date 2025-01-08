@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/18 15:46:09 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/01/08 17:52:26 by gprunet          ###   ########.fr       */
+/*   Created: 2024/09/24 11:04:41 by tfauve-p          #+#    #+#             */
+/*   Updated: 2025/01/08 17:58:15 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,8 @@ int	ft_ok_1(char *args)
 int	ft_ok_2(char *args)
 {
 	int	i;
-	int	j;
 
 	i = 0;
-	j = 0;
 	while (args[i] && args[i] != 61)
 	{
 		if ((args[i] >= 0 && args[i] <= 47)
