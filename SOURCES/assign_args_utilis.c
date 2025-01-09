@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:25:18 by gprunet           #+#    #+#             */
-/*   Updated: 2025/01/08 19:39:22 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/09 11:47:47 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,15 @@ int	ft_check_cmd(t_args *new_args, int i, char *str)
 	return (0);
 }
 
-int	check_built(char *temp, t_args *new_args, int *i)
+int	check_built(char *temp, t_args *new_args, int *i, int len)
 {
+	if (is_empty(temp) == 1)
+	{
+		*i = *i + 1;
+		return (1);
+	}
+	if (*i > len && len == 1)
+		*i = 0;
 	if (ft_check_builtins_init(temp) == 1 && (*new_args).cmd == NULL)
 	{
 		(*new_args).cmd = ft_strdup(temp);

@@ -6,11 +6,13 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 13:11:06 by hehe              #+#    #+#             */
-/*   Updated: 2025/01/06 16:47:07 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/09 10:35:57 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern volatile sig_atomic_t	g_sig_receiver;
 
 char	*assign_delimiter(char *temp, t_args *new_args)
 {
@@ -62,10 +64,12 @@ int	heredoc_algo(int pipefd, t_args *arg, t_struct *data)
 	while (1)
 	{
 		line = readline("> ");
-		if (!line)
+		if (!line || g_sig_receiver == 2)
 		{
 			perror("readline");
 			data->heredoc = 2;
+			close(data->pipefd[0]);
+			close(data->saved_stdin);
 			return (-1);
 		}
 		if (ft_strcmp(line, arg->delimiter) == 0)

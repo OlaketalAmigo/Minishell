@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 12:56:15 by gprunet           #+#    #+#             */
-/*   Updated: 2025/01/08 17:38:08 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/09 12:02:53 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	check_puts2(char **out, char **in, t_args *a)
 {
 	if ((*a).b_input && a->c_in < a->m_in)
 	{
-		if (!in || (in[a->c_in][0] == '<' && !in[a->c_in][1]))
+		if (!in[a->c_in])
 		{
 			printf("syntax error near unexpected token `newline'\n");
 			return (1);
@@ -74,7 +74,7 @@ int	check_puts2(char **out, char **in, t_args *a)
 	}
 	if ((*a).b_output && a->c_out < a->m_out)
 	{
-		if (!out[a->c_out] || (out[a->c_out][0] == '>' && !out[a->c_out][1]))
+		if (!out[a->c_out])
 		{
 			printf("syntax error near unexpected token `newline'\n");
 			return (1);
@@ -85,12 +85,12 @@ int	check_puts2(char **out, char **in, t_args *a)
 
 int	check_puts(char *cmd, t_args *arg)
 {
-	if (arg->m_in > 0 && cmd[0] == '<' && !cmd[1])
+	if (arg->m_in > 0 && cmd[0] == '<' && !cmd[1] && arg->input[0])
 	{
 		printf("syntax error near unexpected token `newline'\n");
 		return (1);
 	}
-	if (arg->m_out > 0 && (cmd[0] == '>' && !cmd[1]))
+	if (arg->m_out > 0 && (cmd[0] == '>' && !cmd[1]) && !arg->output[0])
 	{
 		printf("syntax error near unexpected token `newline'\n");
 		return (1);

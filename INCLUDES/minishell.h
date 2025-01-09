@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 11:53:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/01/08 19:45:20 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/09 11:28:14 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -266,7 +266,7 @@ void	else_command(t_args *args, char **temp, int *i);
 
 // ASSIGN ARGS UTILIS //
 
-int		check_built(char *temp, t_args *new_args, int *i);
+int		check_built(char *temp, t_args *new_args, int *i, int len);
 int		check_string(char *temp, int *i);
 int		verif_command(t_struct *data, char **cmd, t_args *new_args);
 int		ft_check_cmd(t_args *new_args, int i, char *str);

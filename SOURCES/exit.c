@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 16:46:12 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/01/08 19:43:05 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/09 12:07:00 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	ft_is_everything_digit(char	*args)
 	minus = 0;
 	while (args[++i])
 	{
-		if (args[i] >= 48 && args[i] <= 57 && k < 12)
+		if (args[i] >= 48 && args[i] <= 57)
 			k++;
 		else if (args[i] == 43)
 			plus += 1;

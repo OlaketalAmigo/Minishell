@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:33:51 by gprunet           #+#    #+#             */
-/*   Updated: 2025/01/08 19:44:36 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/09 11:49:53 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,31 +78,31 @@ void	post_assign_args(t_args *new_args, int j, t_struct *data)
 		(*new_args).args[j] = NULL;
 }
 
-t_args	ft_assign_args(t_args *new_args, char **temp, t_struct *data)
+t_args	ft_assign_args(t_args *args, char **temp, t_struct *data)
 {
 	int (i) = 0;
 	int (j) = 0;
 	while (i < ft_tablen(temp) && temp_check(temp, data, i) == 0)
 	{
-		if (q_redir(data, temp[i], new_args, i) == 1)
+		if (q_redir(data, temp[i], args, i) == 1)
 		{
-			if (check_redirection(temp, new_args, &i, &j) == 1)
+			if (check_redirection(temp, args, &i, &j) == 1)
 				continue ;
 		}
-		if (!(*new_args).cmd && check_built(temp[0], new_args, &i))
+		if (!(*args).cmd && check_built(temp[i], args, &i, ft_tablen(temp)))
 			continue ;
-		if (ft_check_cmd(new_args, i, NULL) == 1)
+		if (ft_check_cmd(args, i, NULL) == 1)
 			break ;
 		if (check_string(temp[i], &i) == 1)
 			continue ;
-		if (verif_command(data, &temp[i], new_args) == 1)
-			(*new_args).cmd = ft_strdup(temp[i]);
-		else if ((*new_args).cmd)
-			(*new_args).args[j++] = ft_strdup(temp[i]);
-		else if (ft_check_cmd(new_args, i, "free") == 1)
+		if (verif_command(data, &temp[i], args) == 1)
+			(*args).cmd = ft_strdup(temp[i]);
+		else if ((*args).cmd)
+			(*args).args[j++] = ft_strdup(temp[i]);
+		else if (ft_check_cmd(args, i, "free") == 1)
 			break ;
 		i++;
 	}
-	post_assign_args(new_args, j, data);
-	return (*new_args);
+	post_assign_args(args, j, data);
+	return (*args);
 }

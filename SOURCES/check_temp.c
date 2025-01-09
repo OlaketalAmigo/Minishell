@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 13:39:04 by gprunet           #+#    #+#             */
-/*   Updated: 2025/01/08 16:32:18 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/09 12:18:07 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,25 @@
 
 int	count_puts(char *temp, t_struct *data)
 {
-	int	i;
-	int	nb;
-	int	total;
-
-	i = 0;
-	nb = 0;
-	total = 0;
+	int (i) = 0;
+	int (nb) = 0;
+	int (total) = 0;
 	while (temp[i])
 	{
-		if (temp[i] == '>' || temp[i] == '<')
+		if ((temp[i] == '>' || temp[i] == '<') && data->redir[total] == 0)
 		{
 			i++;
-			while (temp[i] == ' ' || temp[i] == '\t' || temp[i] == '/')
-			{
-				i++;
-			}
-			if (temp[i] && temp[i] != '>' && temp[i] != '<'
-				&& data->redir[total] == 1)
-				nb++;
 			total++;
+		}
+		if ((temp[i] == '>' || temp[i] == '<') && data->redir[total] == 1)
+		{
+			total++;
+			i++;
+			while (temp[i] == ' ' || temp[i] == '\t' || temp[i] == '/')
+				i++;
+			if (temp[i] || ((temp[i] == '>' || temp[i] == '<')
+					&& data->redir[total] == 0))
+				nb++;
 		}
 		else
 			i++;
@@ -89,13 +88,13 @@ int	puts_pos(char *full, t_struct *data)
 		{
 			if (full[i] == '>' && full[i + 1] == '>' && full[i + 2] == '>')
 			{
-				if (data->redir[total] == 1)
+				if (data->redir[total] == 1 && data->redir[total + 1] == 1)
 					return (1);
 				total++;
 			}
 			else if (full[i] == '<' && full[i + 1] == '<' && full[i + 2] == '<')
 			{
-				if (data->redir[total] == 1)
+				if (data->redir[total] == 1 && data->redir[total + 1] == 1)
 					return (1);
 				total++;
 			}

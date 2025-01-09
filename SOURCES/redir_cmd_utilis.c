@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 16:04:09 by gprunet           #+#    #+#             */
-/*   Updated: 2025/01/08 17:40:36 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/09 10:23:03 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	check_fd(int fd, t_args *a)
 			return (perror(a->input[a->c_in]), -1);
 		a->c_in++;
 	}
-	if (a->cmd[0] == '>' && a->cmd[1] != '>')
+	if (a->cmd && a->cmd[0] == '>' && a->cmd[1] != '>')
 		return (close(fd), -1);
 	return (fd);
 }
